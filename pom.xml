@@ -6,24 +6,26 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.3.12.RELEASE</version>
-        <relativePath/>
     </parent>
 
     <groupId>com.keep</groupId>
     <artifactId>Keep</artifactId>
     <packaging>pom</packaging>
-    <version>${keep.version}</version>
+    <version>1.0.0</version>
 
     <name>Keep</name>
     <description>Keep Going</description>
 
     <modules>
         <module>gateway</module>
+        <module>sso</module>
+        <module>common</module>
 
     </modules>
 
     <properties>
         <keep.version>1.0.0</keep.version>
+        <common.version>1.0.0</common.version>
         <java.version>1.8</java.version>
         <spring-cloud.version>Hoxton.SR8</spring-cloud.version>
         <spring-cloud-alibaba.version>2.2.3.RELEASE</spring-cloud-alibaba.version>

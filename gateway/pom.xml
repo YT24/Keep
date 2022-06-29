@@ -6,9 +6,7 @@
         <groupId>com.keep</groupId>
         <artifactId>Keep</artifactId>
         <version>1.0.0</version>
-        <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.keep</groupId>
     <artifactId>gateway</artifactId>
     <version>1.0.0</version>
     <name>gateway</name>
@@ -17,15 +15,19 @@
         <java.version>1.8</java.version>
     </properties>
     <dependencies>
+
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
+            <groupId>com.keep</groupId>
+            <artifactId>common</artifactId>
+            <version>${keep.version}</version>
         </dependency>
 
         <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-gateway</artifactId>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
         </dependency>
+
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -33,17 +35,11 @@
             <scope>test</scope>
         </dependency>
 
-        <!--服务注册/发现中心依赖-->
         <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-gateway</artifactId>
         </dependency>
 
-        <!--服务的配置中心依赖-->
-        <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
-        </dependency>
 
         <!--lb 负载均衡-->
         <dependency>
