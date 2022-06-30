@@ -20,6 +20,8 @@
         <module>gateway</module>
         <module>sso</module>
         <module>common</module>
+        <module>admin</module>
+        <module>app</module>
 
     </modules>
 
@@ -68,7 +70,6 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-web</artifactId>
-                <scope>test</scope>
                 <version>${spring-boot.version}</version>
             </dependency>
 

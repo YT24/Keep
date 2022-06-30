@@ -8,3 +8,20 @@ spring:
     nacos:
       discovery:
         server-addr: 127.0.0.1:8848
+
+  #路由转发
+  gateway:
+    routes:
+      - id: keep-sso
+        uri: lb://keep-sso
+        predicates:
+          - Path=/keep-sso/**
+        filters:
+          - StripPrefix=1
+
+      - id: keep-admin
+        uri: lb://keep-admin
+        predicates:
+          - Path=/keep-admin/**
+        filters:
+          - StripPrefix=1
