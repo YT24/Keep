@@ -1,10 +1,5 @@
 package com.keep.common.interceptor;
 
-import com.shangjian.common.core.base.bean.UserInfoHolder;
-import com.shangjian.common.core.domain.dto.UserInfoDto;
-import com.shangjian.common.core.utils.StringUtils;
-import com.shangjian.common.core.utils.user.UserUtil;
-import com.shangjian.module.common.constant.CommonBizConstants;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -25,13 +20,13 @@ import javax.servlet.http.HttpServletRequest;
 @Component
 public class UserInfoInterceptorAdapter {
 
-    @Pointcut("execution(* com.shangjian.*.controller..*.*(..))")
+    @Pointcut("execution(* com.keep.*.controller..*.*(..))")
     public void pointCut() {
     }
 
-    @Around("pointCut()")
+    //@Around("pointCut()")
     public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
-        ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        /*ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = servletRequestAttributes.getRequest();
         // 兼容异步线程信息拷贝
         String token = request.getHeader(CommonBizConstants.AUTHORIZATION_NAME);
@@ -45,6 +40,7 @@ public class UserInfoInterceptorAdapter {
             return joinPoint.proceed();
         } finally {
             UserInfoHolder.remove();
-        }
+        }*/
+        return null;
     }
 }

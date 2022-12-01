@@ -32,6 +32,12 @@ class ShardingJDBCApplicationTests {
         good.setGstatus("已发布");
         goodsMapper.insert(good);
 
+        Goods good2 = new Goods();
+        good2.setGname("苹果");
+        good2.setUserId(2011L);
+        good2.setGstatus("已发布");
+        goodsMapper.insert(good2);
+
     }
 
     @Test

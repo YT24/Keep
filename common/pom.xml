@@ -56,10 +56,16 @@
             <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
 
+        <!-- Mysql Connector -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+
         <!-- Druid连接池 -->
         <dependency>
             <groupId>com.alibaba</groupId>
-            <artifactId>druid</artifactId>
+            <artifactId>druid-spring-boot-starter</artifactId>
         </dependency>
 
         <!-- Mysql驱动依赖 -->
@@ -113,6 +119,7 @@
             <version>2.0</version>
         </dependency>
 
+
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
@@ -125,6 +132,8 @@
             <version>${mybatis-plus.version}</version>
             <scope>compile</scope>
         </dependency>
+
+
 
         <dependency>
             <groupId>io.springfox</groupId>
