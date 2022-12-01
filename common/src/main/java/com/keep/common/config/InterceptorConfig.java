@@ -34,13 +34,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
         excludePathList.add("/v3/**");
         excludePathList.add("/doc.html");
         excludePathList.add("/error");
-        excludePathList.add("/api/v1/auth/login");
-        excludePathList.add("/api/v1/auth/account/login");
-
-        //druid监控
-        excludePathList.add("/druid/**");
-
-        excludePathList.add("/index.html");
+        excludePathList.add("/api/v1/user/login");
 
         // 接口幂等
         registry.addInterceptor(idempotentInteceptor).addPathPatterns("/**")

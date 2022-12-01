@@ -22,6 +22,7 @@
         <module>common</module>
         <module>app</module>
         <module>sso-ticket</module>
+        <module>spi</module>
     </modules>
 
     <properties>
