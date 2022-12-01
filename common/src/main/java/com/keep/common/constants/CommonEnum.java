@@ -1,2 +1,4 @@
-package com.keep.common.constants;public enum CommonEnum {
+package com.keep.common.constants;
+
+public enum CommonEnum {
 }

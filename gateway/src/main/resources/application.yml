@@ -1,5 +1,5 @@
 server:
-  port: 8002
+  port: 8000
 
 spring:
   application:
@@ -8,6 +8,7 @@ spring:
     nacos:
       discovery:
         server-addr: 127.0.0.1:8848
+        group: KEEP
 
   #路由转发
   gateway:
@@ -20,8 +21,8 @@ spring:
           - StripPrefix=1
 
       - id: keep-admin
-        uri: lb://keep-admin
+        uri: lb://keep-app
         predicates:
-          - Path=/keep-admin/**
+          - Path=/keep-app/**
         filters:
           - StripPrefix=1

@@ -20,9 +20,8 @@
         <module>gateway</module>
         <module>sso</module>
         <module>common</module>
-        <module>admin</module>
         <module>app</module>
-
+        <module>sso-ticket</module>
     </modules>
 
     <properties>
@@ -35,9 +34,10 @@
         <mybatis.plus.gen.version>3.4.0</mybatis.plus.gen.version>
         <mybatis-plus.version>3.4.3.4</mybatis-plus.version>
         <fastjson.version>1.2.79</fastjson.version>
-        <druid.version>1.1.20</druid.version>
+        <druid.version>1.2.5</druid.version>
         <myqsql.version></myqsql.version>
         <commons-lang3.version>3.10</commons-lang3.version>
+        <mysql-connector-java.version>8.0.26</mysql-connector-java.version>
     </properties>
 
 
@@ -112,6 +112,7 @@
             <dependency>
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql-connector-java.version}</version>
             </dependency>
 
             <!-- MybatisPlus -->

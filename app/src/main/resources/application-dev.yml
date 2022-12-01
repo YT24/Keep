@@ -1,5 +1,5 @@
 server:
-  port: 8004
+  port: 8002
 
 spring:
   application:
@@ -8,3 +8,25 @@ spring:
     nacos:
       discovery:
         server-addr: 127.0.0.1:8848
+        group: KEEP
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/yangt?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&allowMultiQueries=true
+    username: root
+    password: root1234
+
+# reuqest 加密 response解密
+spring.encrypt.key: 1234567812345678
+
+
+
+# jwt 生成配置
+config:
+  jwt:
+    # 加密密钥
+    secret: abcdefg1234567
+    # token有效时长 单位ms
+    expire: 50
+    # header 名称
+    header: token

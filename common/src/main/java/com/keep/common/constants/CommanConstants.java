@@ -1,2 +1,4 @@
-package com.keep.common.constants;public class CommanConstants {
+package com.keep.common.constants;
+
+public class CommanConstants {
 }

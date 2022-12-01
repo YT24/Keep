@@ -1,6 +1,6 @@
 package com.keep.common.expection;
 
-import com.keep.common.result.ResponseResult;
+import com.keep.common.entity.ResponseResult;
 import io.jsonwebtoken.ExpiredJwtException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.converter.HttpMessageNotReadableException;
