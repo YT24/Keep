@@ -11,17 +11,19 @@
 
     <artifactId>sso</artifactId>
     <packaging>jar</packaging>
-    <version>${keep.version}</version>
+    <version>1.0.0</version>
 
     <properties>
         <java.version>1.8</java.version>
+        <mysql.version>8.0.21</mysql.version>
+        <lombok.version>1.18.16</lombok.version>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>com.keep</groupId>
             <artifactId>common</artifactId>
-            <version>${keep.version}</version>
+            <version>1.0.0</version>
         </dependency>
 
         <!--springboot start-->
@@ -51,6 +53,13 @@
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+            <version>${lombok.version}</version>
         </dependency>
 
 

@@ -36,7 +36,6 @@
         <mybatis-plus.version>3.4.3.4</mybatis-plus.version>
         <fastjson.version>1.2.79</fastjson.version>
         <druid.version>1.2.5</druid.version>
-        <myqsql.version></myqsql.version>
         <commons-lang3.version>3.10</commons-lang3.version>
         <mysql-connector-java.version>8.0.26</mysql-connector-java.version>
     </properties>

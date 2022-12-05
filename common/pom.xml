@@ -7,10 +7,10 @@
         <artifactId>Keep</artifactId>
         <groupId>com.keep</groupId>
         <version>1.0.0</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>common</artifactId>
-    <version>1.0.0</version>
     <packaging>jar</packaging>
 
     <properties>
@@ -23,6 +23,11 @@
         <mybatis.plus.gen.version>3.4.0</mybatis.plus.gen.version>
         <mybatis-plus.version>3.4.3.4</mybatis-plus.version>
         <mapstruct.version>1.4.2.Final</mapstruct.version>
+        <feign.version>2.2.2.RELEASE</feign.version>
+        <druid.version>1.2.5</druid.version>
+        <mysql.version>8.0.21</mysql.version>
+        <lombok.version>1.18.16</lombok.version>
+        <lombok.version>1.18.16</lombok.version>
     </properties>
 
     <dependencies>
@@ -56,16 +61,11 @@
             <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
 
-        <!-- Mysql Connector -->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-        </dependency>
-
         <!-- Druid连接池 -->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid-spring-boot-starter</artifactId>
+            <version>${druid.version}</version>
         </dependency>
 
         <!-- Mysql驱动依赖 -->
@@ -83,14 +83,15 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
+            <version>${feign.version}</version>
         </dependency>
 
         <!-- MybatisPlus -->
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>${mybatis-plus.version}</version>
         </dependency>
-
 
         <!--mybatis plus + 代码生成-->
         <dependency>
@@ -122,12 +123,6 @@
 
         <dependency>
             <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-boot-starter</artifactId>
-            <version>${mybatis-plus.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-core</artifactId>
             <version>${mybatis-plus.version}</version>
             <scope>compile</scope>
@@ -150,6 +145,7 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
+            <version>${lombok.version}</version>
         </dependency>
 
         <dependency>

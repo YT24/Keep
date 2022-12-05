@@ -24,7 +24,7 @@
         <dependency>
             <groupId>com.keep</groupId>
             <artifactId>common</artifactId>
-            <version>${keep.version}</version>
+            <version>1.0.0</version>
         </dependency>
 
         <!--springboot start-->
