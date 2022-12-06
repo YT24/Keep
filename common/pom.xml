@@ -27,7 +27,7 @@
         <druid.version>1.2.5</druid.version>
         <mysql.version>8.0.21</mysql.version>
         <lombok.version>1.18.16</lombok.version>
-        <lombok.version>1.18.16</lombok.version>
+        <pagehelper.boot.version>1.4.0</pagehelper.boot.version>
     </properties>
 
     <dependencies>
@@ -126,6 +126,12 @@
             <artifactId>mybatis-plus-core</artifactId>
             <version>${mybatis-plus.version}</version>
             <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper-spring-boot-starter</artifactId>
+            <version>${pagehelper.boot.version}</version>
         </dependency>
 
 

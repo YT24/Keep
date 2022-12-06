@@ -67,13 +67,6 @@
             <artifactId>spring-boot-starter-websocket</artifactId>
         </dependency>
 
-        <!-- MybatisPlus -->
-        <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-boot-starter</artifactId>
-            <version>3.4.3.4</version>
-        </dependency>
-
         <!--caffeine 本地缓存-->
         <dependency>
             <groupId>com.github.ben-manes.caffeine</groupId>
@@ -108,6 +101,9 @@
             <artifactId>mapstruct-processor</artifactId>
             <version>${mapstruct.version}</version>
         </dependency>
+
+
+
 
     </dependencies>
 </project>
