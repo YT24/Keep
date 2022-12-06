@@ -16,20 +16,11 @@ import org.springframework.stereotype.Component;
  * @date 2021-06-28 5:46 下午
  */
 @Component
-@Lazy(false)
 public class SpringContextHolder implements ApplicationContextAware, DisposableBean {
 
 	private static ApplicationContext applicationContext = null;
 
 	private static Logger logger = LoggerFactory.getLogger(SpringContextHolder.class);
-
-	/**
-	 * 取得存储在静态变量中的ApplicationContext.
-	 */
-	public static ApplicationContext getApplicationContext() {
-		assertContextInjected();
-		return applicationContext;
-	}
 
 	/**
 	 * 从静态变量applicationContext中取得Bean, 自动转型为所赋值对象的类型.

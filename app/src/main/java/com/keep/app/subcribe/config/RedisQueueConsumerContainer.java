@@ -32,11 +32,11 @@ public class RedisQueueConsumerContainer {
     }
 
     public void init() {
-        log.info("redis消费者容器初始化开始");
-        isRun = true;
-        myRedisThreadPool = MyRedisThreadPool.getInstance(consumerMap.size());
-        consumerMap.forEach((k, v) -> {
-            myRedisThreadPool.executor(new RedisQueueListener(v));
-        });
+//        log.info("redis消费者容器初始化开始");
+//        isRun = true;
+//        myRedisThreadPool = MyRedisThreadPool.getInstance(consumerMap.size());
+//        consumerMap.forEach((k, v) -> {
+//            myRedisThreadPool.executor(new RedisQueueListener(v));
+//        });
     }
 }

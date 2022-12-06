@@ -14,20 +14,16 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 //@ConditionalOnProperty(prefix = "redis"/*, value = "enable", havingValue = "false"*/)
-@ConfigurationProperties(prefix = "redis"/*, value = "enable", havingValue = "false"*/)
+//@ConfigurationProperties(prefix = "redis"/*, value = "enable", havingValue = "false"*/)
 @Configuration
 public class RedisConfig {
 
-    //@Value("${spring.redis.host}")
     private String host;
 
-    //@Value("${spring.redis.port}")
     private String port;
 
-    //@Value("${spring.redis.password:}")
     private String password;
 
-    //@Value("${spring.redis.timeout}")
     private Integer timeOut;
 
 
@@ -38,7 +34,6 @@ public class RedisConfig {
                 .setTimeout(timeOut)
                 .setAddress("redis://" + host + ":" + port);
 
-        //change by timmy 兼容某些环境没有密码的窘境。
         if(! StringUtils.isBlank(password) ){
             config.useSingleServer()
                     .setPassword(password);
