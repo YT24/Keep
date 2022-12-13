@@ -15,7 +15,7 @@ public class SecurityUtils {
      */
     public static String getUsername()
     {
-        String username = ServletUtils.getRequest().getHeader(CommanConstants.DETAILS_USERNAME);
+        String username = ServletUtils.getRequest().getHeader(CommanConstants.USERNAME);
         return ServletUtils.urlDecode(username);
     }
 
@@ -24,7 +24,7 @@ public class SecurityUtils {
      */
     public static Long getUserId()
     {
-        return Convert.toLong(ServletUtils.getRequest().getHeader(CommanConstants.DETAILS_USER_ID));
+        return Convert.toLong(ServletUtils.getRequest().getHeader(CommanConstants.USER_ID));
     }
 
     /**

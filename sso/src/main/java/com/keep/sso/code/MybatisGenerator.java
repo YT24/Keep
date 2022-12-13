@@ -25,7 +25,7 @@ public class MybatisGenerator {
 
     //生成指定表 包含和出去二选一,如果都不填，则全库的表
     private static String[] inculdeTables = new String[]{
-        "user"
+        "sys_user"
     };
 
     private static String[] exculdeTableNames = new String[]{};
@@ -97,17 +97,17 @@ public class MybatisGenerator {
      */
 
     private static PackageConfig getPackageConfig() {
-        String basePath = "admin/src/main";
+        String basePath = "sso/src/main";
         HashMap<String, String> pathInfo = new HashMap<>(10);
         pathInfo.put(ConstVal.XML_PATH, basePath + "/resources/mapper");
         // /java/tech/valuesimplex/srpstock/code/generator
-        pathInfo.put(ConstVal.MAPPER_PATH, basePath + "/java/com/keep/admin/mapper");
-        pathInfo.put(ConstVal.SERVICE_PATH, basePath + "/java/com/keep/admin/service");
-        pathInfo.put(ConstVal.SERVICE_IMPL_PATH, basePath + "/java/com/keep/admin/service/impl");
-        pathInfo.put(ConstVal.ENTITY_PATH, basePath + "/java/com/keep/admin/entity");
-        pathInfo.put(ConstVal.CONTROLLER_PATH,basePath+"/java/com/keep/admin/controller");
+        pathInfo.put(ConstVal.MAPPER_PATH, basePath + "/java/com/keep/sso/mapper");
+        pathInfo.put(ConstVal.SERVICE_PATH, basePath + "/java/com/keep/sso/service");
+        pathInfo.put(ConstVal.SERVICE_IMPL_PATH, basePath + "/java/com/sso/admin/service/impl");
+        pathInfo.put(ConstVal.ENTITY_PATH, basePath + "/java/com/keep/sso/entity");
+        pathInfo.put(ConstVal.CONTROLLER_PATH,basePath+"/java/com/keep/sso/controller");
         return new PackageConfig()
-                .setParent("com.keep.admin")
+                .setParent("com.keep.sso")
                 .setXml("mapper")
                 .setMapper("mapper")
                 .setService("service")

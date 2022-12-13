@@ -7,6 +7,7 @@ import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -19,21 +20,24 @@ import java.util.List;
 public class GloableExpectionHandler {
 
 
-    @ResponseBody
     @ExceptionHandler(value = Exception.class)
     public Object handlerException(Exception ex) {
         log.error("系统内部错误,服务器繁忙，请稍后重试: ", ex);
         return ResponseResult.fail("服务器繁忙，请稍后重试 : "+ex.getMessage()+ex.getClass().getName());
     }
 
-    @ResponseBody
+    @ExceptionHandler(value = CustomExpection.class)
+    public Object handlerException(CustomExpection ex) {
+        log.error("系统内部错误,服务器繁忙，请稍后重试: ", ex);
+        return ResponseResult.fail("服务器繁忙，请稍后重试 : "+ex.getMessage()+ex.getClass().getName());
+    }
+
     @ExceptionHandler(value = ExpiredJwtException.class)
     public Object handlerExpiredJwtException(ExpiredJwtException ex) {
         log.error("JWT 过期: ", ex);
         return ResponseResult.fail(ex.getMessage());
     }
 
-    @ResponseBody
     @ExceptionHandler(value = SignatureException.class)
     public Object handlerSignatureException(SignatureException ex) {
         log.error("JWT Header Expection: ", ex.getMessage());
@@ -46,7 +50,6 @@ public class GloableExpectionHandler {
      * @param ex
      * @return
      */
-    @ResponseBody
     @ExceptionHandler(value = HttpMessageNotReadableException.class)
     public ResponseResult<Object> handleHttpMessageNotReadableException(HttpMessageNotReadableException ex) {
         log.error("系统内部错误，参数不匹配: ", ex);
@@ -58,7 +61,6 @@ public class GloableExpectionHandler {
      * @param ex
      * @return
      */
-    @ResponseBody
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
     public ResponseResult<Object> handleMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
         BindingResult result = ex.getBindingResult();

@@ -21,11 +21,20 @@ public class CommanConstants {
     /**
      * 用户ID字段
      */
-    public static final String DETAILS_USER_ID = "userId";
+    public static final String USER_ID = "userId";
 
     /**
      * 用户名字段
      */
-    public static final String DETAILS_USERNAME = "username";
+    public static final String USERNAME = "username";
+
+    public static final String TOKEN_HEADER = "Authorization";
+
+    public static final String APP_SECRET_KEY = "keep_app_secret";
+
+    public static final Long AT_EXPIRED_TIME = 3600 * 1000L;
+
+    public static final Long RT_EXPIRED_TIME = 3600 * 1000 * 24 * 7L;
+
 
 }
