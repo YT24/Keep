@@ -16,6 +16,17 @@ spring:
     username: root
     password: root1234
 
+  redis:
+    host: 172.28.56.113
+    jedis:
+      pool:
+        max-idle: 200
+        max-wait:
+    password: Shangjian@123
+    port: 6379
+    timeout: 6000
+    enable: true
+
 # reuqest 加密 response解密
 spring.encrypt.key: 1234567812345678
 
@@ -30,3 +41,9 @@ config:
     expire: 50
     # header 名称
     header: token
+
+threadpool:
+  corePoolSize: 2
+  keepAliveSeconds: 300
+  maxPoolSize: 5
+  queueCapacity: 10

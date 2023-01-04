@@ -43,10 +43,11 @@
             <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.redisson/redisson-spring-boot-starter -->
         <dependency>
             <groupId>org.redisson</groupId>
-            <artifactId>redisson</artifactId>
-            <version>3.5.7</version>
+            <artifactId>redisson-spring-boot-starter</artifactId>
+            <version>3.15.0</version>
         </dependency>
 
         <!--caffeine 本地缓存-->

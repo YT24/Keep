@@ -11,6 +11,7 @@ import com.keep.sso.entity.vo.UserInfoVo;
 import com.keep.sso.mapper.SysUserMapper;
 import com.keep.sso.service.SysUserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -30,6 +31,7 @@ import java.util.concurrent.TimeUnit;
  * @author system
  * @since 2022-12-13
  */
+@Slf4j
 @Service
 public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> implements SysUserService {
 
@@ -65,7 +67,9 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     public UserInfoVo getUserInfo(String token) {
         Map<String, Object> parserToken = JwtTokenUtils.parserToken(token);
         Object obj = parserToken.get(CommanConstants.USER_ID);
+        long start = System.currentTimeMillis();
         List<SysUser> users = this.lambdaQuery().eq(SysUser::getId, obj.toString()).list();
+        log.info("查询用户信息耗时：{} ms",System.currentTimeMillis() - start);
         if(CollectionUtils.isEmpty(users)){
             throw new CustomExpection("用户不存在");
         }

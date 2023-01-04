@@ -1,6 +1,8 @@
 package com.keep.common.config;
 
+import com.keep.common.config.properties.ThreadPoolProperties;
 import io.micrometer.core.instrument.util.NamedThreadFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,14 +18,17 @@ public class AsyncConfig implements AsyncConfigurer {
     @Value("${server.port}")
     private Integer port;
 
-    @Bean
+    @Autowired
+    private ThreadPoolProperties properties;
+
+    //@Bean
     public ThreadPoolExecutor taskExecutor() {
-        ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(4,
-                16,
-                1000,
+        ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(properties.getCorePoolSize(),
+                properties.getMaxPoolSize(),
+                properties.getKeepAliveSeconds(),
                 TimeUnit.SECONDS,
-                new LinkedBlockingQueue<>(100),
-                new NamedThreadFactory("yt-test-"+port+"-exec-"+Thread.currentThread().getId()),
+                new LinkedBlockingQueue<>(properties.getQueueCapacity()),
+                new NamedThreadFactory(String.format("yt-test-%s-exec-%s",port,Thread.currentThread().getId())),
                 new ThreadPoolExecutor.AbortPolicy());
         // 四种拒绝策略
         //1，AbortPolicy（默认）直接抛出异常 组织系统正常运行

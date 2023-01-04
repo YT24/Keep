@@ -14,7 +14,7 @@ public class ThreadPoolExecutorConfig {
     @Autowired
     ThreadPoolConfig  threadPoolConfig;
  
-    @Bean
+//    @Bean
     public Executor taskExecutor() {
 //        ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(threadPoolConfig.getCorePoolSize(),
 //                threadPoolConfig.getMaxPoolSize(),

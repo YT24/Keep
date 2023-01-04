@@ -104,7 +104,8 @@ public class JwtTokenUtils {
             claims = parser().setSigningKey(APP_SECRET_KEY).parseClaimsJws(token).getBody();
         } catch (ExpiredJwtException e) {
             //  需要前端重新登录了。
-            throw new TokenExpection(401, "token已经过期");
+            //throw new TokenExpection(401, "token已经过期");
+            throw e;
         } catch (Exception e) {
             log.error(e.getMessage(), e);
             throw new CustomExpection(500, "token解析异常:" + e.getMessage());

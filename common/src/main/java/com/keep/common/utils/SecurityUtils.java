@@ -2,7 +2,6 @@ package com.keep.common.utils;
 
 
 import com.keep.common.constants.CommanConstants;
-import jodd.typeconverter.Convert;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,13 +18,6 @@ public class SecurityUtils {
         return ServletUtils.urlDecode(username);
     }
 
-    /**
-     * 获取用户ID
-     */
-    public static Long getUserId()
-    {
-        return Convert.toLong(ServletUtils.getRequest().getHeader(CommanConstants.USER_ID));
-    }
 
     /**
      * 获取请求token
