@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.time.LocalDateTime;
 import java.io.Serializable;
+
+import com.keep.common.mybatis.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -17,12 +19,9 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class SysUser implements Serializable {
+public class SysUser extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
-    @TableId(value = "id", type = IdType.AUTO)
-    private Integer id;
 
     private String username;
 
@@ -36,13 +35,7 @@ public class SysUser implements Serializable {
 
     private Boolean mustChangePassword;
 
-    private LocalDateTime updateTime;
-
-    private LocalDateTime createTime;
-
     private Integer deptId;
-
-    private LocalDateTime deleted;
 
 
 }

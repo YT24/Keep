@@ -3,6 +3,7 @@ package com.keep.sso.controller;
 
 import com.keep.common.entity.ResponseResult;
 import com.keep.sso.entity.param.LoginParam;
+import com.keep.sso.entity.param.SysUserParam;
 import com.keep.sso.entity.vo.LoginVo;
 import com.keep.sso.entity.vo.UserInfoVo;
 import com.keep.sso.service.SysUserService;
@@ -34,6 +35,12 @@ public class SysUserController {
     @GetMapping("/info")
     public ResponseResult<UserInfoVo> detail(@RequestHeader("Authorization") String token){
         return ResponseResult.success(sysUserService.getUserInfo(token));
+    }
+
+    @PostMapping("/create")
+    public ResponseResult<LoginVo> login(@RequestBody SysUserParam param){
+        sysUserService.create(param);
+        return ResponseResult.success();
     }
 
 }

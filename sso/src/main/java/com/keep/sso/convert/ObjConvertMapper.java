@@ -1,9 +1,8 @@
-package com.keep.app.convert;
+package com.keep.sso.convert;
 
-import com.keep.app.convert.entity.UserTo;
-import com.keep.app.convert.entity.UserToDto;
+import com.keep.sso.entity.SysUser;
+import com.keep.sso.entity.param.SysUserParam;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 /**
@@ -14,7 +13,7 @@ public interface ObjConvertMapper {
 
     ObjConvertMapper INSTANCE = Mappers.getMapper(ObjConvertMapper.class);
 
-    @Mapping(source = "username",target = "name")
-    UserTo toUserTo(UserToDto userToDto);
+    //@Mapping(source = "username",target = "name")
+    SysUser toSrs(SysUserParam userToDto);
 
 }

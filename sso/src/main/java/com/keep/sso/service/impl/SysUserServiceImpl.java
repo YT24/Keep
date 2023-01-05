@@ -4,8 +4,10 @@ import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.keep.common.constants.CommanConstants;
 import com.keep.common.expection.CustomExpection;
 import com.keep.common.utils.JwtTokenUtils;
+import com.keep.sso.convert.ObjConvertMapper;
 import com.keep.sso.entity.SysUser;
 import com.keep.sso.entity.param.LoginParam;
+import com.keep.sso.entity.param.SysUserParam;
 import com.keep.sso.entity.vo.LoginVo;
 import com.keep.sso.entity.vo.UserInfoVo;
 import com.keep.sso.mapper.SysUserMapper;
@@ -81,4 +83,11 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         vo.setUserName(users.get(0).getUsername());
         return vo;
     }
+
+    @Override
+    public void create(SysUserParam param) {
+        SysUser sysUser = ObjConvertMapper.INSTANCE.toSrs(param);
+        this.save(sysUser);
+    }
+
 }

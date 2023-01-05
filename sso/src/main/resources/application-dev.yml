@@ -39,7 +39,7 @@ feign:
 mybatis-plus:
   configuration:
     # sql 打印
-#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     # sql 不打印
-    log-impl: org.apache.ibatis.logging.nologging.NoLoggingImpl
+#    log-impl: org.apache.ibatis.logging.nologging.NoLoggingImpl
 

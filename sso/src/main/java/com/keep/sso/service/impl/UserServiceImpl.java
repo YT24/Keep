@@ -2,6 +2,7 @@ package com.keep.sso.service.impl;
 
 import com.keep.sso.entity.User;
 import com.keep.sso.entity.param.LoginParam;
+import com.keep.sso.entity.param.SysUserParam;
 import com.keep.sso.entity.vo.LoginVo;
 import com.keep.sso.mapper.UserMapper;
 import com.keep.sso.service.UserService;
@@ -22,5 +23,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public LoginVo login(LoginParam param) {
         return null;
+    }
+
+    @Override
+    public void create(SysUserParam param) {
+
     }
 }
