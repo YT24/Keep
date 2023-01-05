@@ -50,13 +50,14 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         }
 
         String key = "sys:user:" + user.getId();
-        Object token = redisTemplate.opsForValue().get(key);
-        if(Objects.nonNull(token)){
+        Object token = JwtTokenUtils.generatorToken(new HashMap<>(),user.getId().toString(), CommanConstants.AT_EXPIRED_TIME);
+        redisTemplate.opsForValue().set(key,token.toString(),CommanConstants.AT_EXPIRED_TIME,TimeUnit.SECONDS);
+       /* if(Objects.nonNull(token)){
             redisTemplate.expire(key,CommanConstants.AT_EXPIRED_TIME, TimeUnit.SECONDS);
         }else{
             token = JwtTokenUtils.generatorToken(new HashMap<>(),user.getId().toString(), CommanConstants.AT_EXPIRED_TIME);
             redisTemplate.opsForValue().set(key,token.toString(),CommanConstants.AT_EXPIRED_TIME,TimeUnit.SECONDS);
-        }
+        }*/
         LoginVo vo = new LoginVo();
         vo.setAccessToken(token.toString());
         vo.setExpiresIn(CommanConstants.AT_EXPIRED_TIME);

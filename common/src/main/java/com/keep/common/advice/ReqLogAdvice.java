@@ -3,10 +3,9 @@ package com.keep.common.advice;
 import com.alibaba.fastjson.JSONObject;
 import com.keep.common.entity.UserToHolder;
 import lombok.extern.slf4j.Slf4j;
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.Around;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
@@ -15,11 +14,12 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
+import java.util.Arrays;
 
 @Slf4j
 @Component
 @Aspect
-@Order(1)
+//@Order(1)
 public class ReqLogAdvice {
 
     //使用@Pointcut注解声明频繁使用的切入点表达式
@@ -27,8 +27,30 @@ public class ReqLogAdvice {
     public void performance() {
     }
 
-    @Around("execution(* com.keep.*.controller..*.*(..))")
+    @Before("performance()")
+    public void deBefore(JoinPoint joinPoint) {
+        log.info("前置通知");
+    }
+
+    @AfterReturning(returning = "ret", pointcut = "performance()")
+    public void doAfterReturning(Object ret) {
+        log.info("后置返回通知");
+    }
+
+    @AfterThrowing("performance()")
+    public void throwss(JoinPoint jp){
+        log.info("后置异常通知");
+    }
+
+    //后置最终通知,final增强，不管是抛出异常或者正常退出都会执行
+    @After("performance()")
+    public void after(JoinPoint jp){
+        log.info("后置最终通知");
+    }
+
+    @Around("performance()")
     public Object arround(ProceedingJoinPoint joinPoint) throws Throwable {
+        log.info("环绕通知");
         Object proceed = null;
         // 日志记录参数获取
         HttpServletRequest req = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
@@ -41,17 +63,12 @@ public class ReqLogAdvice {
         String classMethodName = className+"."+methodName;
         String appName = "BServer";
         String queryString = req.getQueryString();
-        Object[] args = joinPoint.getArgs();
-        /*List<Object> pArgs = Lists.newArrayList(args).stream()
-                .filter(arg -> (!(arg instanceof HttpServletRequest) && !(arg instanceof HttpServletResponse)))
-                .collect(Collectors.toList());*/
-        String pArgsJsonStr = null /*JSONObject.toJSONString(pArgs)*/;
+        String pArgsJsonStr = null ;
         try {
             log.info("####请求开始,App-Name：{},Request-Url:{} {},Request-Param:{},Request-Body:{}",appName,requestUri,classMethodName,queryString,pArgsJsonStr);
             proceed = joinPoint.proceed();
             String resJson = JSONObject.toJSONString(proceed);
             log.info("####请求结束,App-Name：{},Request-Url:{} {},Request-Param:{},Response-Body:{}",appName,requestUri,classMethodName,pArgsJsonStr,resJson);
-
         } finally {
             UserToHolder.remove();
         }

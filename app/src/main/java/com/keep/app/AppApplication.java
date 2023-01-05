@@ -4,8 +4,10 @@ package com.keep.app;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
-@SpringBootApplication(scanBasePackages = {"com.keep"})
+@EnableAspectJAutoProxy
+@SpringBootApplication(scanBasePackages = {"com.keep","com.keep.common"})
 public class AppApplication {
 
     public static void main(String[] args) {

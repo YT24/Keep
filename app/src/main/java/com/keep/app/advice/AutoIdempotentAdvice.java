@@ -21,7 +21,6 @@ public class AutoIdempotentAdvice {
 
     @Before("pointCut() && @annotation(autoIdempotent)")
     public void arround(JoinPoint joinPoint, AutoIdempotent autoIdempotent) {
-//        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-//        tokenService.checkToken(request.getHeader("token"));
+
     }
 }

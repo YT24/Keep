@@ -1,6 +1,5 @@
 package com.keep.app.controller;
 
-import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.keep.common.entity.ResponseResult;
 import com.keep.common.expection.CustomExpection;
 import lombok.extern.slf4j.Slf4j;
@@ -27,9 +26,9 @@ public class TestController {
 
     @GetMapping("get")
     public ResponseResult get() {
-        if (true) {
-            throw new CustomExpection("12345");
-        }
+//        if (true) {
+//            throw new CustomExpection("12345");
+//        }
         return ResponseResult.success();
 
     }
