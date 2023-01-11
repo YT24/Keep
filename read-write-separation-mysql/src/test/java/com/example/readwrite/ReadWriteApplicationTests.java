@@ -1,9 +1,9 @@
-package com.example.readwrite;
+package com.keep.readwrite;
 
-import com.example.readwrite.annotation.Master;
-import com.example.readwrite.bean.Goods;
-import com.example.readwrite.mapper.GoodsMapper;
-import com.example.readwrite.service.GoodsService;
+import com.keep.readwrite.annotation.Master;
+import com.keep.readwrite.bean.Goods;
+import com.keep.readwrite.mapper.GoodsMapper;
+import com.keep.readwrite.service.GoodsService;
 import org.junit.jupiter.api.Test;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;

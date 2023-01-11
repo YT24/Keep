@@ -1,4 +1,4 @@
-package com.example.readwrite.bean;
+package com.keep.readwrite.bean;
 
 
 public class User {

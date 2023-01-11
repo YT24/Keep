@@ -1,4 +1,4 @@
-package com.example.shardingjdbc.bean;
+package com.keep.shardingjdbc.bean;
 
 import io.swagger.models.auth.In;
 import lombok.Builder;

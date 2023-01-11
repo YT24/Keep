@@ -1,9 +1,9 @@
-package com.example.shardingjdbc;
+package com.keep.shardingjdbc;
 
-import com.example.shardingjdbc.bean.Goods;
-import com.example.shardingjdbc.bean.User;
-import com.example.shardingjdbc.maper.GoodsMapper;
-import com.example.shardingjdbc.maper.UserMapper;
+import com.keep.shardingjdbc.bean.Goods;
+import com.keep.shardingjdbc.bean.User;
+import com.keep.shardingjdbc.maper.GoodsMapper;
+import com.keep.shardingjdbc.maper.UserMapper;
 import org.apache.shardingsphere.api.hint.HintManager;
 import org.junit.jupiter.api.Test;
 import org.mybatis.spring.annotation.MapperScan;

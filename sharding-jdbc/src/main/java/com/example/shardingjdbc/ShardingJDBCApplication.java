@@ -1,4 +1,4 @@
-package com.example.shardingjdbc;
+package com.keep.shardingjdbc;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;

@@ -47,3 +47,14 @@ threadpool:
   keepAliveSeconds: 300
   maxPoolSize: 5
   queueCapacity: 10
+
+
+rocketmq:
+  name-server: 127.0.0.1:9876
+  producer:
+    group: TEST-PRODUCER
+    topic: TEST:Local
+  topic: TEST
+  tag: Local
+
+

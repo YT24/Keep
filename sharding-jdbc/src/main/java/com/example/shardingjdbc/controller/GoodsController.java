@@ -1,7 +1,7 @@
-package com.example.shardingjdbc.controller;
+package com.keep.shardingjdbc.controller;
 
-import com.example.shardingjdbc.bean.Goods;
-import com.example.shardingjdbc.maper.GoodsMapper;
+import com.keep.shardingjdbc.bean.Goods;
+import com.keep.shardingjdbc.maper.GoodsMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

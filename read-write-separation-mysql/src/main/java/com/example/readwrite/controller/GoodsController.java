@@ -1,9 +1,9 @@
-package com.example.readwrite.controller;
+package com.keep.readwrite.controller;
 
-import com.example.readwrite.annotation.Master;
-import com.example.readwrite.annotation.Slave;
-import com.example.readwrite.bean.Goods;
-import com.example.readwrite.service.GoodsService;
+import com.keep.readwrite.annotation.Master;
+import com.keep.readwrite.annotation.Slave;
+import com.keep.readwrite.bean.Goods;
+import com.keep.readwrite.service.GoodsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

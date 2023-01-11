@@ -1,4 +1,4 @@
-package com.example.readwrite;
+package com.keep.readwrite;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;

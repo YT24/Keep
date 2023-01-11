@@ -1,4 +1,4 @@
-package com.example.readwrite.constants;
+package com.keep.readwrite.constants;
 
 public enum DBTypeEnum {
 

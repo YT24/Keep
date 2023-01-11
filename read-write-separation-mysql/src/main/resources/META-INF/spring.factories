@@ -1,2 +1,2 @@
 #org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-#com.example.shardingjdbc.config.properties.EncryptProperties
+#com.keep.shardingjdbc.config.properties.EncryptProperties

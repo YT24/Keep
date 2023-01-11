@@ -1,10 +1,10 @@
-package com.example.readwrite.config.db;
+package com.keep.readwrite.config.db;
  
 /**
  * @author YT
  * @create 2020-12-30 21:30
  */
-import com.example.readwrite.constants.DBTypeEnum;
+import com.keep.readwrite.constants.DBTypeEnum;
 
 import java.util.concurrent.atomic.AtomicInteger;
  

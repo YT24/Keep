@@ -1,11 +1,11 @@
-package com.example.readwrite.aop;
+package com.keep.readwrite.aop;
 
 /**
  * @author chaird
  * @create 2020-12-30 21:30
  */
 
-import com.example.readwrite.config.db.DBContextHolder;
+import com.keep.readwrite.config.db.DBContextHolder;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;

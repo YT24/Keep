@@ -1,7 +1,7 @@
-package com.example.readwrite.mapper;
+package com.keep.readwrite.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.example.readwrite.bean.Goods;
+import com.keep.readwrite.bean.Goods;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 

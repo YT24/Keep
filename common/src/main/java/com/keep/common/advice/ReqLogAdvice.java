@@ -29,28 +29,28 @@ public class ReqLogAdvice {
 
     @Before("performance()")
     public void deBefore(JoinPoint joinPoint) {
-        log.info("前置通知");
+        //log.info("前置通知");
     }
 
     @AfterReturning(returning = "ret", pointcut = "performance()")
     public void doAfterReturning(Object ret) {
-        log.info("后置返回通知");
+        //log.info("后置返回通知");
     }
 
     @AfterThrowing("performance()")
     public void throwss(JoinPoint jp){
-        log.info("后置异常通知");
+        //log.info("后置异常通知");
     }
 
     //后置最终通知,final增强，不管是抛出异常或者正常退出都会执行
     @After("performance()")
     public void after(JoinPoint jp){
-        log.info("后置最终通知");
+        //log.info("后置最终通知");
     }
 
     @Around("performance()")
     public Object arround(ProceedingJoinPoint joinPoint) throws Throwable {
-        log.info("环绕通知");
+        //log.info("环绕通知");
         Object proceed = null;
         // 日志记录参数获取
         HttpServletRequest req = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();

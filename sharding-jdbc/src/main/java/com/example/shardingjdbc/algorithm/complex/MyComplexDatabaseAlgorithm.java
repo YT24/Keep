@@ -1,4 +1,4 @@
-package com.example.shardingjdbc.algorithm.complex;
+package com.keep.shardingjdbc.algorithm.complex;
 
 import com.google.common.collect.Range;
 import org.apache.shardingsphere.api.sharding.complex.ComplexKeysShardingAlgorithm;

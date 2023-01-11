@@ -1,4 +1,4 @@
-package com.example.shardingjdbc.algorithm.hint;
+package com.keep.shardingjdbc.algorithm.hint;
 
 import org.apache.shardingsphere.api.sharding.hint.HintShardingAlgorithm;
 import org.apache.shardingsphere.api.sharding.hint.HintShardingValue;

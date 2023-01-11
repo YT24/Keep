@@ -22,7 +22,7 @@ import org.springframework.stereotype.Controller;
  */
 @RestController
 @RequestMapping("api/v1/sysUser")
-public class SysUserController {
+public class SysUserController implements BaseController{
 
     @Autowired
     private SysUserService sysUserService;

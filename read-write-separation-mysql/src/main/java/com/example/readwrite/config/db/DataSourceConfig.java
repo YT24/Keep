@@ -1,10 +1,10 @@
-package com.example.readwrite.config.db;
+package com.keep.readwrite.config.db;
 
 /**
  * @author chaird
  * @create 2020-12-30 21:27
  */
-import com.example.readwrite.constants.DBTypeEnum;
+import com.keep.readwrite.constants.DBTypeEnum;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;

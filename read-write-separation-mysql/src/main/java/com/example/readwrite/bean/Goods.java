@@ -1,4 +1,4 @@
-package com.example.readwrite.bean;
+package com.keep.readwrite.bean;
  
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;

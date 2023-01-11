@@ -1,4 +1,4 @@
-package com.example.readwrite.config.db;
+package com.keep.readwrite.config.db;
 
 /**
  * @author YT
