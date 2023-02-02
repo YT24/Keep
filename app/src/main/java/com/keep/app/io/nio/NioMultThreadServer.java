@@ -29,7 +29,7 @@ public class NioMultThreadServer {
 
     }
 
-    private void listen() throws IOException {
+    private void  listen() throws IOException {
         while(true){
             selector.select();
             Iterator<SelectionKey> iterator = this.selector.selectedKeys().iterator();
@@ -44,6 +44,8 @@ public class NioMultThreadServer {
                 }else if(key.isReadable()){
                     key.interestOps(key.interestOps()&(-SelectionKey.OP_READ));
                     pool.execute(new ThreadHandlerChannel(key));
+                }else if(key.isWritable()){
+
                 }
             }
 

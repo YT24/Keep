@@ -1,8 +1,7 @@
-package com.keep.shardingjdbc.maper;
+package com.example.shardingjdbc.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.keep.shardingjdbc.bean.Goods;
-import com.keep.shardingjdbc.bean.User;
+import com.example.shardingjdbc.bean.User;
 import org.springframework.stereotype.Repository;
 
 @Repository

@@ -19,7 +19,7 @@ public class AioClient {
             AsynchronousSocketChannel client = AsynchronousSocketChannel.open();
             client.setOption(StandardSocketOptions.TCP_NODELAY, true);
             Future<Void> connect = client.connect(new InetSocketAddress("127.0.0.1", 9999));
-            connect.get();
+
 
 
             ByteBuffer buffer = ByteBuffer.allocate(1024);

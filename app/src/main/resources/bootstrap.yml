@@ -13,10 +13,10 @@ spring:
         server-addr: 127.0.0.1:8848
         file-extension: yml
         namespace: keep
-#        shared-configs:
-#          - data-id: keep-app.yml
-#            refresh: true
-#        refresh-enabled: true #开启自动刷新，修改配置文件后服务自动重启，读取最新配置
+  #        shared-configs:
+  #          - data-id: keep-app.yml
+  #            refresh: true
+  #        refresh-enabled: true #开启自动刷新，修改配置文件后服务自动重启，读取最新配置
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3306/yangt?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&allowMultiQueries=true

@@ -1,9 +1,11 @@
 package com.keep.app.controller;
 
+import com.alibaba.nacos.api.config.annotation.NacosValue;
 import com.keep.common.entity.ResponseResult;
 import com.keep.common.expection.CustomExpection;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,12 +18,14 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @Slf4j
+@RefreshScope
 @RestController
 @RequestMapping("/api/v1")
 public class TestController {
 
 
-    @Value("${k1}")
+
+    @Value("${keep.app.test}")
     private String k1;
 
     @GetMapping("get")
@@ -29,7 +33,7 @@ public class TestController {
 //        if (true) {
 //            throw new CustomExpection("12345");
 //        }
-        return ResponseResult.success();
+        return ResponseResult.success(k1);
 
     }
 

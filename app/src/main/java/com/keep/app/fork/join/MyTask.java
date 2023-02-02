@@ -33,14 +33,13 @@ public class MyTask extends RecursiveTask<Integer> {
         t2.fork();
 
         int result = t1.join() + t2.join();
-        System.out.println(String.format("join() %s + %s = %s",t1,t2,result));
         return result;
     }
 
 
     public static void main(String[] args) {
         ForkJoinPool forkJoinPool = new ForkJoinPool(5);
-        System.out.println(forkJoinPool.invoke(new MyTask(1,5)));
+        System.out.println(forkJoinPool.invoke(new MyTask(1, 10)));
     }
 
 }

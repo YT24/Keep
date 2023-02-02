@@ -1,0 +1,14 @@
+spring:
+  profiles:
+    active: complex
+#    active: inline
+#    active: hint
+#    active: standard
+  shardingsphere:
+    enabled: true # ??sharding jdbc
+spring.main.allow-bean-definition-overriding: true
+spring.shardingsphere.props.sql.show: true
+
+
+
+
