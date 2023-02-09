@@ -1,18 +1,15 @@
 package com.keep.common.config;
 
 import com.keep.common.expection.CustomExpection;
-import com.keep.common.entity.ResponseResult;
+import com.keep.common.domain.entity.ResponseResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.core.annotation.Order;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.List;
@@ -35,7 +32,7 @@ class GlobalExceptionHandler {
     @ExceptionHandler(value = Exception.class)
     public ResponseResult<Object> handlerException(Exception ex) {
         logger.error("系统内部错误,服务器繁忙，请稍后重试: ", ex);
-        return new ResponseResult(500,"系统错误！！！",ex.getMessage());
+        return new ResponseResult(500,ex.getMessage(),null);
     }
 
     @ExceptionHandler(value = MethodArgumentNotValidException.class)

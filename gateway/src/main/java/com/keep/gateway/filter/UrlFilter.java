@@ -1,4 +1,4 @@
-package com.keep.gateway.config;
+package com.keep.gateway.filter;
 
 
 import com.keep.gateway.properties.AllowPathProperties;

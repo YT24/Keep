@@ -1,14 +1,19 @@
 package com.keep.app.controller;
 
-import com.alibaba.nacos.api.config.annotation.NacosValue;
-import com.keep.common.entity.ResponseResult;
-import com.keep.common.expection.CustomExpection;
+import com.keep.common.domain.entity.ResponseResult;
+import com.keep.common.fegin.UserInfoClient;
+import jodd.util.CollectionUtil;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 import sun.misc.VM;
 
 import java.nio.ByteBuffer;
@@ -25,16 +30,23 @@ public class TestController {
 
 
 
-    @Value("${keep.app.test}")
+//    @Value("${keep.app.test}")
     private String k1;
+
+    @Autowired
+    private UserInfoClient userInfoClient;
 
     @GetMapping("get")
     public ResponseResult get() {
-//        if (true) {
-//            throw new CustomExpection("12345");
-//        }
         return ResponseResult.success(k1);
+    }
 
+    @SneakyThrows
+    @GetMapping("userInfo")
+    public ResponseResult userInfo(@RequestHeader("Authorization") String token){
+        //Thread.sleep(6000);
+
+        return ResponseResult.success(userInfoClient.getUserInfo(token));
     }
 
     /**

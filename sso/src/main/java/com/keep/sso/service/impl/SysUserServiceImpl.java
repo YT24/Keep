@@ -1,7 +1,7 @@
 package com.keep.sso.service.impl;
 
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
-import com.keep.common.constants.CommanConstants;
+import com.keep.common.domain.constants.CommanConstants;
 import com.keep.common.expection.CustomExpection;
 import com.keep.common.utils.JwtTokenUtils;
 import com.keep.sso.convert.ObjConvertMapper;
@@ -9,13 +9,12 @@ import com.keep.sso.entity.SysUser;
 import com.keep.sso.entity.param.LoginParam;
 import com.keep.sso.entity.param.SysUserParam;
 import com.keep.sso.entity.vo.LoginVo;
-import com.keep.sso.entity.vo.UserInfoVo;
+import com.keep.common.fegin.vo.UserInfoVo;
 import com.keep.sso.mapper.SysUserMapper;
 import com.keep.sso.service.SysUserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 

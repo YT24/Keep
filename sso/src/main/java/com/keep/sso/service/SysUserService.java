@@ -1,11 +1,11 @@
 package com.keep.sso.service;
 
+import com.keep.common.fegin.vo.UserInfoVo;
 import com.keep.sso.entity.SysUser;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.keep.sso.entity.param.LoginParam;
 import com.keep.sso.entity.param.SysUserParam;
 import com.keep.sso.entity.vo.LoginVo;
-import com.keep.sso.entity.vo.UserInfoVo;
 
 /**
  * <p>

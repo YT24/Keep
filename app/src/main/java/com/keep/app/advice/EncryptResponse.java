@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.keep.app.annotation.Encrypt;
 import com.keep.app.entity.properties.EncryptProperties;
 import com.keep.common.utils.AESUtils;
-import com.keep.common.entity.ResponseResult;
+import com.keep.common.domain.entity.ResponseResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.core.MethodParameter;

@@ -1,4 +1,4 @@
-package com.keep.common.constants;
+package com.keep.common.domain.constants;
 
 public class HttpStatus
 {

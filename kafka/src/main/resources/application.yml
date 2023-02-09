@@ -1,3 +1,4 @@
+
 spring:
   application:
     name: kafka-server
@@ -21,3 +22,11 @@ spring:
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
     ssl:
       protocol: https
+server:
+  port: 8888
+
+
+management.endpoint.metrics.enabled: true
+management.endpoints.web.exposure.include: '*'
+management.endpoint.prometheus.enabled: true
+management.metrics.export.prometheus.enabled: true

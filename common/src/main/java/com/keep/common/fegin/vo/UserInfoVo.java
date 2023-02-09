@@ -1,9 +1,10 @@
-package com.keep.sso.entity.vo;
+package com.keep.common.fegin.vo;
 
 import lombok.Data;
 
 @Data
 public class UserInfoVo {
+
 
     private Integer id;
 
@@ -12,4 +13,5 @@ public class UserInfoVo {
     private String mobile;
 
     private Integer deptId;
+
 }

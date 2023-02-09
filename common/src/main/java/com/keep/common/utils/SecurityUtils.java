@@ -1,7 +1,7 @@
 package com.keep.common.utils;
 
 
-import com.keep.common.constants.CommanConstants;
+import com.keep.common.domain.constants.CommanConstants;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;

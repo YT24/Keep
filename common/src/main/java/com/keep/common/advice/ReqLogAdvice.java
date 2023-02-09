@@ -1,20 +1,18 @@
 package com.keep.common.advice;
 
 import com.alibaba.fastjson.JSONObject;
-import com.keep.common.entity.UserToHolder;
+import com.keep.common.domain.entity.UserVoHolder;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
-import java.util.Arrays;
 
 @Slf4j
 @Component
@@ -70,7 +68,7 @@ public class ReqLogAdvice {
             String resJson = JSONObject.toJSONString(proceed);
             log.info("####请求结束,App-Name：{},Request-Url:{} {},Request-Param:{},Response-Body:{}",appName,requestUri,classMethodName,pArgsJsonStr,resJson);
         } finally {
-            UserToHolder.remove();
+            UserVoHolder.remove();
         }
         return proceed;
     }

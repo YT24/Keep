@@ -1,6 +1,6 @@
 package com.keep.app.controller;
 
-import com.keep.common.entity.ResponseResult;
+import com.keep.common.domain.entity.ResponseResult;
 import com.keep.service.bean.RocketMqMessage;
 import com.keep.service.producer.ProducerService;
 import org.springframework.beans.factory.annotation.Autowired;

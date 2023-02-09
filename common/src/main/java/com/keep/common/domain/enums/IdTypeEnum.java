@@ -1,4 +1,4 @@
-package com.keep.common.enums;
+package com.keep.common.domain.enums;
 
 public enum IdTypeEnum {
 	INDICATOR_APPROVAL_SETTING,

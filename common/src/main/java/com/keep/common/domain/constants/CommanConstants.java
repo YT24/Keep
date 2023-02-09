@@ -1,7 +1,6 @@
-package com.keep.common.constants;
+package com.keep.common.domain.constants;
 
 public class CommanConstants {
-
 
     /**
      * 令牌自定义标识
@@ -35,6 +34,4 @@ public class CommanConstants {
     public static final Long AT_EXPIRED_TIME = 3600 * 1000L;
 
     public static final Long RT_EXPIRED_TIME = 3600 * 1000 * 24 * 7L;
-
-
 }

@@ -4,25 +4,73 @@ server:
 spring:
   application:
     name: keep-gateway
+  redis:
+    host: localhost
+    port: 6379
+    lettuce:
+      pool:
+        max-active: 200 #连接池最大连接数（使用负值表示没有限制）
+        max-idle: 20 # 连接池中的最大空闲连接
+        min-idle: 5 #连接池中的最小空闲连接
+        max-wait: 1000 # 连接池最大阻塞等待时间（使用负值表示没有限制）
   cloud:
     nacos:
       discovery:
         server-addr: 127.0.0.1:8848
         group: KEEP
+        namespace: keep
 
-  #路由转发
-  gateway:
-    routes:
-      - id: keep-sso
-        uri: lb://keep-sso
-        predicates:
-          - Path=/keep-sso/**
-        filters:
-          - StripPrefix=1
+    #路由转发
+    loadbalancer:
+      ribbon:
+        enabled: false
+    gateway:
+      routes:
+        - id: keep-sso
+          uri: lb://keep-sso
+          predicates:
+            - Path=/keep-sso/**
+          filters:
+            - StripPrefix=1
 
-      - id: keep-admin
-        uri: lb://keep-app
-        predicates:
-          - Path=/keep-app/**
-        filters:
-          - StripPrefix=1
+        - id: keep-app
+          uri: lb://keep-app
+          predicates:
+            - Path=/keep-app/**
+          filters:
+            - StripPrefix=1
+            - Log=yangte,test-custom-filter # 过滤器=NameValueConfig
+            # 熔断降级配置
+            - name: Hystrix
+              args:
+                name: default
+                fallbackUri: 'forward:/defaultfallback'
+            - name: RequestRateLimiter
+              args:
+                # 使用SpEL名称引用Bean，与上面新建的RateLimiterConfig类中的bean的name相同
+                key-resolver: '#{@ipKeyResolver}'
+                # 每秒最大访问次数
+                redis-rate-limiter.replenishRate: 1
+                # 令牌桶最大容量
+                redis-rate-limiter.burstCapacity: 1
+
+
+
+# hystrix 信号量隔离，3秒后自动超时
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          strategy: SEMAPHORE
+          thread:
+            timeoutInMilliseconds: 3000
+  shareSecurityContext: true
+
+
+
+management.endpoint.metrics.enabled: true
+management.endpoints.web.exposure.include: '*'
+management.endpoints.web.base-path: /actuator
+management.endpoint.prometheus.enabled: true
+management.metrics.export.prometheus.enabled: true

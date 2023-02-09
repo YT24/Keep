@@ -3,11 +3,12 @@ package com.keep.app;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 @EnableAspectJAutoProxy
 @SpringBootApplication(scanBasePackages = {"com.keep","com.keep.common"})
-//@NacosPropertySource(dataId = "keep-app",autoRefreshed = true)
+@EnableFeignClients(basePackages = "com.keep.common.fegin")
 public class AppApplication {
 
     public static void main(String[] args) {

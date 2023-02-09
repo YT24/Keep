@@ -1,9 +1,7 @@
 package com.keep.app.controller;
 
-import com.keep.common.advice.RLock;
 import com.keep.common.config.SpringContextHolder;
-import com.keep.common.entity.ResponseResult;
-import com.keep.common.enums.IdTypeEnum;
+import com.keep.common.domain.entity.ResponseResult;
 import com.spi.hello.ImageHello;
 import com.spi.hello.TextHello;
 import com.spi.hello.HelloSPI;

@@ -1,4 +1,4 @@
-package com.keep.common.entity;
+package com.keep.common.domain.entity;
 
 
 import io.swagger.annotations.ApiModel;

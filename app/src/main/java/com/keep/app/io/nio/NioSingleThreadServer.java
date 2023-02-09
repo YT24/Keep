@@ -12,13 +12,19 @@ import java.util.Set;
 
 public class NioSingleThreadServer {
 
+    public static final String HTTP_SEPARATOR = "\r\n";
+
+    public static final int DEFAULT_PORT = 8888;
+
+    public static final String DEFAULT_HOST = "localhost";
+
+    public static final int BACK_LOG = 1024; // linux accept 队列数量
+
     public static void main(String[] args) {
         try {
             ServerSocketChannel nioServer = ServerSocketChannel.open();
-            nioServer.socket().bind(new InetSocketAddress("127.0.0.1", 9999));
+            nioServer.socket().bind(new InetSocketAddress(DEFAULT_HOST, DEFAULT_PORT));
             nioServer.configureBlocking(false);// 设置不阻塞
-            System.out.println("Server started,listening on :" + nioServer.getLocalAddress());
-
             Selector selector = Selector.open();
             nioServer.register(selector, SelectionKey.OP_ACCEPT);  // 连接
             while (true) {
@@ -44,8 +50,8 @@ public class NioSingleThreadServer {
             ServerSocketChannel serverSocketChannel = (ServerSocketChannel) key.channel();
             SocketChannel socketChannel = serverSocketChannel.accept();
             socketChannel.configureBlocking(false);
-            socketChannel.register(key.selector(), SelectionKey.OP_READ | SelectionKey.OP_WRITE);
-        } else if (key.isReadable()) {
+            socketChannel.register(key.selector(), SelectionKey.OP_WRITE);
+        } else if (key.isWritable()) {
             SocketChannel sc = (SocketChannel) key.channel();
             ByteBuffer byteBuffer = ByteBuffer.allocate(1024);
             byteBuffer.clear();
@@ -59,5 +65,17 @@ public class NioSingleThreadServer {
 
 
         }
+    }
+
+    public static String buildHttpResp(String sendMsg) {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("HTTP/1.1 200 OK").append(HTTP_SEPARATOR);
+        stringBuilder.append("connection: Close").append(HTTP_SEPARATOR);
+        stringBuilder.append("content-type: text/html").append(HTTP_SEPARATOR);
+        stringBuilder.append("content-length: " + sendMsg.length()).append(HTTP_SEPARATOR);
+        stringBuilder.append(HTTP_SEPARATOR);
+        stringBuilder.append(sendMsg);
+        return stringBuilder.toString();
+
     }
 }

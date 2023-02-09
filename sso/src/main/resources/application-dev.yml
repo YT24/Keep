@@ -9,6 +9,7 @@ spring:
       discovery:
         server-addr: 127.0.0.1:8848
         namespace: keep
+        group: KEEP
       config:
         server-addr: http://127.0.0.1:8848
         file-extension: properties

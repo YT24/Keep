@@ -1,7 +1,7 @@
 package com.keep.common.advice;
 
 
-import com.keep.common.enums.IdTypeEnum;
+import com.keep.common.domain.enums.IdTypeEnum;
 
 import java.lang.annotation.*;
 

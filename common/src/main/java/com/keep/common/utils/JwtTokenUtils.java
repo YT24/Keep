@@ -1,7 +1,7 @@
 package com.keep.common.utils;
 
 
-import com.keep.common.constants.CommanConstants;
+import com.keep.common.domain.constants.CommanConstants;
 import com.keep.common.expection.CustomExpection;
 import com.keep.common.expection.TokenExpection;
 import io.jsonwebtoken.*;
@@ -12,7 +12,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.keep.common.constants.CommanConstants.APP_SECRET_KEY;
+import static com.keep.common.domain.constants.CommanConstants.APP_SECRET_KEY;
 import static io.jsonwebtoken.Jwts.parser;
 
 /**

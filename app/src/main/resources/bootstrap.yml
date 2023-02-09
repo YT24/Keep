@@ -9,6 +9,7 @@ spring:
       discovery:
         server-addr: 127.0.0.1:8848
         namespace: keep
+        group: KEEP
       config:
         server-addr: 127.0.0.1:8848
         file-extension: yml
@@ -24,12 +25,11 @@ spring:
     password: root1234
 
   redis:
-    host: 172.28.56.113
+    host: localhost
     jedis:
       pool:
         max-idle: 200
         max-wait:
-    password: Shangjian@123
     port: 6379
     timeout: 6000
     enable: true
@@ -64,4 +64,15 @@ rocketmq:
   topic: TEST
   tag: Local
 
+feign:
+  client:
+    config:
+      default:
+        connect-timeout: 10000
+        read-timeout: 5000
 
+
+keep-sso:
+  ribbon:
+    # 指定使用Nacos提供的基于权重的负载均衡
+    NFLoadBalancerRuleClassName:
