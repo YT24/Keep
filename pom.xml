@@ -9,7 +9,7 @@
     </parent>
 
     <groupId>com.keep</groupId>
-    <artifactId>Keep</artifactId>
+    <artifactId>keep</artifactId>
     <packaging>pom</packaging>
     <version>1.0.0</version>
 
@@ -17,13 +17,8 @@
     <description>Keep Going</description>
 
     <modules>
-        <module>gateway</module>
-        <module>sso</module>
-        <module>common</module>
-        <module>app</module>
-        <module>sso-ticket</module>
-        <module>spi-starter</module>
-        <module>rocketmq</module>
+        <module>keep-commom</module>
+        <module>keep-modules</module>
     </modules>
 
     <properties>
@@ -43,6 +38,7 @@
         <pagehelper.boot.version>1.4.0</pagehelper.boot.version>
         <mapstruct.version>1.4.2.Final</mapstruct.version>
         <rocketmq-spring-boot-starter-version>2.2.0</rocketmq-spring-boot-starter-version>
+        <swagger.version>3.0.0</swagger.version>
     </properties>
 
 
