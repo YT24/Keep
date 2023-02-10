@@ -28,7 +28,7 @@
 
         <dependency>
             <groupId>com.keep</groupId>
-            <artifactId>spi</artifactId>
+            <artifactId>common-spi-starter</artifactId>
             <version>${project.version}</version>
         </dependency>
 

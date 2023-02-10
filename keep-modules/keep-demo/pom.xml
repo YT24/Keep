@@ -15,7 +15,7 @@
 
         <dependency>
             <groupId>com.keep</groupId>
-            <artifactId>rocketmq</artifactId>
+            <artifactId>common-rocketmq</artifactId>
             <version>${project.version}</version>
         </dependency>
 
