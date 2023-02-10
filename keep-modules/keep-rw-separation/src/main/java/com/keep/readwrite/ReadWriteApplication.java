@@ -5,8 +5,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 
-@MapperScan(basePackages = "com.example.readwrite.mapper")
-@SpringBootApplication(scanBasePackages = "com.example.readwrite")
+@MapperScan(basePackages = "com.keep.readwrite.mapper")
+@SpringBootApplication(scanBasePackages = "com.keep.readwrite")
 public class ReadWriteApplication {
 
     public static void main(String[] args) {

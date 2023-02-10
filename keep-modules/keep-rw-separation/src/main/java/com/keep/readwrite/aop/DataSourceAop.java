@@ -18,13 +18,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class DataSourceAop {
 
-    @Pointcut("@annotation(com.example.readwrite.annotation.Slave)")
+    @Pointcut("@annotation(com.keep.readwrite.annotation.Slave)")
     public void readPointcut() {
 
     }
 
 
-    @Pointcut("@annotation(com.example.readwrite.annotation.Master)")
+    @Pointcut("@annotation(com.keep.readwrite.annotation.Master)")
     public void writePointcut() {
 
     }

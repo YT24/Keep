@@ -29,10 +29,10 @@ spring:
           actual-data-nodes: g$->{1..2}.goods_$->{1..2}
           database-strategy:
             hint:
-              algorithm-class-name: com.example.shardingjdbc.algorithm.hint.MyHintDatabaseAlgorithm
+              algorithm-class-name: com.keep.shardingjdbc.algorithm.hint.MyHintDatabaseAlgorithm
           table-strategy:
             hint:
-              algorithm-class-name: com.example.shardingjdbc.algorithm.hint.MyHintTableAlgorithm
+              algorithm-class-name: com.keep.shardingjdbc.algorithm.hint.MyHintTableAlgorithm
       default-data-source-name: g0 # 不分表分库 设置的默认数据源
 
 

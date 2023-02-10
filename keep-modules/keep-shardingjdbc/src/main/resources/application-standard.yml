@@ -30,13 +30,13 @@ spring:
           database-strategy:
             standard:
               sharding-column: user_id
-              precise-algorithm-class-name: com.example.shardingjdbc.algorithm.standard.MyPreciseDatabaseAlgorithm
-              range-algorithm-class-name: com.example.shardingjdbc.algorithm.standard.MyRangeDatabaseAlgorithm
+              precise-algorithm-class-name: com.keep.shardingjdbc.algorithm.standard.MyPreciseDatabaseAlgorithm
+              range-algorithm-class-name: com.keep.shardingjdbc.algorithm.standard.MyRangeDatabaseAlgorithm
           table-strategy:
             standard:
               sharding-column: user_id
-              precise-algorithm-class-name: com.example.shardingjdbc.algorithm.standard.MyPreciseTableAlgorithm
-              range-algorithm-class-name: com.example.shardingjdbc.algorithm.standard.MyRangeTableAlgorithm
+              precise-algorithm-class-name: com.keep.shardingjdbc.algorithm.standard.MyPreciseTableAlgorithm
+              range-algorithm-class-name: com.keep.shardingjdbc.algorithm.standard.MyRangeTableAlgorithm
 #      default-data-source-name: g0 # 不分表分库 设置的默认数据源
 
 

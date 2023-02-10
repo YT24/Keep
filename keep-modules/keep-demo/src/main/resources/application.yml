@@ -1,7 +1,15 @@
+server:
+  port: 5005
 
 spring:
   application:
-    name: kafka-server
+    name: keep-demo
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+        group: KEEP
+        namespace: keep
 
   kafka:
     bootstrap-servers: 42.192.117.45:9092
@@ -22,8 +30,6 @@ spring:
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
     ssl:
       protocol: https
-server:
-  port: 8888
 
 
 management.endpoint.metrics.enabled: true

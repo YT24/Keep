@@ -30,11 +30,11 @@ spring:
           database-strategy:
             complex:
               sharding-columns: user_id
-              algorithm-class-name: com.example.shardingjdbc.algorithm.complex.MyComplexDatabaseAlgorithm
+              algorithm-class-name: com.keep.shardingjdbc.algorithm.complex.MyComplexDatabaseAlgorithm
           table-strategy:
             complex:
               sharding-columns: user_id
-              algorithm-class-name: com.example.shardingjdbc.algorithm.complex.MyComplexTableAlgorithm
+              algorithm-class-name: com.keep.shardingjdbc.algorithm.complex.MyComplexTableAlgorithm
       default-data-source-name: g0
 
 

@@ -43,16 +43,16 @@
 
 
         <!--服务注册/发现中心依赖-->
-        <!-- <dependency>
+         <dependency>
              <groupId>com.alibaba.cloud</groupId>
              <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
-         </dependency>-->
+         </dependency>
 
         <!--服务的配置中心依赖-->
-        <!--<dependency>
+        <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
-        </dependency>-->
+        </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>

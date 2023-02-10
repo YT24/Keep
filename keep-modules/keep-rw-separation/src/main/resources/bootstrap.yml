@@ -1,4 +1,15 @@
+server:
+  port: 5003
+
 spring:
+  application:
+    name: keep-rw-spearation
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+        group: KEEP
+        namespace: keep
   datasource:
 #    url: jdbc:mysql://127.0.0.1:3306/goods_db_1
 #    username: root
