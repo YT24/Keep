@@ -1,4 +1,4 @@
-package com.keep.common.core.config;
+package com.keep.redis.config;
 
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
