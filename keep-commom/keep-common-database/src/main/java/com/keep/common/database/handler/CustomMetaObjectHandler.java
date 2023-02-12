@@ -1,4 +1,4 @@
-package com.keep.mybatis;
+package com.keep.common.database.handler;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import lombok.extern.slf4j.Slf4j;

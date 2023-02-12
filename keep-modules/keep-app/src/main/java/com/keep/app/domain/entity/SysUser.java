@@ -1,11 +1,8 @@
 package com.keep.app.domain.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import java.time.LocalDateTime;
 import java.io.Serializable;
 
-import com.keep.mybatis.BaseEntity;
+import com.keep.common.database.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

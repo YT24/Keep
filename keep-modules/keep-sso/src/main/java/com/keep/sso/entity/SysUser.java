@@ -2,7 +2,7 @@ package com.keep.sso.entity;
 
 import java.io.Serializable;
 
-import com.keep.mybatis.BaseEntity;
+import com.keep.common.database.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
