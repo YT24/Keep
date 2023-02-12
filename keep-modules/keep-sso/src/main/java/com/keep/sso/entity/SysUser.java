@@ -2,7 +2,7 @@ package com.keep.sso.entity;
 
 import java.io.Serializable;
 
-import com.keep.common.mybatis.BaseEntity;
+import com.keep.mybatis.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -31,8 +31,5 @@ public class SysUser extends BaseEntity implements Serializable {
     private String email;
 
     private Boolean mustChangePassword;
-
-    private Integer deptId;
-
 
 }

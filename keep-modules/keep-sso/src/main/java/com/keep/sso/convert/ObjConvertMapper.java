@@ -1,5 +1,6 @@
 package com.keep.sso.convert;
 
+import com.keep.common.core.domain.vo.UserInfoVo;
 import com.keep.sso.entity.SysUser;
 import com.keep.sso.entity.param.SysUserParam;
 import org.mapstruct.Mapper;
@@ -15,5 +16,7 @@ public interface ObjConvertMapper {
 
     //@Mapping(source = "username",target = "name")
     SysUser toSrs(SysUserParam userToDto);
+
+    UserInfoVo toUserInfoVo(SysUser sysUser);
 
 }

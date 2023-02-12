@@ -1,18 +1,18 @@
 package com.keep.sso.service.impl;
 
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
-import com.keep.common.domain.constants.CommanConstants;
-import com.keep.common.expection.CustomExpection;
-import com.keep.common.utils.JwtTokenUtils;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.keep.common.core.domain.constants.CommanConstants;
+import com.keep.common.core.domain.vo.UserInfoVo;
+import com.keep.common.core.expection.CustomExpection;
 import com.keep.sso.convert.ObjConvertMapper;
 import com.keep.sso.entity.SysUser;
 import com.keep.sso.entity.param.LoginParam;
 import com.keep.sso.entity.param.SysUserParam;
 import com.keep.sso.entity.vo.LoginVo;
-import com.keep.common.fegin.vo.UserInfoVo;
 import com.keep.sso.mapper.SysUserMapper;
 import com.keep.sso.service.SysUserService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.keep.sso.utils.JwtTokenUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -53,12 +53,6 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         String key = "sys:user:" + user.getId();
         Object token = JwtTokenUtils.generatorToken(new HashMap<>(),user.getId().toString(), CommanConstants.AT_EXPIRED_TIME);
         redisTemplate.opsForValue().set(key,token.toString(),CommanConstants.AT_EXPIRED_TIME,TimeUnit.SECONDS);
-       /* if(Objects.nonNull(token)){
-            redisTemplate.expire(key,CommanConstants.AT_EXPIRED_TIME, TimeUnit.SECONDS);
-        }else{
-            token = JwtTokenUtils.generatorToken(new HashMap<>(),user.getId().toString(), CommanConstants.AT_EXPIRED_TIME);
-            redisTemplate.opsForValue().set(key,token.toString(),CommanConstants.AT_EXPIRED_TIME,TimeUnit.SECONDS);
-        }*/
         LoginVo vo = new LoginVo();
         vo.setAccessToken(token.toString());
         vo.setExpiresIn(CommanConstants.AT_EXPIRED_TIME);
@@ -70,17 +64,12 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         Map<String, Object> parserToken = JwtTokenUtils.parserToken(token);
         Object obj = parserToken.get(CommanConstants.USER_ID);
         long start = System.currentTimeMillis();
-        List<SysUser> users = this.lambdaQuery().eq(SysUser::getId, obj.toString()).list();
+        SysUser sysUser = this.getById(Long.valueOf(obj.toString()));
         log.info("查询用户信息耗时：{} ms",System.currentTimeMillis() - start);
-        if(CollectionUtils.isEmpty(users)){
+        if(Objects.isNull(sysUser)){
             throw new CustomExpection("用户不存在");
         }
-        UserInfoVo vo = new UserInfoVo();
-        vo.setId(users.get(0).getId());
-        vo.setMobile(users.get(0).getMobile());
-        vo.setDeptId(users.get(0).getDeptId());
-        vo.setUserName(users.get(0).getUsername());
-        return vo;
+        return ObjConvertMapper.INSTANCE.toUserInfoVo(sysUser);
     }
 
     @Override

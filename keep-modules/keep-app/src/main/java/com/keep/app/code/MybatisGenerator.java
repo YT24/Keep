@@ -25,7 +25,7 @@ public class MybatisGenerator {
 
     //生成指定表 包含和出去二选一,如果都不填，则全库的表
     private static String[] inculdeTables = new String[]{
-
+        "sys_user"
     };
 
     private static String[] exculdeTableNames = new String[]{};
@@ -43,7 +43,7 @@ public class MybatisGenerator {
                 //用时再填
                 .setUsername("root")
                 //用时再填
-                .setPassword("root1234")
+                .setPassword("root")
                 .setDriverName("com.mysql.cj.jdbc.Driver")
                 .setTypeConvert(new MySqlTypeConvert() {
                     @Override
@@ -104,7 +104,7 @@ public class MybatisGenerator {
         pathInfo.put(ConstVal.MAPPER_PATH, basePath + "/java/com/keep/app/mapper");
         pathInfo.put(ConstVal.SERVICE_PATH, basePath + "/java/com/keep/app/service");
         pathInfo.put(ConstVal.SERVICE_IMPL_PATH, basePath + "/java/com/keep/app/service/impl");
-        pathInfo.put(ConstVal.ENTITY_PATH, basePath + "/java/com/keep/app/entity");
+        pathInfo.put(ConstVal.ENTITY_PATH, basePath + "/java/com/keep/app/domain/entity");
         pathInfo.put(ConstVal.CONTROLLER_PATH,basePath+"/java/com/keep/app/controller");
         return new PackageConfig()
                 .setParent("com.keep.app")
@@ -112,7 +112,7 @@ public class MybatisGenerator {
                 .setMapper("mapper")
                 .setService("service")
                 .setServiceImpl("service.impl")
-                .setEntity("entity")
+                .setEntity("domain.entity")
                 .setController("controller")
                 .setPathInfo(pathInfo);
     }

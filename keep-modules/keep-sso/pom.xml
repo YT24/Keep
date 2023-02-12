@@ -12,29 +12,31 @@
     <artifactId>keep-sso</artifactId>
     <packaging>jar</packaging>
 
-    <properties>
-        <java.version>1.8</java.version>
-        <mysql.version>8.0.21</mysql.version>
-        <lombok.version>1.18.16</lombok.version>
-        <keep.version>1.0.0</keep.version>
-    </properties>
-
     <dependencies>
+
         <dependency>
             <groupId>com.keep</groupId>
-            <artifactId>common</artifactId>
+            <artifactId>keep-common-core</artifactId>
             <version>${project.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.keep</groupId>
+            <artifactId>keep-common-redis</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.keep</groupId>
+            <artifactId>keep-common-database</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
 
         <!--springboot start-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
         <dependency>
@@ -55,14 +57,17 @@
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
         </dependency>
 
+        <!-- JWT依赖 -->
         <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional>
-            <version>${lombok.version}</version>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>0.9.1</version>
         </dependency>
-
-
+        <dependency>
+            <groupId>com.auth0</groupId>
+            <artifactId>java-jwt</artifactId>
+            <version>3.18.2</version>
+        </dependency>
 
     </dependencies>
 

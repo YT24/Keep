@@ -2,9 +2,9 @@ package com.keep.app.advice;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.keep.app.annotation.Encrypt;
-import com.keep.app.entity.properties.EncryptProperties;
-import com.keep.common.utils.AESUtils;
-import com.keep.common.domain.entity.ResponseResult;
+import com.keep.app.config.EncryptProperties;
+import com.keep.common.core.utils.AESUtils;
+import com.keep.common.core.domain.entity.ResponseResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.core.MethodParameter;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 @EnableConfigurationProperties(EncryptProperties.class)
-@ControllerAdvice
+//@ControllerAdvice
 public class EncryptResponse implements ResponseBodyAdvice<ResponseResult> {
 
     private ObjectMapper om = new ObjectMapper();

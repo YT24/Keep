@@ -5,7 +5,7 @@ spring:
   application:
     name: keep-gateway
   redis:
-    host: localhost
+    host: 42.192.117.45
     port: 6379
     lettuce:
       pool:

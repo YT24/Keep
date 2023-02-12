@@ -16,9 +16,14 @@
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
     <modules>
-        <module>common-core</module>
-        <module>common-rocketmq</module>
-        <module>common-spi-starter</module>
+        <module>keep-common-core</module>
+        <module>keep-common-rocketmq</module>
+        <module>keep-common-spi-starter</module>
+        <module>keep-common-security</module>
+        <module>keep-common-redis</module>
+        <module>keep-common-log</module>
+        <module>keep-common-database</module>
+        <module>keep-common-auth</module>
     </modules>
 
 </project>

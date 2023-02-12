@@ -1,8 +1,8 @@
 package com.keep.app.advice;
 
 import com.keep.app.annotation.Decrypt;
-import com.keep.app.entity.properties.EncryptProperties;
-import com.keep.common.utils.AESUtils;
+import com.keep.app.config.EncryptProperties;
+import com.keep.common.core.utils.AESUtils;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -19,7 +19,7 @@ import java.io.InputStream;
 import java.lang.reflect.Type;
 
 @EnableConfigurationProperties(EncryptProperties.class)
-@ControllerAdvice
+//@ControllerAdvice
 public class DecryptRequest extends RequestBodyAdviceAdapter {
     @Autowired
     EncryptProperties encryptProperties;
