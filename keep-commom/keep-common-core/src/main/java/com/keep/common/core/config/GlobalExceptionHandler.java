@@ -31,7 +31,7 @@ class GlobalExceptionHandler {
     @ExceptionHandler(value = Exception.class)
     public ResponseResult<Object> handlerException(Exception ex) {
         logger.error("系统内部错误,服务器繁忙，请稍后重试: ", ex);
-        return new ResponseResult(500,ex.getMessage(),null);
+        return ResponseResult.fail(ex.getMessage());
     }
 
     @ExceptionHandler(value = MethodArgumentNotValidException.class)

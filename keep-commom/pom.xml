@@ -19,7 +19,7 @@
         <module>keep-common-core</module>
         <module>keep-common-rocketmq</module>
         <module>keep-common-spi-starter</module>
-        <module>keep-common-security</module>
+        <module>keep-common-elasticsearch</module>
         <module>keep-common-redis</module>
         <module>keep-common-log</module>
         <module>keep-common-database</module>

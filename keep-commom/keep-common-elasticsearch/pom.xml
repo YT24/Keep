@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>keep-common-security</artifactId>
+    <artifactId>keep-common-elasticsearch</artifactId>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
