@@ -56,6 +56,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         LoginVo vo = new LoginVo();
         vo.setAccessToken(token.toString());
         vo.setExpiresIn(CommanConstants.AT_EXPIRED_TIME);
+        log.info("登录成功");
         return vo;
     }
 

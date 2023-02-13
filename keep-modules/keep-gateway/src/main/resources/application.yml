@@ -55,6 +55,22 @@ spring:
                 redis-rate-limiter.burstCapacity: 1
 
 
+  sleuth:
+    reactor:
+      #在2020.0.0中，已将默认网关反应器检测模式更改为manual,
+      #ON_EACH-用跟踪表示形式包装每个Reactor运算符。在大多数情况下，传递跟踪上下文。此模式可能会导致性能急剧下降。
+      #ON_LAST-将最后一个Reactor运算符包装在跟踪表示中。在某些情况下传递跟踪上下文，
+      #因此访问MDC上下文可能不起作用。此模式可能会导致中等性能下降。
+      #MANUAL-以最小侵入性的方式包装每个Reactor，而无需通过跟踪上下文。由用户决定
+      # 意思：
+      # 核心意思说， 在2020.0.0后，sleuth默认将 SCG 的反应堆检测模式改为 manual，即手动获取。
+      # 目的：是为了提高 webFlux 的性能。 因为在做 Spring Cloud Sleuth 性能测试时， webFlux + sleuth 的性能，相比 单独使用 webFlux 会大大的降低。
+      # 而 webMvc + sleuth 和单独使用 webMvc 的性能，几乎不受影响。 因此，在2.4.0后， 为了保证的 SCG 的性能, 将  反应堆检测模式默认为 manual，有别于 webMvc的 ON_EACH。
+      # 版权声明：本文为CSDN博主「老新人」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
+      # 原文链接：https://blog.csdn.net/weixin_42697074/article/details/111238363
+      #但是，为了保证 SCG的性能， 最好还是 遵守 官方的默认配置，使用手动方式。即将 instrumentation-type 设置为 manual
+      # decorate_on_each
+      instrumentation-type: manual
 
 # hystrix 信号量隔离，3秒后自动超时
 hystrix:

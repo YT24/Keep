@@ -1,8 +1,14 @@
 package com.keep.gateway.filter;
 
+import cn.hutool.core.util.StrUtil;
+import cn.hutool.json.JSON;
+import cn.hutool.json.JSONObject;
+import cn.hutool.json.JSONUtil;
+import com.keep.gateway.constants.GlobalConstants;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.reactivestreams.Publisher;
+import org.slf4j.MDC;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.context.annotation.Configuration;
@@ -26,7 +32,7 @@ import java.util.zip.GZIPOutputStream;
 
 @Configuration
 @Slf4j
-public class ResponseGZIPFilter implements GlobalFilter, Ordered
+public class ResponseFilter implements GlobalFilter, Ordered
 {
 
     /**
@@ -56,8 +62,8 @@ public class ResponseGZIPFilter implements GlobalFilter, Ordered
                         String responseString = new String(content, Charset.forName("UTF-8"));
                         //判断该浏览器是否支持gzip解码，如果支持gzip解码，则进行压缩
                         String acceptEncoding = request.getHeaders().getFirst("Accept-Encoding");
-                        //if (!StrUtil.hasBlank(acceptEncoding)) {
-                        if (!StringUtils.isWhitespace(" ")) {
+                        mdcPut(responseString,exchange);
+                        if (!StrUtil.hasBlank(acceptEncoding)) {
                             assert acceptEncoding != null;
                             //是否支持压缩
                             if (acceptEncoding.contains(GZIP)) {
@@ -72,7 +78,6 @@ public class ResponseGZIPFilter implements GlobalFilter, Ordered
                                     content = bout.toByteArray();
                                     originalResponse.getHeaders().setContentLength(content.length);
                                     originalResponse.getHeaders().set("content-encoding", GZIP);
-
                                     log.info("GZIPOutputStream-------------------------------------------- content length:"+content.length);
                                 } catch (IOException e) {
                                     e.printStackTrace();
@@ -89,6 +94,12 @@ public class ResponseGZIPFilter implements GlobalFilter, Ordered
             }
         };
         return chain.filter(exchange.mutate().response(decoratedResponse).build());
+    }
+
+    private void mdcPut(String responseString,ServerWebExchange exchange) {
+        JSON parse = JSONUtil.parse(responseString);
+        exchange.getAttributes().put(GlobalConstants.RESP_CODE, parse.getByPath("code").toString());
+        exchange.getAttributes().put(GlobalConstants.RESP_MSG, parse.getByPath("msg").toString());
     }
 
     @Override

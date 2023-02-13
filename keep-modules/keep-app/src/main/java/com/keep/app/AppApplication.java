@@ -10,7 +10,7 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 @EnableAspectJAutoProxy
 @SpringBootApplication(scanBasePackages = {"com.keep"})
 @EnableFeignClients(basePackages = "com.keep.**.fegin")
-@MapperScan(basePackages = "com.keep.app.mapper")
+@MapperScan(basePackages = "com.keep.**.mapper")
 public class AppApplication {
 
     public static void main(String[] args) {
