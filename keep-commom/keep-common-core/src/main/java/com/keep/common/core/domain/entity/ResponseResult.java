@@ -49,8 +49,8 @@ public class ResponseResult<T> implements Serializable {
     @ApiModelProperty(value = "返回数据", position = 3)
     private T data;
 
-    @ApiModelProperty(value = "traceId", position = 4)
-    private String traceId;
+//    @ApiModelProperty(value = "traceId", position = 4)
+//    private String traceId;
 
     private ResponseResult<T> setData(T data) {
         this.data = data;
