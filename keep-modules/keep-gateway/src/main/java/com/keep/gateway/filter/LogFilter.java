@@ -40,7 +40,7 @@ public class LogFilter implements GlobalFilter, Ordered {
                     Long executeTime = (System.currentTimeMillis() - startTime);
                     MDC.put("host_name", exchange.getRequest().getRemoteAddress().getHostString());
                     MDC.put("api_url", exchange.getRequest().getURI().getRawPath());
-                    MDC.put("cost_time", executeTime + "ms");
+                    MDC.put("cost_time", String.valueOf((executeTime / 1000.00)));
                     MDC.put("response_code",exchange.getAttribute(GlobalConstants.RESP_CODE));
                     MDC.put("response_msg",exchange.getAttribute(GlobalConstants.RESP_MSG));
                 }

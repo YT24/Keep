@@ -19,27 +19,27 @@ public class GloableExpectionHandler {
 
     @ExceptionHandler(value = Exception.class)
     public Object handlerException(Exception ex) {
-        log.error("系统内部错误,服务器繁忙，请稍后重试: ", ex);
-        return ResponseResult.fail("服务器繁忙，请稍后重试 : "+ex.getMessage()+ex.getClass().getName());
+        log.error("哎呀出错啦～～～: ", ex);
+        return ResponseResult.fail("哎呀出错啦～～～: "+ex.getMessage()+ex.getClass().getName());
     }
 
     @ExceptionHandler(value = CustomExpection.class)
     public Object handlerException(CustomExpection ex) {
-        log.error("系统内部错误,服务器繁忙，请稍后重试: ", ex);
-        return ResponseResult.fail("服务器繁忙，请稍后重试 : "+ex.getMessage()+ex.getClass().getName());
+        log.error("哎呀出错啦～～～: ", ex);
+        return ResponseResult.fail("哎呀出错啦～～～: "+ex.getMessage()+ex.getClass().getName());
     }
 
     @ExceptionHandler(value = TokenExpection.class)
     public Object handlerException(TokenExpection ex) {
-        log.error("系统内部错误,服务器繁忙，请稍后重试: ", ex);
-        return ResponseResult.fail("服务器繁忙，请稍后重试 : "+ex.getMessage()+ex.getClass().getName());
+        log.error("哎呀出错啦～～～: ", ex);
+        return ResponseResult.fail("哎呀出错啦～～～: "+ex.getMessage()+ex.getClass().getName());
     }
 
-//    @ExceptionHandler(value = ExpiredJwtException.class)
-//    public Object handlerExpiredJwtException(ExpiredJwtException ex) {
-//        log.error("JWT 过期: ", ex);
-//        return ResponseResult.fail(ex.getMessage());
-//    }
+    @ExceptionHandler(value = EsExpection.class)
+    public Object handlerExpiredJwtException(EsExpection ex) {
+        log.error("哎呀出错啦～～～: ", ex);
+        return ResponseResult.fail(ex.getMessage());
+    }
 
     @ExceptionHandler(value = SignatureException.class)
     public Object handlerSignatureException(SignatureException ex) {

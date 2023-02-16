@@ -72,7 +72,9 @@ feign:
         read-timeout: 5000
 
 
-keep-sso:
-  ribbon:
-    # 指定使用Nacos提供的基于权重的负载均衡
-    NFLoadBalancerRuleClassName:
+elasticsearch:
+  hosts: 42.192.117.45
+  port: 9200
+  username:
+  password:
+  clusterName: elasticsearch

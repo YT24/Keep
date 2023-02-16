@@ -20,9 +20,6 @@ public class LogGatewayFilterFactory extends AbstractNameValueGatewayFilterFacto
         return (exchange,chain) -> {
             ServerHttpRequest request = exchange.getRequest().mutate().build();
             ServerWebExchange webExchange = exchange.mutate().request(request).build();
-            log.info("配置参数：{},{}",config.getName(),config.getValue());
-            log.info("请求路径：{}，请求模式：{}",request.getPath(),request.getMethod());
-            Flux<DataBuffer> body = request.getBody();
             return chain.filter(webExchange);
         };
     }

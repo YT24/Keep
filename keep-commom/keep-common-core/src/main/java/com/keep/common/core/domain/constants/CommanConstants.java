@@ -7,6 +7,10 @@ public class CommanConstants {
      */
     public static final String HEADER = "Authorization";
 
+    public static final String AUTHORIZATION = "Authorization";
+
+    public static final String BASIC = "Basic";
+
     /**
      * 令牌前缀
      */

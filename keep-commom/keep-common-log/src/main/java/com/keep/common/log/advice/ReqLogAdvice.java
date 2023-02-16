@@ -2,7 +2,6 @@ package com.keep.common.log.advice;
 
 import com.alibaba.fastjson.JSONObject;
 import com.keep.common.core.domain.entity.ResponseResult;
-import com.keep.common.log.utils.MDCUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -60,13 +59,6 @@ public class ReqLogAdvice {
         String className = declaringClass.getName();
         String methodName = method.getName();
         String requestUri = req.getRequestURI();
-        String classMethodName = className + "." + methodName;
-        String appName = "BServer";
-        String queryString = req.getQueryString();
-        String pArgsJsonStr = null;
-
-
-
         long startTime = System.currentTimeMillis();
         proceed = joinPoint.proceed();
         String resJson = JSONObject.toJSONString(proceed);

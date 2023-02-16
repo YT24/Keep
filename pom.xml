@@ -47,13 +47,14 @@
         <jackson-databind.version>2.13.3</jackson-databind.version>
         <hutool-version>5.5.8</hutool-version>
         <knife4j.version>3.0.2</knife4j.version>
-        <elasticsearch.version>7.9.1</elasticsearch.version>
+        <elasticsearch.version>7.14.0</elasticsearch.version>
         <minio.version>8.0.3</minio.version>
         <rocketmq-springboot.version>2.2.0</rocketmq-springboot.version>
         <guava.version>19.0</guava.version>
         <swagger.versio>2.9.2</swagger.versio>
         <jsoup.version>1.13.1</jsoup.version>
         <orika.version>1.5.4</orika.version>
+        <elasticsearch.version>7.12.0</elasticsearch.version>
     </properties>
 
 

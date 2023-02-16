@@ -13,9 +13,15 @@
     </properties>
     <dependencies>
 
+<!--        <dependency>-->
+<!--            <groupId>com.keep</groupId>-->
+<!--            <artifactId>keep-common-rocketmq</artifactId>-->
+<!--            <version>${project.version}</version>-->
+<!--        </dependency>-->
+
         <dependency>
             <groupId>com.keep</groupId>
-            <artifactId>keep-common-rocketmq</artifactId>
+            <artifactId>keep-common-elasticsearch</artifactId>
             <version>${project.version}</version>
         </dependency>
 

@@ -3,11 +3,11 @@
     <contextName>logback</contextName>
     <property name="logDir" value="/Users/yangte/Downloads/log" />
     <property name="SERVICENAME" value="BServer" />
-    <!-- <property name="LOG_FILE_PATH" value="C://A_D//PaiLa//PersonalWorkspace//SpringCloud//log" />-->
+     <property name="logDir" value="/Users/yangte/Desktop/log" />
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <target>System.out</target>
         <encoder>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS}|[%thread]|%-5level|%X{X-B3-TraceId:-}|%X{X-B3-SpanId:-}|%X{host_name}|%X{api_url}|%X{response_msg}|%X{response_code}|%X{cost_time}|%m%n</pattern>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %m%n</pattern>
             <charset>UTF-8</charset>
         </encoder>
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
@@ -20,11 +20,11 @@
     <!--  日志的级别： TRACE < DEBUG < INFO < WARN < ERROR < FATAL。  -->
     <appender name="INFO_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <encoder>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS}|[%thread]|%-5level|%X{X-B3-TraceId:-}|%X{X-B3-SpanId:-}|%X{host_name}|%X{api_url}|%X{response_msg}|%X{response_code}|%X{cost_time}|%logger{39}.%M:%line %n</pattern>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS}|[%thread]|%-5level|%X{X-B3-TraceId:-}|%X{host_name}|%X{api_url}|%X{response_msg}|%X{response_code}|%X{cost_time}|%m%n|%logger{39}.%M:%line %n</pattern>
             <charset>UTF-8</charset>
         </encoder>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${logDir}/${SERVICENAME}-info-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <fileNamePattern>${logDir}/${SERVICENAME}-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                 <maxFileSize>100MB</maxFileSize>
             </timeBasedFileNamingAndTriggeringPolicy>
@@ -35,12 +35,9 @@
         </filter>
     </appender>
 
-    <root level="DEBUG" name="com.keep.yangt.controller.TestController">
-        <appender-ref ref="INFO_FILE" />
-    </root>
-
     <root level="INFO">
         <appender-ref ref="CONSOLE" />
+        <appender-ref ref="INFO_FILE" />
     </root>
 
 </configuration>
