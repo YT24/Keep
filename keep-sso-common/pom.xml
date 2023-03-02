@@ -12,6 +12,7 @@
     <artifactId>keep-sso-common</artifactId>
 
     <modules>
+        <module>keep-sso-common-core</module>
     </modules>
 
 
