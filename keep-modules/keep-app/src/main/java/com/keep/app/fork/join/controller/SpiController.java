@@ -2,9 +2,9 @@ package com.keep.app.fork.join.controller;
 
 import com.keep.common.core.config.SpringContextHolder;
 import com.keep.common.core.domain.entity.ResponseResult;
+import com.spi.hello.HelloSPI;
 import com.spi.hello.ImageHello;
 import com.spi.hello.TextHello;
-import com.spi.hello.HelloSPI;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

@@ -17,11 +17,6 @@ public class CommanConstants {
     public static final String TOKEN_PREFIX = "Bearer ";
 
     /**
-     * 权限缓存前缀
-     */
-    public final static String LOGIN_TOKEN_KEY = "login_tokens:";
-
-    /**
      * 用户ID字段
      */
     public static final String USER_ID = "userId";
@@ -38,5 +33,9 @@ public class CommanConstants {
     public static final Long AT_EXPIRED_TIME = 3600 * 1000L;
 
     public static final Long RT_EXPIRED_TIME = 3600 * 1000 * 24 * 7L;
+
     public static final String UTF_8 = "UTF-8";
+
+    public static final String USER_PREF = "sys:user:";
+
 }

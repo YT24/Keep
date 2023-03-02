@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Component
 public class FeignInterceptor implements RequestInterceptor {
+
     @Override
     public void apply(RequestTemplate requestTemplate) {
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder

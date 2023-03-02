@@ -20,6 +20,8 @@
         <module>keep-api</module>
         <module>keep-commom</module>
         <module>keep-modules</module>
+        <module>keep-sso-common</module>
+        <module>keep-sso-common-core</module>
     </modules>
 
     <properties>
@@ -34,7 +36,7 @@
         <fastjson.version>1.2.79</fastjson.version>
         <druid.version>1.2.5</druid.version>
         <commons-lang3.version>3.10</commons-lang3.version>
-        <mysql-connector-java.version>8.0.26</mysql-connector-java.version>
+        <mysql-connector-java.version>8.0.22</mysql-connector-java.version>
         <feign.version>2.2.2.RELEASE</feign.version>
         <pagehelper.boot.version>1.4.0</pagehelper.boot.version>
         <mapstruct.version>1.4.2.Final</mapstruct.version>
@@ -55,6 +57,14 @@
         <jsoup.version>1.13.1</jsoup.version>
         <orika.version>1.5.4</orika.version>
         <elasticsearch.version>7.12.0</elasticsearch.version>
+        <commons.io.version>2.4</commons.io.version>
+        <spring.webflow.version>2.3.2.RELEASE</spring.webflow.version>
+        <hibernate.validator.version>4.2.0.Final</hibernate.validator.version>
+        <person.directory.version>1.5.1</person.directory.version>
+        <joda-time.version>2.2</joda-time.version>
+        <inspektr.version>1.0.7.GA</inspektr.version>
+        <joda-time.version>2.2</joda-time.version>
+
     </properties>
 
 

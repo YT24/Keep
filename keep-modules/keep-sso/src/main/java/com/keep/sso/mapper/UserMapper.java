@@ -1,7 +1,7 @@
 package com.keep.sso.mapper;
 
-import com.keep.sso.entity.User;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.keep.sso.entity.User;
 
 /**
  * <p>

@@ -1,4 +1,4 @@
-package com.keep.app.config;
+package com.keep.sso.config;
 
 import com.zaxxer.hikari.HikariDataSource;
 import io.seata.rm.datasource.DataSourceProxy;

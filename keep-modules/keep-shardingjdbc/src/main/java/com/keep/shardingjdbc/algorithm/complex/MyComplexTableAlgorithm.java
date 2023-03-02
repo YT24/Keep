@@ -1,13 +1,9 @@
 package com.keep.shardingjdbc.algorithm.complex;
 
-import com.google.common.collect.Range;
 import org.apache.shardingsphere.api.sharding.complex.ComplexKeysShardingAlgorithm;
 import org.apache.shardingsphere.api.sharding.complex.ComplexKeysShardingValue;
 
-import java.math.BigInteger;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 /**
  * 自定义扩展精确分片算法 TABLE

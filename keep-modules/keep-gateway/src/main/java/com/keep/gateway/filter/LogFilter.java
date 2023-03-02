@@ -1,24 +1,15 @@
 package com.keep.gateway.filter;
 
 
-import brave.Tracer;
-import brave.propagation.CurrentTraceContext;
 import com.keep.gateway.constants.GlobalConstants;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
-import org.springframework.cloud.gateway.support.DefaultClientResponse;
 import org.springframework.core.Ordered;
-import org.springframework.core.io.buffer.DataBufferUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
-
-import java.io.UnsupportedEncodingException;
 
 
 @Slf4j

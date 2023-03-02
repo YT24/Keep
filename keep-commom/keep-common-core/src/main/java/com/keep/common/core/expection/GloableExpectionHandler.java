@@ -29,6 +29,12 @@ public class GloableExpectionHandler {
         return ResponseResult.fail("哎呀出错啦～～～: "+ex.getMessage()+ex.getClass().getName());
     }
 
+    @ExceptionHandler(value = BizExpection.class)
+    public Object handlerException(BizExpection ex) {
+        log.error("哎呀出错啦～～～: ", ex);
+        return ResponseResult.fail("哎呀出错啦～～～: "+ex.getMessage()+ex.getClass().getName());
+    }
+
     @ExceptionHandler(value = TokenExpection.class)
     public Object handlerException(TokenExpection ex) {
         log.error("哎呀出错啦～～～: ", ex);

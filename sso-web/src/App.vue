@@ -1,14 +1,6 @@
 <template>
   <div id="app">
-    <HomeView/>
+    <router-link to="/"/>
+    <router-view/>
   </div>
 </template>
-
-
-<script>
-
-import HomeView from "@/views/HomeView";
-export default {
-  components: {HomeView}
-}
-</script>
