@@ -16,6 +16,12 @@
 
         <dependency>
             <groupId>com.keep</groupId>
+            <artifactId>keep-sso-ticket-registry</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.keep</groupId>
             <artifactId>keep-common-core</artifactId>
             <version>${project.version}</version>
         </dependency>

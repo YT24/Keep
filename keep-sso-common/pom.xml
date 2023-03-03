@@ -12,7 +12,8 @@
     <artifactId>keep-sso-common</artifactId>
 
     <modules>
-        <module>keep-sso-common-core</module>
+        <module>keep-sso-ticket-registry</module>
+        <module>keep-sso-oauth</module>
     </modules>
 
 

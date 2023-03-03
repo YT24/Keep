@@ -25,7 +25,7 @@ public class MybatisGenerator {
 
     //生成指定表 包含和出去二选一,如果都不填，则全库的表
     private static String[] inculdeTables = new String[]{
-        "sys_user"
+        "keep_tgt_token","keep_access_token","keep_refresh_token"
     };
 
     private static String[] exculdeTableNames = new String[]{};
@@ -97,13 +97,13 @@ public class MybatisGenerator {
      */
 
     private static PackageConfig getPackageConfig() {
-        String basePath = "sso/src/main";
+        String basePath = "keep-modules/keep-sso/src/main";
         HashMap<String, String> pathInfo = new HashMap<>(10);
         pathInfo.put(ConstVal.XML_PATH, basePath + "/resources/mapper");
         // /java/tech/valuesimplex/srpstock/code/generator
         pathInfo.put(ConstVal.MAPPER_PATH, basePath + "/java/com/keep/sso/mapper");
         pathInfo.put(ConstVal.SERVICE_PATH, basePath + "/java/com/keep/sso/service");
-        pathInfo.put(ConstVal.SERVICE_IMPL_PATH, basePath + "/java/com/sso/admin/service/impl");
+        pathInfo.put(ConstVal.SERVICE_IMPL_PATH, basePath + "/java/com/sso/service/impl");
         pathInfo.put(ConstVal.ENTITY_PATH, basePath + "/java/com/keep/sso/entity");
         pathInfo.put(ConstVal.CONTROLLER_PATH,basePath+"/java/com/keep/sso/controller");
         return new PackageConfig()

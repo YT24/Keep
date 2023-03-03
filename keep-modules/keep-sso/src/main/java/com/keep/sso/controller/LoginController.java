@@ -10,8 +10,10 @@ import com.keep.sso.mapper.UserMapper;
 import com.keep.sso.service.KeepUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import keep.sso.ticket.service.TokenRegistryService;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,6 +37,10 @@ public class LoginController implements BaseController{
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    @Qualifier("tokenMultRegistryService")
+    private TokenRegistryService tokenRegistryService;
 
     @ApiOperation("登录")
     @PostMapping("/login")

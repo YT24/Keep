@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.keep.common.core.domain.constants.CommanConstants;
 import com.keep.common.core.domain.vo.UserInfoVo;
 import com.keep.common.core.expection.CustomExpection;
-import com.keep.redis.service.TokenRegistryService;
 import com.keep.sso.convert.ObjConvertMapper;
 import com.keep.sso.entity.KeepUser;
 import com.keep.sso.entity.param.LoginParam;
@@ -14,16 +13,13 @@ import com.keep.sso.entity.vo.LoginVo;
 import com.keep.sso.mapper.KeepUserMapper;
 import com.keep.sso.service.KeepUserService;
 import com.keep.sso.utils.JwtTokenUtils;
-import com.keep.sso.utils.TicketGenUtils;
 import io.seata.spring.annotation.GlobalTransactional;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
-import java.util.concurrent.TimeUnit;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * <p>
@@ -37,9 +33,6 @@ import java.util.concurrent.TimeUnit;
 @Service
 public class KeepUserServiceImpl extends ServiceImpl<KeepUserMapper, KeepUser> implements KeepUserService {
 
-    @Autowired
-    @Qualifier("tokenJvmRegistryService")
-    private TokenRegistryService tokenJvmRegistryService;
 
     @Override
     public LoginVo login(LoginParam loginParam) {
@@ -51,12 +44,10 @@ public class KeepUserServiceImpl extends ServiceImpl<KeepUserMapper, KeepUser> i
         if(!Objects.equals(user.getPassword(),loginParam.getPassWord())){
             throw new CustomExpection("用户名或者密码错误");
         }
+        // 生成 tgt refeshToken，accessToken
 
-        String key = "sys:user:" + user.getId();
-        Object token = JwtTokenUtils.generatorToken(new HashMap<>(),user.getId().toString(), CommanConstants.AT_EXPIRED_TIME);
-        tokenJvmRegistryService.addToken(TicketGenUtils.getTokenCacheTicket(user.getId()));
         LoginVo vo = new LoginVo();
-        vo.setAccessToken(token.toString());
+        vo.setAccessToken(null);
         vo.setExpiresIn(CommanConstants.AT_EXPIRED_TIME);
         log.info("登录成功");
         return vo;

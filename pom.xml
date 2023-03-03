@@ -22,6 +22,7 @@
         <module>keep-modules</module>
         <module>keep-sso-common</module>
         <module>keep-sso-common-core</module>
+        <module>keep-sso-oauth</module>
     </modules>
 
     <properties>
