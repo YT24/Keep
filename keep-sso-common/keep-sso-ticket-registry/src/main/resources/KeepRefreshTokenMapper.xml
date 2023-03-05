@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.keep.sso.ticket.mapper.KeepRefreshTokenMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.keep.sso.ticket.entity.KeepRefreshToken">
+        <id column="id" property="id" />
+        <result column="username" property="username" />
+        <result column="device_type" property="deviceType" />
+        <result column="last_time_used" property="lastTimeUsed" />
+        <result column="time_to_live" property="timeToLive" />
+        <result column="time_to_die" property="timeToDie" />
+        <result column="tgt_id" property="tgtId" />
+        <result column="create_time" property="createTime" />
+        <result column="service_id" property="serviceId" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, username, device_type, last_time_used, time_to_live, time_to_die, tgt_id, create_time, service_id
+    </sql>
+
+</mapper>

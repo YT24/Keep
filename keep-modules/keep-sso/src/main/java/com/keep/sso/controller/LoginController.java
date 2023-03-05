@@ -4,13 +4,13 @@ package com.keep.sso.controller;
 import com.keep.common.core.domain.entity.ResponseResult;
 import com.keep.common.core.domain.vo.UserInfoVo;
 import com.keep.sso.entity.User;
-import com.keep.sso.entity.param.LoginParam;
+import com.keep.sso.ticket.entity.param.LoginParam;
 import com.keep.sso.entity.vo.LoginVo;
 import com.keep.sso.mapper.UserMapper;
-import com.keep.sso.service.KeepUserService;
+import com.keep.sso.ticket.service.KeepUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import keep.sso.ticket.service.TokenRegistryService;
+import com.keep.sso.ticket.service.TokenRegistryService;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -29,7 +29,7 @@ import java.util.UUID;
  */
 @Api(tags = "用户认证中心")
 @RestController
-@RequestMapping("/api/v1/sysUser")
+@RequestMapping("/api/v1/oauth")
 public class LoginController implements BaseController{
 
     @Autowired
@@ -39,11 +39,11 @@ public class LoginController implements BaseController{
     private UserMapper userMapper;
 
     @Autowired
-    @Qualifier("tokenMultRegistryService")
+    @Qualifier("tokenMultRegistryServiceImpl")
     private TokenRegistryService tokenRegistryService;
 
     @ApiOperation("登录")
-    @PostMapping("/login")
+    @PostMapping("/accessToken")
     public ResponseResult<LoginVo> login(@RequestBody @Validated LoginParam loginParam){
         return ResponseResult.success(sysUserService.login(loginParam));
     }
