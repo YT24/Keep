@@ -48,7 +48,7 @@ create_time + time_to_live  <  当前时间  有效
      * 死亡时间，单位s：
 last_time_used + time_to_live  <  当前时间
      */
-    private Integer timeToDie;
+    private Long timeToDie;
 
     /**
      * tgt_id
@@ -88,5 +88,15 @@ last_time_used + time_to_live  <  当前时间
             return true;
         }
         return false;
+    }
+
+    @Override
+    public String getDescendantTickets() {
+        return null;
+    }
+
+    @Override
+    public void setDescendantTickets(String descendantTickets) {
+
     }
 }

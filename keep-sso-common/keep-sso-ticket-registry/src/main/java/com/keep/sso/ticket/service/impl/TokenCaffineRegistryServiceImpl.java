@@ -52,4 +52,14 @@ public class TokenCaffineRegistryServiceImpl implements TokenRegistryService {
     public Optional<Ticket> getTgtByUserName(String username,String deviceType) {
         return Optional.empty();
     }
+
+    @Override
+    public void deleteTicket(String ticketId,Class clazz) {
+
+    }
+
+    @Override
+    public void updateToken(Ticket tgt) {
+
+    }
 }

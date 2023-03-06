@@ -25,14 +25,16 @@ public class TokenRedisRegistryServiceImpl implements TokenRegistryService {
 
     @Override
     public void addToken(Ticket token) {
-        redisTemplate.opsForSet().add(token.getUsername(),token.getId()+":"+token.getDeviceType());
+        if (token instanceof KeepTgtToken) {
+            redisTemplate.opsForSet().add(token.getUsername(), token.getId() + ":" + token.getDeviceType());
+        }
         redisTemplate.boundValueOps(token.getId()).set(JSONObject.toJSONString(token));
     }
 
     @Override
-    public Optional<Ticket> getTgtByUserName(String username,String deviceType) {
+    public Optional<Ticket> getTgtByUserName(String username, String deviceType) {
         Object keys = redisTemplate.opsForSet().members(username);
-        if(Objects.isNull(keys)){
+        if (Objects.isNull(keys)) {
             return Optional.empty();
         }
         final Set<String> tgtDeviceKeys = (Set<String>) keys;
@@ -40,12 +42,22 @@ public class TokenRedisRegistryServiceImpl implements TokenRegistryService {
             String[] strArray = tgtDeviceKey.split(":");
             String tgtRedisKey = strArray[0];
             String tgtDeviceType = strArray[1];
-            if(!Objects.equals(deviceType,tgtDeviceType)){
+            if (!Objects.equals(deviceType, tgtDeviceType)) {
                 continue;
             }
             Object tgtObj = this.redisTemplate.boundValueOps(tgtRedisKey).get();
             return Optional.ofNullable(JSONObject.parseObject(tgtObj.toString(), KeepTgtToken.class));
         }
         return Optional.empty();
+    }
+
+    @Override
+    public void deleteTicket(String ticketId, Class clazz) {
+        redisTemplate.delete(ticketId);
+    }
+
+    @Override
+    public void updateToken(Ticket ticket) {
+        redisTemplate.boundValueOps(ticket.getId()).set(JSONObject.toJSONString(ticket));
     }
 }

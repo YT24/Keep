@@ -89,4 +89,14 @@ public class KeepAccessToken implements Ticket,Serializable {
         }
         return false;
     }
+
+    @Override
+    public String getDescendantTickets() {
+        return null;
+    }
+
+    @Override
+    public void setDescendantTickets(String descendantTickets) {
+
+    }
 }

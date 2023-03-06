@@ -10,4 +10,10 @@ public interface TokenRegistryService{
     <S extends Ticket> void addToken(S token);
 
     Optional<Ticket> getTgtByUserName(String username,String deviceType);
+
+    void deleteTicket(String ticketId,Class clazz);
+
+    void updateToken(Ticket tgt);
+
+//    Ticket getTicketById(String token);
 }

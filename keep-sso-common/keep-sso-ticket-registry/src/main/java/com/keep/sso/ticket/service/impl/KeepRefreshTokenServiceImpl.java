@@ -38,4 +38,20 @@ public class KeepRefreshTokenServiceImpl extends ServiceImpl<KeepRefreshTokenMap
     public boolean saveTicket(Ticket ticket) {
         return this.save((KeepRefreshToken) ticket);
     }
+
+    @Override
+    public boolean updateTicket(Ticket ticket) {
+        return super.updateById((KeepRefreshToken) ticket);
+    }
+
+    @Override
+    public boolean deleteTicket(String ticketId) {
+
+        return super.removeById(ticketId);
+    }
+
+    @Override
+    public Ticket selectByTicketId(String ticketId) {
+        return super.getById(ticketId);
+    }
 }

@@ -8,6 +8,7 @@ import com.keep.common.core.expection.CustomExpection;
 
 import com.keep.sso.ticket.convert.ObjConvertMapper;
 import com.keep.sso.ticket.entity.KeepUser;
+import com.keep.sso.ticket.entity.Ticket;
 import com.keep.sso.ticket.entity.param.LoginParam;
 import com.keep.sso.ticket.entity.param.SysUserParam;
 import com.keep.sso.ticket.mapper.KeepUserMapper;
@@ -55,6 +56,8 @@ public class KeepUserServiceImpl extends ServiceImpl<KeepUserMapper, KeepUser> i
 
     @Override
     public UserInfoVo getUserInfo(String token) {
+        Ticket ticket = tokenMultRegistryService.getTicketById(token);
+
         Map<String, Object> parserToken = JwtTokenUtils.parserToken(token);
         Object obj = parserToken.get(CommanConstants.USER_ID);
         long start = System.currentTimeMillis();

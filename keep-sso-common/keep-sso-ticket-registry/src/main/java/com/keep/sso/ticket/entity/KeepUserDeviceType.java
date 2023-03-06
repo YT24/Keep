@@ -42,5 +42,10 @@ public class KeepUserDeviceType implements Serializable {
      */
     private LocalDateTime createTime;
 
+    /**
+     * tgt_id
+     */
+    private String tgtId;
+
 
 }

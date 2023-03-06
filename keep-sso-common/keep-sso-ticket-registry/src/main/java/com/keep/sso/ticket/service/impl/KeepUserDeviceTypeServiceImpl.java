@@ -25,6 +25,7 @@ public class KeepUserDeviceTypeServiceImpl extends ServiceImpl<KeepUserDeviceTyp
         KeepUserDeviceType userDeviceType = new KeepUserDeviceType();
         userDeviceType.setUsername(ticket.getUsername());
         userDeviceType.setDeviceType(ticket.getDeviceType());
+        userDeviceType.setTgtId(ticket.getId());
         userDeviceType.setCreateTime(LocalDateTime.now());
         this.save(userDeviceType);
     }

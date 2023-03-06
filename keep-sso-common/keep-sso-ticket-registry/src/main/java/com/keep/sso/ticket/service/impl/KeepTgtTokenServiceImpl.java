@@ -45,4 +45,21 @@ public class KeepTgtTokenServiceImpl extends ServiceImpl<KeepTgtTokenMapper, Kee
         userDeviceTypeService.saveByTicket(ticket);
         return this.save((KeepTgtToken) ticket);
     }
+
+    @Override
+    public boolean updateTicket(Ticket ticket) {
+
+        return super.updateById((KeepTgtToken) ticket);
+    }
+
+    @Override
+    public boolean deleteTicket(String ticketId) {
+
+        return super.removeById(ticketId);
+    }
+
+    @Override
+    public Ticket selectByTicketId(String ticketId) {
+        return super.getById(ticketId);
+    }
 }

@@ -20,7 +20,7 @@ public class SsoApplicationTests {
     void test(){
         KeepTgtToken tgt = new KeepTgtToken();
         tgt.setUsername("1qazxsw2");
-        tgt.setDescendantTickets(Arrays.asList("AT-werswde","RT-decfcd"));
+        tgt.setDescendantTickets("AT-werswde");
         redisTemplate.boundValueOps("TGT-swdfed").set(tgt,60, TimeUnit.MINUTES);
         Object o = redisTemplate.boundValueOps("TGT-swdfed").get();
         System.out.println(o.toString());

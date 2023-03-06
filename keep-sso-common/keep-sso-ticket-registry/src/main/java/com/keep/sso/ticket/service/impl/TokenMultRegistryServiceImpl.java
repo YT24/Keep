@@ -1,18 +1,24 @@
 package com.keep.sso.ticket.service.impl;
 
-import com.keep.sso.ticket.entity.KeepAccessToken;
-import com.keep.sso.ticket.entity.KeepTgtToken;
-import com.keep.sso.ticket.entity.KeepUser;
-import com.keep.sso.ticket.entity.Ticket;
+import cn.hutool.core.collection.CollUtil;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import com.keep.sso.ticket.entity.*;
+import com.keep.sso.ticket.enums.TicketTypeEnum;
 import com.keep.sso.ticket.service.TokenRegistryService;
 import com.keep.sso.ticket.entity.vo.OauthLoginVo;
 import com.keep.sso.ticket.utils.EncodingUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Base64Utils;
+import org.springframework.util.CollectionUtils;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicLong;
 
 @Slf4j
 @Service
@@ -27,9 +33,11 @@ public class TokenMultRegistryServiceImpl implements TokenRegistryService {
 
     public static final Long TGT_TIME_TO_LIVE = Long.valueOf(30 * 24 * 60 * 60);
 
-    public static final Long AT_TIME_TO_LIVE = Long.valueOf(7 * 24 * 60 * 60);
+    public static final Long RT_TIME_TO_LIVE = Long.valueOf(7 * 24 * 60 * 60);
 
-    public static final Long RT_TIME_TO_LIVE = Long.valueOf(2 * 60 * 60);
+    public static final Long AT_TIME_TO_LIVE = Long.valueOf(2 * 60 * 60);
+
+    private AtomicLong count = new AtomicLong();
 
     @Autowired
     private TokenDbRegistryServiceImpl tokenDbRegistryService;
@@ -40,58 +48,101 @@ public class TokenMultRegistryServiceImpl implements TokenRegistryService {
     private TokenCaffineRegistryServiceImpl tokenCaffineRegistryService;
 
 
-
-    @Override
-    public void addToken(Ticket token) {
-    }
-
     public OauthLoginVo generatorToken(KeepUser user, String clientId,String deviceType) {
         // 1，查询用户是否之前登录过，存在tgt
-        Optional<Ticket> tgtOptional = this.tokenRedisRegistryService.getTgtByUserName(user.getUsername(), deviceType);
-        if(!tgtOptional.isPresent()){
-            tgtOptional = this.tokenDbRegistryService.getTgtByUserName(user.getUsername(),deviceType);
-        }
-        Ticket tgt = tgtOptional.get();
-        if(!tgtOptional.isPresent()){
-            tgt = generatorTgtToken(user,clientId,deviceType);
-            this.tokenDbRegistryService.addToken(tgt);
+        Optional<Ticket> tgtOptional = this.getTgtByUserName(user.getUsername(), deviceType);
+        Ticket tgt = null;
+        if(tgtOptional.isPresent()){
+            tgt = tgtOptional.get();
+        }else{
+            tgt = this.generatorTgtToken(user,clientId,deviceType);
+            this.addToken(tgt);
         }
         // 2. 创建token
-        Ticket accessToken = generatorAccessToken(user,clientId,deviceType,tgt.getId());
-
         // 3. 创建refreshToken
-
+        List<String> descendantTickets = new ArrayList<>();
+        if(StringUtils.isNotBlank(tgt.getDescendantTickets())){
+            descendantTickets = JSONObject.parseObject(tgt.getDescendantTickets(),List.class);
+            if(CollUtil.isNotEmpty(descendantTickets)){
+                descendantTickets.stream().forEach(ticketId -> deleteTicket(ticketId, TicketTypeEnum.getClassByTicketId(ticketId)));
+                descendantTickets.clear();
+            }
+        }
+        Ticket accessToken = generatorAccessToken(user,clientId,deviceType,tgt.getId());
+        Ticket refreshToken = generatorRefreshToken(user,clientId,deviceType,tgt.getId());
+        this.addToken(accessToken);
+        this.addToken(refreshToken);
+        descendantTickets.add(accessToken.getId());
+        descendantTickets.add(refreshToken.getId());
+        tgt.setDescendantTickets(JSONObject.toJSONString(descendantTickets));
+        // 更新tgt
+        this.updateToken(tgt);
         OauthLoginVo vo = new OauthLoginVo();
+        vo.setAccessToken(accessToken.getId());
+        vo.setRefreshToken(refreshToken.getId());
+        vo.setExpiredIn(AT_TIME_TO_LIVE);
         return vo;
     }
 
+
+
+    @Override
+    public Optional<Ticket> getTgtByUserName(String username,String deviceType) {
+        Optional<Ticket> tgtOptional = this.tokenRedisRegistryService.getTgtByUserName(username, deviceType);
+        if(tgtOptional.isPresent()){
+            return tgtOptional;
+        }
+        return this.tokenDbRegistryService.getTgtByUserName(username,deviceType);
+    }
+
+    @Override
+    public void addToken(Ticket token) {
+        this.tokenDbRegistryService.addToken(token);
+        this.tokenRedisRegistryService.addToken(token);
+    }
+
+
+    @Override
+    public void deleteTicket(String ticketId,Class clazz) {
+        this.tokenDbRegistryService.deleteTicket(ticketId,clazz);
+        this.tokenRedisRegistryService.deleteTicket(ticketId,clazz);
+    }
+
+    @Override
+    public void updateToken(Ticket ticket) {
+        this.tokenDbRegistryService.updateToken(ticket);
+        this.tokenRedisRegistryService.updateToken(ticket);
+
+    }
+
+
     private Ticket generatorAccessToken(KeepUser user, String clientId, String deviceType,String tgtId) {
         KeepAccessToken ticket = new KeepAccessToken();
-        ticket.setId(AT_PREFIX + EncodingUtils.encodeBase64(user.getUsername().getBytes()).toUpperCase());
+        ticket.setId(AT_PREFIX + buildTickeId(AT_PREFIX));
         ticket.setUsername(user.getUsername());
         ticket.setCreateTime(LocalDateTime.now());
         ticket.setTimeToDie(AT_TIME_TO_LIVE);
         ticket.setTgtId(tgtId);
         ticket.setServiceId(clientId);
         ticket.setDeviceType(deviceType);
-        return null;
+        return ticket;
     }
 
     private Ticket generatorRefreshToken(KeepUser user, String clientId, String deviceType,String tgtId) {
-        KeepAccessToken ticket = new KeepAccessToken();
-        ticket.setId(RT_PREFIX + EncodingUtils.encodeBase64(user.getUsername().getBytes()).toUpperCase());
+        KeepRefreshToken ticket = new KeepRefreshToken();
+        ticket.setId(RT_PREFIX +  buildTickeId(RT_PREFIX));
         ticket.setUsername(user.getUsername());
         ticket.setCreateTime(LocalDateTime.now());
         ticket.setTimeToDie(RT_TIME_TO_LIVE);
         ticket.setTgtId(tgtId);
         ticket.setServiceId(clientId);
         ticket.setDeviceType(deviceType);
-        return null;
+        return ticket;
     }
 
     private Ticket generatorTgtToken(KeepUser user, String clientId,String deviceType) {
         KeepTgtToken tgtToken = new KeepTgtToken();
-        tgtToken.setId(TGT_PREFIX + EncodingUtils.encodeBase64(user.getUsername().getBytes()).toUpperCase());
+        tgtToken.setId(TGT_PREFIX + buildTickeId(TGT_PREFIX));
         tgtToken.setUsername(user.getUsername());
         tgtToken.setCreateTime(LocalDateTime.now());
         tgtToken.setTimeToDie(TGT_TIME_TO_LIVE);
@@ -101,53 +152,26 @@ public class TokenMultRegistryServiceImpl implements TokenRegistryService {
         return tgtToken;
     }
 
-    @Override
-    public Optional<Ticket> getTgtByUserName(String username,String deviceType) {
-
-        return Optional.empty();
+    private String buildTickeId(String ticketPref){
+        String ticketId = new StringBuilder(ticketPref.length())
+                .append(ticketPref)
+                .append('-')
+                .append("V1")
+                .append('-')
+                .append(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
+                .append('-')
+                .append(ticketPref.length())
+                .append('-')
+                .append(getNextValue())
+                .toString().toUpperCase();
+        return EncodingUtils.encodeBase64(ticketId.getBytes());
     }
 
+    private String getNextValue() {
+        if (this.count.compareAndSet(Long.MAX_VALUE, 0)) {
+            return Long.toString(Long.MAX_VALUE);
+        }
+        return Long.toString(this.count.getAndIncrement());
+    }
 
-//    @Scheduled(initialDelayString = "${sso.redisStatus.startDelay:1000}",
-//            fixedDelayString = "${sso.redisStatus.repeatInterval:5000}")
-//    public void redisHeartBeatCheck() {
-//        try {
-//            ssoRedisTemplate.opsForValue().set("flag", "true");
-//            if (redisExceptionCounts > 5) {
-//                setRedisHeartBeatSuccess(true);
-//                ssoRedisTemplate.setRedisHeartBeatSuccess(true);
-//                LOGGER.info("present environment : Redis!");
-//                ssoRedisTemplate.clearExpiredRecords();
-//
-//                try {
-//                    redisSessionHandler.switchSession();
-//                } catch (IllegalAccessException illegalAccessException) {
-//                    LOGGER.error("illegalAccessException", illegalAccessException);
-//                } catch (InvocationTargetException invocationTargetException) {
-//                    LOGGER.error("invocationTargetException", invocationTargetException);
-//                } catch (InstantiationException instantiationException) {
-//                    LOGGER.error("instantiationException", instantiationException);
-//                }
-//            }
-//            redisExceptionCounts = 0;
-//        } catch (RuntimeException e) {
-//            redisExceptionCounts++;
-//            LOGGER.info("redis exception count: {}", redisExceptionCounts);
-//            if (redisExceptionCounts > 5 && redisExceptionCounts < 10) {
-//                setRedisHeartBeatSuccess(false);
-//                ssoRedisTemplate.setRedisHeartBeatSuccess(false);
-//                LOGGER.info("present environment : NonRedis!");
-//
-//                try {
-//                    jdbcSessionHandler.switchSession();
-//                } catch (IllegalAccessException illegalAccessException) {
-//                    LOGGER.error("illegalAccessException", illegalAccessException);
-//                } catch (InvocationTargetException invocationTargetException) {
-//                    LOGGER.error("invocationTargetException", invocationTargetException);
-//                } catch (InstantiationException instantiationException) {
-//                    LOGGER.error("instantiationException", instantiationException);
-//                }
-//            }
-//        }
-//    }
 }
