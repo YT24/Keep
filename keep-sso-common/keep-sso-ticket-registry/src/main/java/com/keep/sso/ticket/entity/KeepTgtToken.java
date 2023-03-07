@@ -45,7 +45,7 @@ public class KeepTgtToken implements Ticket, Serializable {
      * 存活时间（有效期），单位s：
      * create_time + time_to_live  <  当前时间  有效
      */
-    private Integer timeToLive;
+    private Long timeToLive;
 
     /**
      * 死亡时间，单位s：
@@ -87,11 +87,14 @@ public class KeepTgtToken implements Ticket, Serializable {
             }
         }
 
-        expirationTime = lastTimeUsed.plusSeconds(this.timeToDie);
-        if (currentSystemTime.isAfter(expirationTime)) {
-            log.debug("Ticket is expired because the time since last use is greater than timeToKillInSeconds");
-            return true;
+        if (timeToDie > 0 && lastTimeUsed != null) {
+            expirationTime = lastTimeUsed.plusSeconds(this.timeToDie);
+            if (currentSystemTime.isAfter(expirationTime)) {
+                log.debug("Ticket is expired because the time since last use is greater than timeToKillInSeconds");
+                return true;
+            }
         }
+
         return false;
     }
 }

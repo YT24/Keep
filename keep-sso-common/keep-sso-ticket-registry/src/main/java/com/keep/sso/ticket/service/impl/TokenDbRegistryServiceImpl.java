@@ -12,6 +12,7 @@ import com.keep.sso.ticket.service.TokenRegistryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -32,6 +33,14 @@ public class TokenDbRegistryServiceImpl implements TokenRegistryService {
     public void addToken(Ticket ticket) {
         KeepTokenService tokenService = registryServiceManager.getService(ticket.getClass());
         tokenService.saveTicket(ticket);
+        if(ticket instanceof KeepTgtToken){
+            KeepUserDeviceType userDeviceType = new KeepUserDeviceType();
+            userDeviceType.setUsername(ticket.getUsername());
+            userDeviceType.setTgtId(ticket.getId());
+            userDeviceType.setCreateTime(LocalDateTime.now());
+            userDeviceType.setDeviceType(ticket.getDeviceType());
+            userDeviceTypeService.save(userDeviceType);
+        }
     }
 
     @Override
@@ -60,5 +69,11 @@ public class TokenDbRegistryServiceImpl implements TokenRegistryService {
         KeepTokenService tokenService = registryServiceManager.getService(ticket.getClass());
         tokenService.updateTicket(ticket);
 
+    }
+
+    @Override
+    public Ticket getTicketById(String ticketId) {
+        KeepTokenService tokenService = registryServiceManager.getService(TicketTypeEnum.getClassByTicketId(ticketId));
+        return tokenService.selectByTicketId(ticketId);
     }
 }

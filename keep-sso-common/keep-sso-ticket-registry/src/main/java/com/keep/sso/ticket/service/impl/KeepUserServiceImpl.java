@@ -1,5 +1,6 @@
 package com.keep.sso.ticket.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.keep.common.core.domain.constants.CommanConstants;
@@ -57,11 +58,10 @@ public class KeepUserServiceImpl extends ServiceImpl<KeepUserMapper, KeepUser> i
     @Override
     public UserInfoVo getUserInfo(String token) {
         Ticket ticket = tokenMultRegistryService.getTicketById(token);
-
-        Map<String, Object> parserToken = JwtTokenUtils.parserToken(token);
-        Object obj = parserToken.get(CommanConstants.USER_ID);
         long start = System.currentTimeMillis();
-        KeepUser keepUser = this.getById(Long.valueOf(obj.toString()));
+        QueryWrapper<KeepUser> query = new QueryWrapper<>();
+        query.lambda().eq(KeepUser::getUsername,ticket.getUsername());
+        KeepUser keepUser = this.getOne(query);
         log.info("查询用户信息耗时：{} ms",System.currentTimeMillis() - start);
         if(Objects.isNull(keepUser)){
             throw new CustomExpection("用户不存在");

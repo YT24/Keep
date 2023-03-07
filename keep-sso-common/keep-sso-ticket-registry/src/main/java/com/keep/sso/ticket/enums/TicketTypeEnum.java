@@ -4,6 +4,7 @@ import com.keep.common.core.expection.BizExpection;
 import com.keep.sso.ticket.entity.KeepAccessToken;
 import com.keep.sso.ticket.entity.KeepRefreshToken;
 import com.keep.sso.ticket.entity.KeepTgtToken;
+import com.keep.sso.ticket.entity.Ticket;
 import lombok.SneakyThrows;
 
 
@@ -13,7 +14,7 @@ public enum TicketTypeEnum {
     AT(KeepAccessToken.class, "com.keep.sso.ticket.entity.KeepAccessToken", "AT"),
     RT(KeepRefreshToken.class, "com.keep.sso.ticket.entity.KeepRefreshToken", "RT");
 
-    private Class ticketType;
+    private Class<Ticket> ticketType;
 
     private String entityName;
 
@@ -38,10 +39,10 @@ public enum TicketTypeEnum {
     }
 
     @SneakyThrows
-    public static Class getClassByTicketId(String ticketId){
+    public static Class<Ticket> getClassByTicketId(String ticketId){
         for (TicketTypeEnum value : TicketTypeEnum.values()) {
             if(ticketId.startsWith(value.getPrefix())){
-                return Class.forName(value.getEntityName());
+                return value.getEntityType();
             }
         }
         throw new BizExpection("ticketId is error,should start with TGT or RT or AT");

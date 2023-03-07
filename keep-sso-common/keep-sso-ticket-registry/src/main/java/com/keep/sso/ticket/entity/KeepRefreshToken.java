@@ -42,7 +42,7 @@ public class KeepRefreshToken implements Ticket,Serializable {
      * 存活时间（有效期），单位s：
 create_time + time_to_live  <  当前时间  有效
      */
-    private Integer timeToLive;
+    private Long timeToLive;
 
     /**
      * 死亡时间，单位s：
@@ -70,22 +70,15 @@ last_time_used + time_to_live  <  当前时间
     public boolean expired() {
         final LocalDateTime currentSystemTime = LocalDateTime.now();
         final LocalDateTime creationTime = this.createTime;
-        final LocalDateTime lastTimeUsed = this.lastTimeUsed;
 
         // Ticket has been used, check maxTimeToLive (hard window)
         LocalDateTime expirationTime;
-        if (timeToLive > 0) {
+        if (timeToLive != null && timeToLive > 0) {
             expirationTime = creationTime.plusSeconds(timeToLive);
             if (currentSystemTime.isAfter(expirationTime)) {
                 log.debug("Ticket is expired because the time since creation is greater than maxTimeToLiveInSeconds");
                 return true;
             }
-        }
-
-        expirationTime = lastTimeUsed.plusSeconds(this.timeToDie);
-        if (currentSystemTime.isAfter(expirationTime)) {
-            log.debug("Ticket is expired because the time since last use is greater than timeToKillInSeconds");
-            return true;
         }
         return false;
     }

@@ -13,4 +13,6 @@ public interface Ticket {
     String getDescendantTickets();
 
     void setDescendantTickets(String descendantTickets);
+
+    Long getTimeToLive();
 }

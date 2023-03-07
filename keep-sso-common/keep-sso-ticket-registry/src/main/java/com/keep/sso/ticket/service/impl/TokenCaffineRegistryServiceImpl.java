@@ -29,7 +29,7 @@ public class TokenCaffineRegistryServiceImpl implements TokenRegistryService {
                 .initialCapacity(INITIAL_CACHE_SIZE)
                 .maximumSize(INITIAL_CACHE_SIZE)
                 // TODO 设置本地缓存过期时间
-                .expireAfterWrite(6000, TimeUnit.SECONDS)
+                .expireAfterWrite(7200, TimeUnit.SECONDS)
                 //.expireAfter()
                 .build(s -> {
                     log.error("Load operation of the cache is not supported.");
@@ -55,11 +55,17 @@ public class TokenCaffineRegistryServiceImpl implements TokenRegistryService {
 
     @Override
     public void deleteTicket(String ticketId,Class clazz) {
-
+        mapInstance.remove(ticketId);
     }
 
     @Override
     public void updateToken(Ticket tgt) {
+        mapInstance.put(tgt.getId(),tgt);
+    }
 
+    @Override
+    public Ticket getTicketById(String ticketId) {
+
+        return mapInstance.get(ticketId);
     }
 }

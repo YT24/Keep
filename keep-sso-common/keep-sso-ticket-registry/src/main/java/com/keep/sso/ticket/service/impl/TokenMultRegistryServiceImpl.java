@@ -3,6 +3,8 @@ package com.keep.sso.ticket.service.impl;
 import cn.hutool.core.collection.CollUtil;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.keep.common.core.expection.BizExpection;
+import com.keep.common.core.expection.TokenExpection;
 import com.keep.sso.ticket.entity.*;
 import com.keep.sso.ticket.enums.TicketTypeEnum;
 import com.keep.sso.ticket.service.TokenRegistryService;
@@ -121,7 +123,7 @@ public class TokenMultRegistryServiceImpl implements TokenRegistryService {
         ticket.setId(AT_PREFIX + buildTickeId(AT_PREFIX));
         ticket.setUsername(user.getUsername());
         ticket.setCreateTime(LocalDateTime.now());
-        ticket.setTimeToDie(AT_TIME_TO_LIVE);
+        ticket.setTimeToLive(AT_TIME_TO_LIVE);
         ticket.setTgtId(tgtId);
         ticket.setServiceId(clientId);
         ticket.setDeviceType(deviceType);
@@ -133,7 +135,7 @@ public class TokenMultRegistryServiceImpl implements TokenRegistryService {
         ticket.setId(RT_PREFIX +  buildTickeId(RT_PREFIX));
         ticket.setUsername(user.getUsername());
         ticket.setCreateTime(LocalDateTime.now());
-        ticket.setTimeToDie(RT_TIME_TO_LIVE);
+        ticket.setTimeToLive(RT_TIME_TO_LIVE);
         ticket.setTgtId(tgtId);
         ticket.setServiceId(clientId);
         ticket.setDeviceType(deviceType);
@@ -149,6 +151,8 @@ public class TokenMultRegistryServiceImpl implements TokenRegistryService {
         tgtToken.setDescendantTickets(null);
         tgtToken.setServiceId(clientId);
         tgtToken.setDeviceType(deviceType);
+        tgtToken.setDeviceType(deviceType);
+        tgtToken.setLastTimeUsed(LocalDateTime.now());
         return tgtToken;
     }
 
@@ -174,4 +178,18 @@ public class TokenMultRegistryServiceImpl implements TokenRegistryService {
         return Long.toString(this.count.getAndIncrement());
     }
 
+    @Override
+    public Ticket getTicketById(String ticketId) {
+        Ticket ticket = tokenCaffineRegistryService.getTicketById(ticketId);
+        if(ticket == null){
+            ticket = tokenRedisRegistryService.getTicketById(ticketId);
+            if(ticket == null){
+                ticket = tokenDbRegistryService.getTicketById(ticketId);
+                if(ticket == null || ticket.expired()){
+                    throw new TokenExpection(401,"ticket is expired");
+                }
+            }
+        }
+        return ticket;
+    }
 }

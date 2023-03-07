@@ -15,5 +15,5 @@ public interface TokenRegistryService{
 
     void updateToken(Ticket tgt);
 
-//    Ticket getTicketById(String token);
+    Ticket getTicketById(String token);
 }
