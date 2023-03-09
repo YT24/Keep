@@ -40,9 +40,6 @@ public class TokenRedisRegistryServiceImpl implements TokenRegistryService {
     @Override
     public Optional<Ticket> getTgtByUserName(String username, String deviceType) {
         Object keys = redisTemplate.opsForSet().members(username);
-        if (Objects.isNull(keys)) {
-            return Optional.empty();
-        }
         final Set<String> tgtDeviceKeys = (Set<String>) keys;
         for (String tgtDeviceKey : tgtDeviceKeys) {
             String[] strArray = tgtDeviceKey.split(":");
@@ -52,6 +49,9 @@ public class TokenRedisRegistryServiceImpl implements TokenRegistryService {
                 continue;
             }
             Object tgtObj = this.redisTemplate.boundValueOps(tgtRedisKey).get();
+            if(tgtObj == null){
+                return Optional.empty();
+            }
             return Optional.ofNullable(JSONObject.parseObject(tgtObj.toString(), KeepTgtToken.class));
         }
 
@@ -65,7 +65,7 @@ public class TokenRedisRegistryServiceImpl implements TokenRegistryService {
 
     @Override
     public void updateToken(Ticket ticket) {
-        redisTemplate.boundValueOps(ticket.getId()).set(JSONObject.toJSONString(ticket));
+        redisTemplate.boundValueOps(ticket.getId()).set(JSONObject.toJSONString(ticket),ticket.getTimeToLive(),TimeUnit.SECONDS);
     }
 
     @Override

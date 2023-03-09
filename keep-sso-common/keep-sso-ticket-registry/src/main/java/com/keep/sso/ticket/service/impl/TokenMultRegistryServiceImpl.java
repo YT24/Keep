@@ -147,7 +147,7 @@ public class TokenMultRegistryServiceImpl implements TokenRegistryService {
         tgtToken.setId(TGT_PREFIX + buildTickeId(TGT_PREFIX));
         tgtToken.setUsername(user.getUsername());
         tgtToken.setCreateTime(LocalDateTime.now());
-        tgtToken.setTimeToDie(TGT_TIME_TO_LIVE);
+        tgtToken.setTimeToLive(TGT_TIME_TO_LIVE);
         tgtToken.setDescendantTickets(null);
         tgtToken.setServiceId(clientId);
         tgtToken.setDeviceType(deviceType);

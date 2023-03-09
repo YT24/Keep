@@ -33,14 +33,6 @@ public class TokenDbRegistryServiceImpl implements TokenRegistryService {
     public void addToken(Ticket ticket) {
         KeepTokenService tokenService = registryServiceManager.getService(ticket.getClass());
         tokenService.saveTicket(ticket);
-        if(ticket instanceof KeepTgtToken){
-            KeepUserDeviceType userDeviceType = new KeepUserDeviceType();
-            userDeviceType.setUsername(ticket.getUsername());
-            userDeviceType.setTgtId(ticket.getId());
-            userDeviceType.setCreateTime(LocalDateTime.now());
-            userDeviceType.setDeviceType(ticket.getDeviceType());
-            userDeviceTypeService.save(userDeviceType);
-        }
     }
 
     @Override

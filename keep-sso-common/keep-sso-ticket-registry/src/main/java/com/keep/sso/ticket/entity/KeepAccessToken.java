@@ -43,7 +43,7 @@ public class KeepAccessToken implements Ticket,Serializable {
      * 存活时间（有效期），单位s：
      * create_time + time_to_live  <  当前时间  有效
      */
-    private Integer timeToLive;
+    private Long timeToLive;
 
     /**
      * 死亡时间，单位s：

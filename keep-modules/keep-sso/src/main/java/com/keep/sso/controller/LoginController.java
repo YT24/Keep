@@ -51,8 +51,8 @@ public class LoginController implements BaseController{
     @SneakyThrows
     @ApiOperation("用户信息获取")
     @GetMapping("/profile")
-    public ResponseResult<UserInfoVo> detail(String token){
-        return ResponseResult.success(sysUserService.getUserInfo(token));
+    public ResponseResult<UserInfoVo> detail(@RequestHeader(value = "accessToken",required = true) String accessToken){
+        return ResponseResult.success(sysUserService.getUserInfo(accessToken));
     }
 
     @PostMapping("/create")
