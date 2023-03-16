@@ -26,6 +26,9 @@ import axios from 'axios'
 
 export default {
   name: 'LoginWeb',
+  created() {
+    this.checkAccessToken();
+  },
   data: function () {
     return {
       form:{
@@ -38,7 +41,7 @@ export default {
     doLogin: function () {
       let username = this.form.userName;
       let password = this.form.passWord;
-      let url = "/keep-sso/api/v1/keepUser/login";
+      let url = "/keep-sso/api/v1/oauth/accessToken";
       //发起ajax请求-GET(注意参数必须保存到params属性中)
       axios.post(url, {
         userName:username,
@@ -58,6 +61,13 @@ export default {
     },
     doRegister: function () {
       this.$router.push('/Register')
+    },
+    checkAccessToken: function (){
+      var token = window.sessionStorage.getItem("token");
+      console.log(token);
+      if(token !== null){
+        this.$router.push('/index')
+      }
     }
   }
 }

@@ -25,7 +25,7 @@ public class MybatisGenerator {
 
     //生成指定表 包含和出去二选一,如果都不填，则全库的表
     private static String[] inculdeTables = new String[]{
-        "keep_tgt_token","keep_access_token","keep_refresh_token"
+        "keep_register_service"
     };
 
     private static String[] exculdeTableNames = new String[]{};
@@ -103,7 +103,7 @@ public class MybatisGenerator {
         // /java/tech/valuesimplex/srpstock/code/generator
         pathInfo.put(ConstVal.MAPPER_PATH, basePath + "/java/com/keep/sso/mapper");
         pathInfo.put(ConstVal.SERVICE_PATH, basePath + "/java/com/keep/sso/service");
-        pathInfo.put(ConstVal.SERVICE_IMPL_PATH, basePath + "/java/com/sso/service/impl");
+        pathInfo.put(ConstVal.SERVICE_IMPL_PATH, basePath + "/java/com/keep/sso/service/impl");
         pathInfo.put(ConstVal.ENTITY_PATH, basePath + "/java/com/keep/sso/entity");
         pathInfo.put(ConstVal.CONTROLLER_PATH,basePath+"/java/com/keep/sso/controller");
         return new PackageConfig()
@@ -156,7 +156,7 @@ public class MybatisGenerator {
                 // 全局大写命名 ORACLE 注意
                 .setCapitalMode(true)
                 .setEntityLombokModel(true)
-                .setRestControllerStyle(false)
+                .setRestControllerStyle(true)
                 //从数据库表到文件的命名策略
                 .setNaming(NamingStrategy.underline_to_camel)
                 .setColumnNaming(NamingStrategy.underline_to_camel);

@@ -10,19 +10,17 @@
     </el-header>
     <el-container>
       <el-aside width="200px">
-        <el-menu background-color="#545c64" text-color="#fff" active-text-color="#ffd04b">
-          <el-submenu index="1">
-            <template slot="title">
-              <i class="el-icon-location"></i>
-              <span>用户管理</span>
-            </template>
-            <!--<el-menu-item-group>
-              <template slot="title">分组一</template>
-              <el-menu-item index="1-1">选项1</el-menu-item>
-              <el-menu-item index="1-2">选项2</el-menu-item>
-            </el-menu-item-group>-->
-          </el-submenu>
-
+        <el-menu
+            background-color="#545c64"
+            text-color="#fff"
+            active-text-color="#ffd04b"
+            router
+            :default-active="activePath"
+        >
+          <el-menu-item index="/clients" @click="saveNavState('/clients')">
+            <i class="el-icon-menu"></i>
+            <span slot="title">应用管理</span>
+          </el-menu-item>
           <el-menu-item index="2">
             <i class="el-icon-menu"></i>
             <span slot="title">权限管理</span>
@@ -31,10 +29,15 @@
             <i class="el-icon-document"></i>
             <span slot="title">菜单管理</span>
           </el-menu-item>
-
         </el-menu>
       </el-aside>
-      <el-main>Main</el-main>
+      <el-main>
+        <el-breadcrumb separator="/">
+          <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+          <el-breadcrumb-item >应用管理</el-breadcrumb-item>
+        </el-breadcrumb>
+        <router-view></router-view>
+      </el-main>
     </el-container>
   </el-container>
 </template>
@@ -45,20 +48,35 @@ import axios from "axios";
 export default {
   name: "Index",
   created() {
-    this.getMenus()
+    this.handleSelectMenu("/clients")
+    this.activePath = window.sessionStorage.getItem("activePath")
+  },
+  data() {
+    return {
+      activePath:''
+    }
   },
 
   methods: {
     logout: function () {
       console.log("登出了～～～")
-    },
+    }
+    ,
+    handleSelectMenu(item) {
+      console.log(item);
+      this.$router.push(item);
+    }
+    ,
     async getMenus() {
-      axios.get("/menus").then(resp =>{
+      axios.get("/menus").then(resp => {
         console.log(resp.data)
-      }).catch(err =>{
+      }).catch(err => {
         console.log(err.message)
       });
-
+    },
+    saveNavState(activePath){
+      window.sessionStorage.setItem("activePath",activePath)
+      this.activePath = activePath
     }
   }
 }
@@ -93,11 +111,14 @@ export default {
 }
 
 .el-aside {
-  background-color: #eeeeee;
+  background-color: #545c64
 }
 
 .el-main {
-  background-color: beige;
+  background-color: white;
+}
+.el-breadcrumb{
+  margin-bottom: 20px;
 }
 
 </style>
