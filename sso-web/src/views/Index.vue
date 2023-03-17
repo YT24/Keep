@@ -53,7 +53,8 @@ export default {
   },
   data() {
     return {
-      activePath:''
+      activePath:'',
+      tableData:[]
     }
   },
 
@@ -64,17 +65,20 @@ export default {
     ,
     handleSelectMenu(item) {
       console.log(item);
-      this.$router.push(item);
+      if (this.$route.path !== item.url) {
+        this.$router.push({ path: item.url })
+      }
     }
     ,
-    async getMenus() {
-      axios.get("/menus").then(resp => {
-        console.log(resp.data)
+     getMenus() {
+     return axios.get("/menus").then(resp => {
+
       }).catch(err => {
         console.log(err.message)
       });
     },
-    saveNavState(activePath){
+  async  saveNavState(activePath){
+      await getMenus()
       window.sessionStorage.setItem("activePath",activePath)
       this.activePath = activePath
     }

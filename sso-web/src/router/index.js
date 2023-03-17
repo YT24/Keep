@@ -26,8 +26,12 @@ const router = new VueRouter({
     routes
 })
 
-// 挂在路由导航守卫
 
+const VueRouterPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push (to) {
+    return VueRouterPush.call(this, to).catch(err => err)
+}
+// 挂在路由导航守卫
 router.beforeEach((to, from, next) => {
     if (to.path === '/login') return next()
     const token = window.sessionStorage.getItem('token')

@@ -2,12 +2,15 @@ package com.keep.sso.entity;
 
 import java.time.LocalDateTime;
 import java.io.Serializable;
+
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author system
@@ -22,7 +25,8 @@ public class KeepClient implements Serializable {
     /**
      * 主键
      */
-      private Integer id;
+    @TableId(value = "Id",type = IdType.AUTO)
+    private Integer id;
 
     /**
      * 服务名

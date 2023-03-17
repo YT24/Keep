@@ -1,13 +1,18 @@
 <template>
   <div class="main">
-    <el-form :inline="true" class="demo-form-inline">
-      <el-form-item label="">
-        <el-input v-model="keyword" placeholder="应用名称"></el-input>
-      </el-form-item>
-      <el-form-item>
-        <el-button type="primary" @click="search(keyword)">搜索</el-button>
-      </el-form-item>
-    </el-form>
+    <el-card class="box-card">
+      <el-row :gutter="20">
+        <el-col :span="6">
+          <el-input class="search-input" v-model="keyword" placeholder="请输入内容"></el-input>
+        </el-col>
+        <el-col :span="12">
+          <el-button type="primary" @click="search(keyword)">搜索</el-button>
+        </el-col>
+        <el-col :span="6">
+          <el-button type="primary" @click="addRes(true)">新建应用</el-button>
+        </el-col>
+      </el-row>
+    </el-card>
     <el-table
         :data="tableData"
         style="width: 100%">
@@ -57,7 +62,7 @@
         <template slot-scope="scope">
           <el-popover trigger="hover" placement="top">
             <div slot="reference" class="name-wrapper">
-              <el-tag size="medium">{{ scope.row.serviceName }}</el-tag>
+              <el-tag size="medium">{{ scope.row.callbackUrl }}</el-tag>
             </div>
           </el-popover>
         </template>
@@ -80,47 +85,88 @@
     <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
-        :current-page="currentPage"
-        :page-sizes="[100, 200, 300, 400]"
-        :page-size="100"
+        :current-page=currentPage
+        :page-sizes="[10, 20, 30, 50]"
+        :page-size=pageSize
         layout="total, sizes, prev, pager, next, jumper"
-        :total="400">
+        :total=total>
     </el-pagination>
+    <ClientEditDialog v-if="showDialog"
+                  :showDialog="showDialog"
+                  :clientDialogData="clientDialogData"
+                  @on-result-change="changeIsShowDialog"
+                  @dialog-operation="operation"/>
+    <ClientAddDialog v-if="showAddDialog" :showAddDialog="showAddDialog"/>
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import ClientEditDialog from "../views/dialog/ClientEditDialog.vue"
+import ClientAddDialog from "@/views/dialog/ClientAddDialog";
 
 export default {
+
+  components: {ClientEditDialog,ClientAddDialog},
   created() {
     this.getClients()
   },
   data() {
     return {
       tableData: [],
+      keyword: '',
+      showDialog: false,
+      showAddDialog:false,
+      clientDialogData: {
+        id: '',
+        serviceName: '',
+        clientId: '',
+        clientSecret: '',
+        callbackUrl: '',
+        protocol: ''
+      },
+      pageSize: 10,
+      total: 0,
       currentPage: 1,
-      keyword:''
+
     }
   },
   methods: {
-    //搜索
-    search(keyword) {
-      console.log(keyword);
-    },
-    handleEdit(index, row) {
-      console.log(index, row);
-    },
-    handleDelete(index, row) {
-      console.log(index, row);
-    },
+    // 获取应用列表
     async getClients() {
       axios.get("/keep-sso/keepClients").then(resp => {
-        console.log(resp.data)
-        this.tableData = resp.data.data
+        this.tableData = resp.data.data.list
+        this.currentPage = resp.data.data.currentPage
+        this.total = resp.data.data.total
       }).catch(err => {
         console.log(err.message)
       });
+    },
+
+    // 编辑应用
+    operation(val) {
+      this.showDialog = val;
+    },
+    changeIsShowDialog(val) {
+      console.log("changeIsShowDialog:" + val);
+      this.showDialog = val;  //监听变化时触发的函数修改父组件的是否显示状态
+    },
+
+    //搜索
+    search(keyword) {
+      axios.get("/keep-sso/keepClients?keyword=" + keyword).then(resp => {
+        this.tableData = resp.data.data.list
+      }).catch(err => {
+        console.log(err.message)
+      });
+    },
+    // 展示编辑应用对话框
+    handleEdit(index, row) {
+      this.showDialog = true
+      this.clientDialogData = row
+    },
+    handleDelete(index, row) {
+      console.log(index, row);
     },
     // 分页方法
     handleSizeChange(val) {
@@ -128,12 +174,13 @@ export default {
     },
     handleCurrentChange(val) {
       console.log(`当前页: ${val}`);
+    },
+    addRes(val){
+      this.showAddDialog = val
     }
   }
 }
 </script>
 <style>
-.el-pagination {
-  margin-top: 10px;
-}
+
 </style>
