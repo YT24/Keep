@@ -5,10 +5,10 @@
         <el-col :span="6">
           <el-input class="search-input" v-model="keyword" placeholder="请输入内容"></el-input>
         </el-col>
-        <el-col :span="12">
+        <el-col :span="16">
           <el-button type="primary" @click="search(keyword)">搜索</el-button>
         </el-col>
-        <el-col :span="6">
+        <el-col :span="2">
           <el-button type="primary" @click="addRes(true)">新建应用</el-button>
         </el-col>
       </el-row>
@@ -17,8 +17,7 @@
         :data="tableData"
         style="width: 100%">
       <el-table-column
-          label="ID"
-          width="180">
+          label="ID">
         <template slot-scope="scope">
           <i class="el-icon-time"></i>
           <span style="margin-left: 10px">{{ scope.row.id }}</span>
@@ -26,7 +25,7 @@
       </el-table-column>
       <el-table-column
           label="应用名称"
-          width="180">
+          >
         <template slot-scope="scope">
           <el-popover trigger="hover" placement="top">
             <div slot="reference" class="name-wrapper">
@@ -37,28 +36,28 @@
       </el-table-column>
       <el-table-column
           label="应用ID"
-          width="180">
+          >
         <template slot-scope="scope">
           <span style="margin-left: 10px">{{ scope.row.clientId }}</span>
         </template>
       </el-table-column>
       <el-table-column
           label="应用密钥"
-          width="180">
+          >
         <template slot-scope="scope">
           <span style="margin-left: 10px">{{ scope.row.clientSecret }}</span>
         </template>
       </el-table-column>
       <el-table-column
           label="认证协议"
-          width="180">
+          >
         <template slot-scope="scope">
           <span style="margin-left: 10px">{{ scope.row.protocol }}</span>
         </template>
       </el-table-column>
       <el-table-column
           label="回调地址"
-          width="180">
+          >
         <template slot-scope="scope">
           <el-popover trigger="hover" placement="top">
             <div slot="reference" class="name-wrapper">
@@ -182,5 +181,4 @@ export default {
 }
 </script>
 <style>
-
 </style>

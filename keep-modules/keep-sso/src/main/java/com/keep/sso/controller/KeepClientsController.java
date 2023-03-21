@@ -7,7 +7,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageInfo;
 import com.keep.common.core.domain.entity.ResponseResult;
 import com.keep.sso.entity.KeepClient;
-import com.keep.sso.entity.dto.ClientSearchDto;
+import com.keep.sso.entity.dto.SearchDto;
 import com.keep.sso.entity.dto.KeepClientCreateDto;
 import com.keep.sso.entity.vo.KeepClientVo;
 import com.keep.sso.entity.vo.KeepCreateVo;
@@ -39,7 +39,7 @@ public class KeepClientsController {
 
     @ApiOperation("应用列表")
     @GetMapping("")
-    public ResponseResult<PageInfo<List<KeepClientVo>>> list(@Validated ClientSearchDto searchDto){
+    public ResponseResult<PageInfo<List<KeepClientVo>>> list(@Validated SearchDto searchDto){
         List<KeepClient> keepClients = keepRegisterService.lambdaQuery().like(StringUtils.isNotBlank(searchDto.getKeyword()),KeepClient::getServiceName,searchDto.getKeyword()).list();
         return ResponseResult.success(new PageInfo<>(keepClients));
     }

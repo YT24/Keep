@@ -10,32 +10,26 @@
     </el-header>
     <el-container>
       <el-aside width="200px">
-        <el-menu
-            background-color="#545c64"
-            text-color="#fff"
-            active-text-color="#ffd04b"
-            router
-            :default-active="activePath"
-        >
-          <el-menu-item index="/clients" @click="saveNavState('/clients')">
-            <i class="el-icon-menu"></i>
-            <span slot="title">应用管理</span>
-          </el-menu-item>
-          <el-menu-item index="2">
-            <i class="el-icon-menu"></i>
-            <span slot="title">权限管理</span>
-          </el-menu-item>
-          <el-menu-item index="3">
-            <i class="el-icon-document"></i>
-            <span slot="title">菜单管理</span>
-          </el-menu-item>
-        </el-menu>
+          <el-menu
+              background-color="#545c64"
+              text-color="#fff"
+              active-text-color="#ffd04b"
+              :router=true
+              :default-active="activePath">
+            <el-submenu :index="'/'+menu.url" v-for="menu in menusData" :key="menu.id">
+              <template slot="title">
+                <i class="el-icon-location"></i>
+                <span>{{ menu.name }}</span>
+              </template>
+              <el-menu-item v-for="subMenu in menu.children" :key="subMenu.id" :index="'/'+subMenu.url">
+                <i class="el-icon-menu"></i>
+                <span slot="title">{{subMenu.name}}</span>
+              </el-menu-item>
+            </el-submenu>
+
+          </el-menu>
       </el-aside>
       <el-main>
-        <el-breadcrumb separator="/">
-          <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-          <el-breadcrumb-item >应用管理</el-breadcrumb-item>
-        </el-breadcrumb>
         <router-view></router-view>
       </el-main>
     </el-container>
@@ -48,13 +42,14 @@ import axios from "axios";
 export default {
   name: "Index",
   created() {
-    this.handleSelectMenu("/clients")
+    this.getMenus();
+    this.handleSelectMenu("clients")
     this.activePath = window.sessionStorage.getItem("activePath")
   },
   data() {
     return {
       activePath:'',
-      tableData:[]
+      menusData:[]
     }
   },
 
@@ -64,15 +59,16 @@ export default {
     }
     ,
     handleSelectMenu(item) {
-      console.log(item);
-      if (this.$route.path !== item.url) {
-        this.$router.push({ path: item.url })
-      }
+      console.log("item:"+item);
+      console.log("this.$route.path:"+this.$route.path);
+      console.log(this.$route.path !== item.url)
+      this.$router.push(item)
+      this.activePath=item
     }
     ,
      getMenus() {
-     return axios.get("/menus").then(resp => {
-
+     return axios.get("/keep-sso/keepMenus").then(resp => {
+        this.menusData = resp.data.data;
       }).catch(err => {
         console.log(err.message)
       });

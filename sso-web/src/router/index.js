@@ -3,6 +3,8 @@ import VueRouter from 'vue-router'
 import Login from "@/components/Login";
 import Index from "@/views/Index"
 import Clients from "@/components/Clients";
+import Roles from "@/views/menu/Roles";
+import Users from "@/views/user/Users";
 
 
 Vue.use(VueRouter)
@@ -10,14 +12,14 @@ Vue.use(VueRouter)
 const routes = [
     {path: '/', redirect: '/login'},
     {path: '/login', component: Login},
-    {
-        path: '/index',
-        component: Index,
-        children: [{
-            path: '/clients',
-            component: Clients
-        }]
-    }
+    {path: '/index', component: Index,
+        children: [
+            {path: '/clients', component: Clients},
+            {path: '/roles',component: Roles},
+            {path: '/users',component: Users}
+        ]
+    },
+
 ]
 
 const router = new VueRouter({
