@@ -35,7 +35,7 @@ CREATE TABLE `branch_table` (
   `gmt_modified` datetime(6) DEFAULT NULL,
   PRIMARY KEY (`branch_id`),
   KEY `idx_xid` (`xid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ;
 
 -- ----------------------------
 -- Records of branch_table
@@ -62,7 +62,7 @@ CREATE TABLE `global_table` (
   PRIMARY KEY (`xid`),
   KEY `idx_status_gmt_modified` (`status`,`gmt_modified`),
   KEY `idx_transaction_id` (`transaction_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ;
 
 -- ----------------------------
 -- Records of global_table
@@ -118,7 +118,7 @@ CREATE TABLE `keep_client` (
   `update_time` datetime DEFAULT NULL COMMENT '修改时间',
   `status` tinyint(1) DEFAULT NULL COMMENT '是否停用',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8556551 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='应用表';
+) ENGINE=InnoDB AUTO_INCREMENT=8556551 DEFAULT CHARSET=utf8mb4  COMMENT='应用表';
 
 -- ----------------------------
 -- Records of keep_client

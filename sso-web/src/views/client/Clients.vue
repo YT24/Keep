@@ -101,7 +101,7 @@
 
 <script>
 import axios from "axios";
-import ClientEditDialog from "../views/dialog/client/ClientEditDialog.vue"
+import ClientEditDialog from "../dialog/client/ClientEditDialog.vue"
 import ClientAddDialog from "@/views/dialog/client/ClientAddDialog";
 
 export default {

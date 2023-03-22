@@ -9,7 +9,7 @@
           <el-button type="primary" @click="getUsers(searchDto.keyword)">搜索</el-button>
         </el-col>
         <el-col :span="2">
-          <el-button type="primary" @click="addRes(true)">新建用户</el-button>
+          <el-button type="primary" @click="addUser(true)">新建用户</el-button>
         </el-col>
       </el-row>
     </el-card>
@@ -61,12 +61,12 @@
         <template slot-scope="scope">
           <el-button
               size="mini"
-              @click="handleEdit(scope.$index, scope.row)">编辑
+              @click="edit(scope.$index, scope.row)">编辑
           </el-button>
           <el-button
               size="mini"
               type="danger"
-              @click="handleDelete(scope.$index, scope.row)">删除
+              @click="delete(scope.$index, scope.row)">删除
           </el-button>
         </template>
       </el-table-column>
@@ -81,24 +81,33 @@
         layout="total, sizes, prev, pager, next, jumper"
         :total=total>
     </el-pagination>
+    <UserAddDialog v-if="showAddUserDialog"
+                   :showAddUserDialog="showAddUserDialog"
+                   @successAdd="getUserList"
+    />
+    <UserEditDialog v-if="showEditUserDialog"
+                    :showEditUserDialog="showEditUserDialog"
+                    :roleData="userData"
+                    @successEdit="getUserList"/>
+
   </div>
 </template>
 
 <script>
 import axios from "axios";
-
-
+import UserAddDialog from "@/views/dialog/user/UserAddDialog";
+import UserEditDialog from "@/views/dialog/user/UserEditDialog";
 export default {
 
-  components: {},
+  components: {UserAddDialog,UserEditDialog},
   created() {
     this.getUsers(this.searchDto)
   },
   data() {
     return {
       usersData: [],
-      showDialog: false,
-      showAddDialog: false,
+      showAddUserDialog: false,
+      showEditUserDialog: false,
       userData: {
         id: '',
         username: '',
@@ -129,6 +138,16 @@ export default {
         console.log(err.message)
       });
     },
+    async getUserList() {
+      axios.get("/keep-sso/keepUsers?keyword=" + this.searchDto.keyword +"&pageNum="+this.searchDto.pageNum + "&pageSize="+this.searchDto.pageSize).then(resp => {
+        this.usersData = resp.data.data.list
+        this.currentPage = resp.data.data.currentPage
+        this.pageSize = resp.data.data.pageSize
+        this.total = resp.data.data.total
+      }).catch(err => {
+        console.log(err.message)
+      });
+    },
 
     // 分页
     handleSizeChange(val) {
@@ -140,6 +159,13 @@ export default {
       this.searchDto.pageNum = val
       this.getUsers(this.searchDto)
       console.log(`当前页: ${val}`);
+    },
+    addUser(val){
+      this.showAddUserDialog = !this.showAddUserDialog
+    },
+    edit(row){
+      this.userData = row
+      this.showEditUserDialog = !this.showEditUserDialog
     }
   }
 }

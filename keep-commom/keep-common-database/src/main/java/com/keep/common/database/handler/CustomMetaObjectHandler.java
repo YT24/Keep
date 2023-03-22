@@ -17,18 +17,18 @@ public class CustomMetaObjectHandler implements MetaObjectHandler {
     @Override
     public void insertFill(MetaObject metaObject) {
         LocalDateTime now = LocalDateTime.now();
-        if(Objects.isNull(this.getFieldValByName("createdTime", metaObject))){
-            this.setFieldValByName("createdTime", now, metaObject);
+        if(Objects.isNull(this.getFieldValByName("createTime", metaObject))){
+            this.setFieldValByName("createTime", now, metaObject);
         };
-        if(Objects.isNull(this.getFieldValByName("updatedTime", metaObject))){
-            this.setFieldValByName("updatedTime", now, metaObject);
+        if(Objects.isNull(this.getFieldValByName("updateTime", metaObject))){
+            this.setFieldValByName("updateTime", now, metaObject);
         }
     }
 
     @Override
     public void updateFill(MetaObject metaObject) {
         LocalDateTime now = LocalDateTime.now();
-        this.setFieldValByName("updatedTime", now, metaObject);
+        this.setFieldValByName("updateTime", now, metaObject);
     }
 
 }

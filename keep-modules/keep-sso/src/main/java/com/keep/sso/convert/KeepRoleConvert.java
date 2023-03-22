@@ -1,6 +1,7 @@
 package com.keep.sso.convert;
 
 import com.keep.sso.entity.KeepRole;
+import com.keep.sso.entity.dto.KeepRoleSaveDto;
 import com.keep.sso.entity.dto.KeepUserSaveDto;
 import com.keep.sso.entity.vo.KeepRoleVo;
 import com.keep.sso.entity.vo.KeepUserVo;
@@ -20,4 +21,5 @@ public interface KeepRoleConvert {
 
     List<KeepRoleVo> toKeepRoleVos(List<KeepRole> kepRoles);
 
+    KeepRole toKeepRole(KeepRoleSaveDto keepRoleSaveDto);
 }
