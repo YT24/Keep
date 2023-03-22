@@ -52,21 +52,19 @@ export default {
 
   methods: {
     cancle(value) {
-      console.log("dialog 取消 or 确认: " + value)
-      // this.showAddDialog = value
       this.show = value
     },
     confirm(value) {
-      axios.post("/keep-sso/keepClients",this.formData).then(resp => {
+      axios.post("/keep-sso/keepClients", this.formData).then(resp => {
         if (resp.data.code !== 200) {
           alert(resp.data.msg)
+        } else {
+          this.cancle(value)
+          this.$emit("success")
         }
-        this.showAddDialog = value
       }).catch(err => {
         console.log(err)
       });
-      this.cancle(false);
-      this.$router.push({ path: item.url })
     }
   }
 }

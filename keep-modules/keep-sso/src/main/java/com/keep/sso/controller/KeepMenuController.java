@@ -38,7 +38,7 @@ public class KeepMenuController {
 
     @ApiOperation("菜单树")
     @GetMapping("")
-    public ResponseResult<PageInfo<List<KeepMenuVo>>> list(SearchDto searchDto){
+    public ResponseResult<List<KeepMenuVo>> list(SearchDto searchDto){
 
         return ResponseResult.success(keepMenuService.listByPage(searchDto));
     }

@@ -4,21 +4,43 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.keep.sso.entity.KeepMenu">
-        <id column="id" property="id" />
-        <result column="name" property="name" />
-        <result column="parent_id" property="parentId" />
-        <result column="menu_order" property="menuOrder" />
-        <result column="url" property="url" />
-        <result column="create_time" property="createTime" />
-        <result column="create_by" property="createBy" />
-        <result column="update_time" property="updateTime" />
-        <result column="update_by" property="updateBy" />
-        <result column="deleted" property="deleted" />
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="parent_id" property="parentId"/>
+        <result column="menu_order" property="menuOrder"/>
+        <result column="url" property="url"/>
+        <result column="create_time" property="createTime"/>
+        <result column="create_by" property="createBy"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="update_by" property="updateBy"/>
+        <result column="deleted" property="deleted"/>
+    </resultMap>
+
+    <resultMap id="listAllResultMap" type="com.keep.sso.entity.vo.KeepMenuOperationVo">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <collection property="operations" ofType="com.keep.sso.entity.vo.KeepOperationVo">
+            <id column="operId" property="operId"/>
+            <result column="operName" property="operName"/>
+        </collection>
+
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, name, parent_id, menu_order, url, create_time, create_by, update_time, update_by, deleted
+        id
+        , name, parent_id, menu_order, url, create_time, create_by, update_time, update_by, deleted
     </sql>
+    <select id="listAll" resultMap="listAllResultMap">
+        SELECT menu.id, menu.`name`, kmoko.id as operId, kmoko.`name` as operName
+        FROM keep_menu menu
+                 LEFT JOIN (select kmo.menu_id, ko.id, ko.`name`
+                            from keep_menu_operation kmo
+                                     INNER JOIN keep_operation ko on ko.id = kmo.operation_id) kmoko
+                           ON menu.id = kmoko.menu_id
+        WHERE menu.parent_id is null
+
+
+    </select>
 
 </mapper>

@@ -25,7 +25,7 @@ public class MybatisGenerator {
 
     //生成指定表 包含和出去二选一,如果都不填，则全库的表
     private static String[] inculdeTables = new String[]{
-        "keep_menu","keep_menu_operation","keep_operation"
+        "keep_role","keep_role_permission"
     };
 
     private static String[] exculdeTableNames = new String[]{};

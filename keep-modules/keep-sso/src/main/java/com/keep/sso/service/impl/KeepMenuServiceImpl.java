@@ -3,6 +3,7 @@ package com.keep.sso.service.impl;
 import com.keep.sso.convert.KeepMenuConvert;
 import com.keep.sso.entity.KeepMenu;
 import com.keep.sso.entity.dto.SearchDto;
+import com.keep.sso.entity.vo.KeepMenuOperationVo;
 import com.keep.sso.entity.vo.KeepMenuVo;
 import com.keep.sso.mapper.KeepMenuMapper;
 import com.keep.sso.service.KeepMenuService;
@@ -29,6 +30,12 @@ public class KeepMenuServiceImpl extends ServiceImpl<KeepMenuMapper, KeepMenu> i
         List<KeepMenu> list = this.lambdaQuery().list();
         List<KeepMenuVo> vos = KeepMenuConvert.INSTANCE.toKeepMenuVos(list);
         return streamBuildTree(vos);
+    }
+
+    @Override
+    public List<KeepMenuOperationVo> listAll() {
+
+        return this.baseMapper.listAll();
     }
 
     public List<KeepMenuVo> streamBuildTree(List<KeepMenuVo> treeList) {

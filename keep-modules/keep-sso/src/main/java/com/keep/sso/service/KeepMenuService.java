@@ -3,6 +3,7 @@ package com.keep.sso.service;
 import com.keep.sso.entity.KeepMenu;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.keep.sso.entity.dto.SearchDto;
+import com.keep.sso.entity.vo.KeepMenuOperationVo;
 import com.keep.sso.entity.vo.KeepMenuVo;
 
 import java.util.List;
@@ -18,4 +19,6 @@ import java.util.List;
 public interface KeepMenuService extends IService<KeepMenu> {
 
     List<KeepMenuVo> listByPage(SearchDto searchDto);
+
+    List<KeepMenuOperationVo> listAll();
 }

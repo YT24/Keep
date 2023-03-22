@@ -11,13 +11,13 @@ import java.time.LocalDateTime;
 public class  BaseEntity {
 
     @TableId(value = "id", type = IdType.AUTO)
-    private Long id;
+    private Integer id;
 
-    @TableField(fill = FieldFill.INSERT_UPDATE,value="updated_time")
-    private LocalDateTime updatedTime;
+    @TableField(fill = FieldFill.INSERT_UPDATE,value="update_time")
+    private LocalDateTime updateTime;
 
-    @TableField(fill = FieldFill.INSERT,value="created_time")
-    private LocalDateTime createdTime;
+    @TableField(fill = FieldFill.INSERT,value="create_time")
+    private LocalDateTime createTime;
 
     @TableField(value="deleted")
     @TableLogic(value = "NULL",delval="now()")

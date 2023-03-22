@@ -3,7 +3,7 @@ import VueRouter from 'vue-router'
 import Login from "@/components/Login";
 import Index from "@/views/Index"
 import Clients from "@/components/Clients";
-import Roles from "@/views/menu/Roles";
+import Roles from "@/views/role/Roles";
 import Users from "@/views/user/Users";
 
 

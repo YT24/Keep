@@ -2,6 +2,9 @@ package com.keep.sso.mapper;
 
 import com.keep.sso.entity.KeepMenu;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.keep.sso.entity.vo.KeepMenuOperationVo;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +16,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface KeepMenuMapper extends BaseMapper<KeepMenu> {
 
+    List<KeepMenuOperationVo> listAll();
 }

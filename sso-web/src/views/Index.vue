@@ -9,25 +9,35 @@
 
     </el-header>
     <el-container>
-      <el-aside width="200px">
-          <el-menu
-              background-color="#545c64"
-              text-color="#fff"
-              active-text-color="#ffd04b"
-              :router=true
-              :default-active="activePath">
-            <el-submenu :index="'/'+menu.url" v-for="menu in menusData" :key="menu.id">
-              <template slot="title">
-                <i class="el-icon-location"></i>
-                <span>{{ menu.name }}</span>
-              </template>
-              <el-menu-item v-for="subMenu in menu.children" :key="subMenu.id" :index="'/'+subMenu.url">
-                <i class="el-icon-menu"></i>
-                <span slot="title">{{subMenu.name}}</span>
-              </el-menu-item>
-            </el-submenu>
+      <el-aside :width="isCollaspe ? '64px' : '200px'">
+        <div class="toggle-button" @click="toggleCollaspe">|||</div>
+        <el-menu
+            background-color="#545c64"
+            text-color="#fff"
+            active-text-color="#409EFF"
+            router
+            :collapse="isCollaspe"
+            :collapse-transition="false"
+            :default-active="activePath"
+            :unique-opened="true">
 
-          </el-menu>
+          <el-submenu :index="menu.id.toString()" v-for="menu in menusData" :key="menu.id">
+            <template slot="title">
+              <i class="el-icon-location"></i>
+              <span>{{ menu.name }}</span>
+            </template>
+            <el-menu-item-group>
+              <el-menu-item v-for="subMenu in menu.children"
+                            :key="subMenu.id"
+                            :index="'/'+subMenu.url"
+                            @click="saveNavState('/'+subMenu.url)">
+                <i class="el-icon-menu"></i>
+                <span slot="title">{{ subMenu.name }}</span>
+              </el-menu-item>
+            </el-menu-item-group>
+          </el-submenu>
+
+        </el-menu>
       </el-aside>
       <el-main>
         <router-view></router-view>
@@ -43,40 +53,41 @@ export default {
   name: "Index",
   created() {
     this.getMenus();
-    this.handleSelectMenu("clients")
     this.activePath = window.sessionStorage.getItem("activePath")
+    this.handleSelectMenu(this.activePath)
   },
   data() {
     return {
-      activePath:'',
-      menusData:[]
+      isCollaspe: false,
+      activePath: '',
+      menusData: []
     }
   },
 
   methods: {
     logout: function () {
       console.log("登出了～～～")
-    }
-    ,
+      window.sessionStorage.removeItem("token")
+    },
     handleSelectMenu(item) {
-      console.log("item:"+item);
-      console.log("this.$route.path:"+this.$route.path);
-      console.log(this.$route.path !== item.url)
       this.$router.push(item)
-      this.activePath=item
+      this.activePath = item
     }
     ,
-     getMenus() {
-     return axios.get("/keep-sso/keepMenus").then(resp => {
+    getMenus() {
+      return axios.get("/keep-sso/keepMenus").then(resp => {
         this.menusData = resp.data.data;
       }).catch(err => {
         console.log(err.message)
       });
     },
-  async  saveNavState(activePath){
-      await getMenus()
-      window.sessionStorage.setItem("activePath",activePath)
+    saveNavState(activePath) {
+      window.sessionStorage.setItem("activePath", activePath)
       this.activePath = activePath
+      console.log("activePath:" + activePath)
+    },
+    toggleCollaspe() {
+      this.isCollaspe = !this.isCollaspe
     }
   }
 }
@@ -111,14 +122,28 @@ export default {
 }
 
 .el-aside {
-  background-color: #545c64
+  background-color: #545c64;
+
+  .el-menu {
+    border-right: none;
+  }
 }
 
 .el-main {
   background-color: white;
 }
-.el-breadcrumb{
+
+.el-breadcrumb {
   margin-bottom: 20px;
 }
 
+.toggle-button {
+  background-color: gray;
+  font-size: 10px;
+  line-height: 24px;
+  color: white;
+  text-align: center;
+  letter-spacing: 0.3em;
+  cursor: pointer;
+}
 </style>

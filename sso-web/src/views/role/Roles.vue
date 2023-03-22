@@ -5,28 +5,27 @@
         <el-col :span="6">
           <el-input class="search-input" v-model="keyword" placeholder="请输入内容"></el-input>
         </el-col>
-        <el-col :span="12">
-          <el-button type="primary" @click="search(keyword)">搜索</el-button>
+        <el-col :span="16">
+          <el-button type="primary" @click="getUsers(keyword)">搜索</el-button>
         </el-col>
-        <el-col :span="6">
-          <el-button type="primary" @click="addRes(true)">新建菜单</el-button>
+        <el-col :span="2">
+          <el-button type="primary" @click="addRes(true)">新建角色</el-button>
         </el-col>
       </el-row>
     </el-card>
     <el-table
-        :data="menusData"
+        :data="rolesData"
         style="width: 100%">
       <el-table-column
           label="ID"
-          width="180">
+          >
         <template slot-scope="scope">
-          <i class="el-icon-time"></i>
           <span style="margin-left: 10px">{{ scope.row.id }}</span>
         </template>
       </el-table-column>
       <el-table-column
-          label="菜单名称"
-          width="180">
+          label="角色名称"
+          >
         <template slot-scope="scope">
           <el-popover trigger="hover" placement="top">
             <div slot="reference" class="name-wrapper">
@@ -36,10 +35,14 @@
         </template>
       </el-table-column>
       <el-table-column
-          label="菜单URL"
-          width="180">
+          label="用户数量"
+      >
         <template slot-scope="scope">
-          <span style="margin-left: 10px">{{ scope.row.url }}</span>
+          <el-popover trigger="hover" placement="top">
+            <div slot="reference" class="name-wrapper">
+              <el-tag size="medium">{{ scope.row.name }}</el-tag>
+            </div>
+          </el-popover>
         </template>
       </el-table-column>
 
@@ -78,17 +81,15 @@ export default {
 
   components: {},
   created() {
+    this.getRoles(this.keyword)
   },
   data() {
     return {
-      tableData: [],
+      rolesData: [],
       keyword: '',
-      showDialog: false,
-      showAddDialog:false,
-      menusData: {
+      roleData: {
         id: '',
         name: '',
-        url: ''
       },
       pageSize: 10,
       total: 0,
@@ -98,50 +99,23 @@ export default {
   },
   methods: {
     // 获取菜单列表
-    async getRoles() {
-      axios.get("/keep-sso/keepRoles").then(resp => {
-        this.tableData = resp.data.data.list
+    async getRoles(keyword) {
+      axios.get("/keep-sso/keepRoles?keyword=" + keyword).then(resp => {
+        this.rolesData = resp.data.data.list
         this.currentPage = resp.data.data.currentPage
+        this.pageSize = resp.data.data.pageSize
         this.total = resp.data.data.total
       }).catch(err => {
         console.log(err.message)
       });
     },
 
-    // 编辑菜单
-    operation(val) {
-      this.showDialog = val;
-    },
-    changeIsShowDialog(val) {
-      console.log("changeIsShowDialog:" + val);
-      this.showDialog = val;  //监听变化时触发的函数修改父组件的是否显示状态
-    },
-
-    //搜索
-    search(keyword) {
-      axios.get("/keep-sso/keepMenus?keyword=" + keyword).then(resp => {
-        this.tableData = resp.data.data.list
-      }).catch(err => {
-        console.log(err.message)
-      });
-    },
-    // 展示编辑菜单对话框
-    handleEdit(index, row) {
-      this.showDialog = true
-      this.clientDialogData = row
-    },
-    handleDelete(index, row) {
-      console.log(index, row);
-    },
-    // 分页方法
+    // 分页
     handleSizeChange(val) {
       console.log(`每页 ${val} 条`);
     },
     handleCurrentChange(val) {
       console.log(`当前页: ${val}`);
-    },
-    addRes(val){
-      this.showAddDialog = val
     }
   }
 }

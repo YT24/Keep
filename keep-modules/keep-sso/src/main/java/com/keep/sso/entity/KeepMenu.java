@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import java.time.LocalDateTime;
 import java.io.Serializable;
 
+import com.keep.common.database.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -19,15 +20,9 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class KeepMenu implements Serializable {
+public class KeepMenu extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
-    /**
-     * 主键id
-     */
-    @TableId(value = "id", type = IdType.AUTO)
-    private Integer id;
 
     /**
      * 菜单名称
@@ -49,15 +44,12 @@ public class KeepMenu implements Serializable {
      */
     private String url;
 
-    private LocalDateTime createTime;
 
     private String createBy;
 
-    private LocalDateTime updateTime;
 
     private String updateBy;
 
-    private LocalDateTime deleted;
 
 
 }
