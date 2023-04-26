@@ -5,7 +5,7 @@
  Source Server Type    : MySQL
  Source Server Version : 80026
  Source Host           : localhost:3306
- Source Schema         : good_db_2
+ Source Schema         : goods_db_2
 
  Target Server Type    : MySQL
  Target Server Version : 80026

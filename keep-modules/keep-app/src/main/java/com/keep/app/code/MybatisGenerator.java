@@ -25,7 +25,7 @@ public class MybatisGenerator {
 
     //生成指定表 包含和出去二选一,如果都不填，则全库的表
     private static String[] inculdeTables = new String[]{
-        "sys_user"
+        "t_seckill_order","t_order"
     };
 
     private static String[] exculdeTableNames = new String[]{};
@@ -39,7 +39,7 @@ public class MybatisGenerator {
     private static DataSourceConfig getDataSourceConfig() {
 
         return new DataSourceConfig().setDbType(DbType.MYSQL)
-                .setUrl("jdbc:mysql://127.0.0.1:3306/yangt?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&allowMultiQueries=true")
+                .setUrl("jdbc:mysql://127.0.0.1:3306/goods_db_1?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&allowMultiQueries=true")
                 //用时再填
                 .setUsername("root")
                 //用时再填
@@ -97,7 +97,7 @@ public class MybatisGenerator {
      */
 
     private static PackageConfig getPackageConfig() {
-        String basePath = "app/src/main";
+        String basePath = "keep-modules/keep-app/src/main";
         HashMap<String, String> pathInfo = new HashMap<>(10);
         pathInfo.put(ConstVal.XML_PATH, basePath + "/resources/mapper");
         // /java/tech/valuesimplex/srpstock/code/generator
@@ -156,7 +156,7 @@ public class MybatisGenerator {
                 // 全局大写命名 ORACLE 注意
                 .setCapitalMode(true)
                 .setEntityLombokModel(true)
-                .setRestControllerStyle(false)
+                .setRestControllerStyle(true)
                 //从数据库表到文件的命名策略
                 .setNaming(NamingStrategy.underline_to_camel)
                 .setColumnNaming(NamingStrategy.underline_to_camel);

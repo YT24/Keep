@@ -17,7 +17,7 @@
         <module>keep-sso</module>
         <module>keep-shardingjdbc</module>
         <module>keep-rw-separation</module>
-        <module>keep-demo</module>
+        <module>keep-seckill</module>
     </modules>
 
     <properties>

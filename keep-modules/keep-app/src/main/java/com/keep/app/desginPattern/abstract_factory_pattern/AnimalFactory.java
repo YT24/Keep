@@ -5,10 +5,10 @@ public class AnimalFactory extends AbstractFactory {
     @Override
     public Animal getAnimal(String type) {
         if ("dog".equals(type)) {
-            Dog dog = new Dog();
+            Animal dog = new Dog();
             return dog;
         } else if ("cat".equals(type)) {
-            Cat cat = new Cat();
+            Animal cat = new Cat();
             return cat;
         }
         return null;

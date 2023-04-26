@@ -6,21 +6,21 @@ spring:
     datasource:
       g0:
         driver-class-name: com.mysql.cj.jdbc.Driver
-        password: root1234
+        password: root
         type: com.alibaba.druid.pool.DruidDataSource
-        url: jdbc:mysql://localhost:3306/good_db_1?characterEncoding=utf-8&useUnicode=true&useSSL=false&serverTimezone=UTC
+        url: jdbc:mysql://localhost:3306/goods_db_1?characterEncoding=utf-8&useUnicode=true&useSSL=false&serverTimezone=UTC
         username: root
       g1:
         driver-class-name: com.mysql.cj.jdbc.Driver
-        password: root1234
+        password: root
         type: com.alibaba.druid.pool.DruidDataSource
-        url: jdbc:mysql://localhost:3306/good_db_1?characterEncoding=utf-8&useUnicode=true&useSSL=false&serverTimezone=UTC
+        url: jdbc:mysql://localhost:3306/goods_db_1?characterEncoding=utf-8&useUnicode=true&useSSL=false&serverTimezone=UTC
         username: root
       g2:
         driver-class-name: com.mysql.cj.jdbc.Driver
-        password: root1234
+        password: root
         type: com.alibaba.druid.pool.DruidDataSource
-        url: jdbc:mysql://localhost:3306/good_db_2?characterEncoding=utf-8&useUnicode=true&useSSL=false&serverTimezone=UTC
+        url: jdbc:mysql://localhost:3306/goods_db_2?characterEncoding=utf-8&useUnicode=true&useSSL=false&serverTimezone=UTC
         username: root
       names: g0,g1,g2
     sharding:

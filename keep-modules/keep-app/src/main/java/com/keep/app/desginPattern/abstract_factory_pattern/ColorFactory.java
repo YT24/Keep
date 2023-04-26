@@ -11,10 +11,10 @@ public class ColorFactory extends AbstractFactory {
     @Override
     public Color getColor(String type) {
         if ("red".equals(type)) {
-            Red red = new Red();
+            Color red = new Red();
             return red;
         } else if ("green".equals(type)) {
-            Green green = new Green();
+            Color green = new Green();
             return green;
         }
         return null;

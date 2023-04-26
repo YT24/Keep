@@ -1,0 +1,36 @@
+server:
+  port: 5006
+
+spring:
+  application:
+    name: keep-seckill
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 42.192.117.45:8848
+        namespace: keep
+        group: KEEP
+      config:
+        server-addr: 42.192.117.45:8848
+        file-extension: yml
+        namespace: keep
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/seckill?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&allowMultiQueries=true
+    username: root
+    password: root
+
+  redis:
+    host: 42.192.117.45
+    jedis:
+      pool:
+        max-idle: 200
+        max-wait:
+    port: 6379
+    timeout: 6000
+    enable: true
+
+
+
+
+

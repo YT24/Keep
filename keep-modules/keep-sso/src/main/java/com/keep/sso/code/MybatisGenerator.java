@@ -43,7 +43,7 @@ public class MybatisGenerator {
                 //用时再填
                 .setUsername("root")
                 //用时再填
-                .setPassword("root1234")
+                .setPassword("root")
                 .setDriverName("com.mysql.cj.jdbc.Driver")
                 .setTypeConvert(new MySqlTypeConvert() {
                     @Override

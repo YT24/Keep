@@ -4,12 +4,12 @@ server:
 spring:
   application:
     name: keep-shardingjdbc
-  cloud:
-    nacos:
-      discovery:
-        server-addr: 42.192.117.45:8848
-        group: KEEP
-        namespace: keep
+#  cloud:
+#    nacos:
+#      discovery:
+#        server-addr: 42.192.117.45:8848
+#        group: KEEP
+#        namespace: keep
   profiles:
     active: complex
 #    active: inline

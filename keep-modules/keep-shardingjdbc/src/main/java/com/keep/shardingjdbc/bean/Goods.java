@@ -6,8 +6,8 @@ import lombok.Data;
 
 @Data
 public class Goods {
-    @TableId(value = "id",type = IdType.AUTO)
-    private Integer id;
+    //@TableId(value = "id",type = IdType.AUTO)
+    private Long id;
 
     private String name;
 

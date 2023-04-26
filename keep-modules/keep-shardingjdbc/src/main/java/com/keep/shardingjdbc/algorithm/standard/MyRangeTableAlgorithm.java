@@ -40,7 +40,7 @@ public class MyRangeTableAlgorithm implements RangeShardingAlgorithm<Integer> {
         // 奇偶分离的场景大部分范围查询都是要查两张表
         Set<String> rounteTableNames = new HashSet<>();
         for (int i = lowerEndpoint; i <= upperEndpoint ; i++) {
-            BigInteger result = new BigInteger(String.valueOf(i)).mod(MOD).add(new BigInteger("2"));
+            BigInteger result = new BigInteger(String.valueOf(i)).mod(MOD).add(new BigInteger("1"));
             String logicTableName = rangeShardingValue.getLogicTableName();
             String routeTableName = logicTableName + UNDERLINE + result;
             if(tableNames.contains(routeTableName)){

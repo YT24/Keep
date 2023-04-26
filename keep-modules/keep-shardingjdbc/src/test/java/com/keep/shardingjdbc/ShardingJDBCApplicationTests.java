@@ -31,17 +31,19 @@ class ShardingJDBCApplicationTests {
     // INLINE 策略
     @Test
     void addGoods() {
-        Goods good = new Goods();
-        good.setName("三星");
-        good.setUserId(1);
-        good.setStatus("已发布");
-        goodsMapper.insert(good);
-//
-//        Goods good2 = new Goods();
-//        good2.setGname("苹果");
-//        good2.setUserId(2011L);
-//        good2.setGstatus("已发布");
-//        goodsMapper.insert(good2);
+        /*for (int i = 1; i <= 10; i++) {
+            Goods good = new Goods();
+            good.setId((long) i);
+            good.setName("三星" + i);
+            good.setUserId(i);
+            good.setStatus("已发布");
+            goodsMapper.insert(good);
+        }*/
+        QueryWrapper<Goods> queryWrapper = new QueryWrapper<>();
+        //queryWrapper.lambda().eq(Goods::getUserId,1);
+        queryWrapper.lambda().between(Goods::getUserId,1,5);
+        queryWrapper.lambda().eq(Goods::getId,5);
+        System.out.println(this.goodsMapper.selectList(queryWrapper));
     }
 
     @Test
