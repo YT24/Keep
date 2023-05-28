@@ -1,4 +1,3 @@
-
 /*
  Navicat Premium Data Transfer
 
@@ -7,7 +6,7 @@
  Source Server Version : 80026
  Source Host           : localhost:3306
  Source Schema         : yangt
-
+#
  Target Server Type    : MySQL
  Target Server Version : 80026
  File Encoding         : 65001
