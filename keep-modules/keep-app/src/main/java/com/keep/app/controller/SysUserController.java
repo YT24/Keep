@@ -55,6 +55,7 @@ public class SysUserController {
         threadLocal.set(createDto);
         InheritableThreadLocal<UserCreateDto> inheritableThreadLocal = new InheritableThreadLocal<>();
         inheritableThreadLocal.set(createDto);
+
         return ResponseResult.success();
     }
 

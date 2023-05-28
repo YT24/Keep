@@ -33,13 +33,6 @@ public class TestController {
         return ResponseResult.success(k1);
     }
 
-//    @SneakyThrows
-//    @GetMapping("userInfo")
-//    public ResponseResult userInfo(@RequestHeader("Authorization") String token){
-//        //Thread.sleep(6000);
-//
-//        return ResponseResult.success(userInfoClient.getUserInfo(token));
-//    }
 
     /**
      * 无法创建本地线程
