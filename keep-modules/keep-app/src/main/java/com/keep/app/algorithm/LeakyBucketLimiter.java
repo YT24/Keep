@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class LeakyBucketLimiter {
-    private ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(5);
+    private final ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(5);
 
     // 桶的容量
     public int capacity = 10;

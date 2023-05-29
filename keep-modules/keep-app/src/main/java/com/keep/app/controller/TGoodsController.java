@@ -1,12 +1,9 @@
 package com.keep.app.controller;
 
 
-import com.keep.app.service.TGoodsService;
 import com.keep.common.core.domain.entity.ResponseResult;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -22,9 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class TGoodsController {
 
-    private final TGoodsService tGoodsService;
-
-    public ResponseResult secKill(){
+    public ResponseResult secKill() {
         return ResponseResult.success();
     }
 
