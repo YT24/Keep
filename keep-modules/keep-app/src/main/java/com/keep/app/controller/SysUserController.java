@@ -1,7 +1,6 @@
 package com.keep.app.controller;
 
 import com.keep.app.domain.dto.UserCreateDto;
-import com.keep.app.domain.entity.User;
 import com.keep.app.mapper.UserMapper;
 import com.keep.app.service.KeepUserService;
 import com.keep.auth.fegin.client.UserCleint;
@@ -18,7 +17,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 @Api(tags = "用户中心")
