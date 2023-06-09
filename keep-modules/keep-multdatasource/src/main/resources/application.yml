@@ -19,7 +19,7 @@ spring:
       username: def
       password: 123456
     oracle:
-      enable: true
+      enable: false
       driver-class-name: oracle.jdbc.driver.OracleDriver
       url: jdbc:oracle:thin:@localhost:1521/orcl
       password: test

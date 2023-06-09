@@ -1,13 +1,14 @@
 package com.keep.multdatasource.config;
 
 import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
+import com.keep.multdatasource.config.properties.ClickhouseDataSourceProperties;
 import org.apache.ibatis.datasource.pooled.PooledDataSource;
 import org.apache.ibatis.datasource.unpooled.UnpooledDataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.Resource;
@@ -20,17 +21,8 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 @MapperScan(value = "com.keep.multdatasource.mapper.clickhouse", sqlSessionFactoryRef = "clickhouseSqlSessionFactory")
 public class ClickhouseDataSourceConfig {
 
-    @Value("${spring.datasource.clickhouse.driver-class-name}")
-    private String driverName;
-
-    @Value("${spring.datasource.clickhouse.url}")
-    private String url;
-
-    @Value("${spring.datasource.clickhouse.username}")
-    private String userName;
-
-    @Value("${spring.datasource.clickhouse.password}")
-    private String password;
+    @Autowired
+    private ClickhouseDataSourceProperties clickhouseDataSourceProperties;
 
     public static final String MAPPER_CLASSPATH = "classpath:mapper/clickhouse/*Mapper.xml";
 
@@ -40,8 +32,8 @@ public class ClickhouseDataSourceConfig {
     @Bean("clickhouseDataSource")
     public PooledDataSource getDataSource1() {
         UnpooledDataSource source = new UnpooledDataSource();
-        source.setDriver(driverName);
-        source.setUrl(url);
+        source.setDriver(clickhouseDataSourceProperties.getDriverClassName());
+        source.setUrl(clickhouseDataSourceProperties.getUrl());
         //source.setUsername(userName);
         //source.setPassword(password);
         PooledDataSource pooledDataSource = new PooledDataSource(source);

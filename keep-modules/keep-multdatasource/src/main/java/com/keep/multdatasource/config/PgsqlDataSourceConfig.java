@@ -1,12 +1,13 @@
 package com.keep.multdatasource.config;
 
 import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
+import com.keep.multdatasource.config.properties.PgsqlDataSourceProperties;
 import com.zaxxer.hikari.HikariDataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
@@ -17,17 +18,8 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 @MapperScan(value = "com.keep.multdatasource.mapper.pgsql", sqlSessionFactoryRef = "pgsqlSqlSessionFactory")
 public class PgsqlDataSourceConfig {
 
-    @Value("${spring.datasource.pgsql.driver-class-name}")
-    private String driverName;
-
-    @Value("${spring.datasource.pgsql.url}")
-    private String url;
-
-    @Value("${spring.datasource.pgsql.username}")
-    private String userName;
-
-    @Value("${spring.datasource.pgsql.password}")
-    private String password;
+    @Autowired
+    private PgsqlDataSourceProperties pgsqlDataSourceProperties;
 
     public static final String MAPPER_CLASSPATH = "classpath:mapper/pgsql/*Mapper.xml";
 
@@ -37,10 +29,10 @@ public class PgsqlDataSourceConfig {
     @Bean("pgsqlDataSource")
     public HikariDataSource getDataSource() {
         HikariDataSource dataSource = new HikariDataSource();
-        dataSource.setDriverClassName(driverName);
-        dataSource.setJdbcUrl(url);
-        dataSource.setUsername(userName);
-        dataSource.setPassword(password);
+        dataSource.setDriverClassName(pgsqlDataSourceProperties.getDriverClassName());
+        dataSource.setJdbcUrl(pgsqlDataSourceProperties.getUrl());
+        dataSource.setUsername(pgsqlDataSourceProperties.getUsername());
+        dataSource.setPassword(pgsqlDataSourceProperties.getPassword());
         return dataSource;
     }
 
