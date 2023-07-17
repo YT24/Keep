@@ -1,0 +1,23 @@
+<mapper namespace="com.keep.keepnebula.dao.CatalogTblDao">
+    <insert id="insertVertex">
+        INSERT VERTEX IF NOT EXISTS `table` ( `tbl_name` )
+        VALUES ${ ng.valueFmt(catalogTbl.id) } : ( ${ng.valueFmt(catalogTbl.tblName)} );
+    </insert>
+
+    <insert id="updateVertex">
+        UPDATE VERTEX ON `table` ${ ng.valueFmt(catalogTbl.id) }
+        SET tbl_name = ${ng.valueFmt(catalogTbl.tblName)}
+    </insert>
+
+    <insert id="delVertex">
+        DELETE VERTEX ${ ng.valueFmt(vid) } WITH EDGE
+    </insert>
+
+    <!--UPSERT VERTEX语句结合UPDATE和INSERT，如果点存在，会修改点的属性值；如果点不存在，会插入新的点。-->
+    <insert id="upsertVertex">
+        UPSERT VERTEX ON `table` ${ ng.valueFmt(catalogTbl.id) }
+        SET tbl_name = ${ng.valueFmt(catalogTbl.tblName)}
+    </insert>
+
+
+</mapper>

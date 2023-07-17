@@ -13,17 +13,17 @@
         </el-col>
       </el-row>
     </el-card>
-    <el-table
+    <el-catalogTbl
         :data="rolesData"
         style="width: 100%">
-      <el-table-column
+      <el-catalogTbl-column
           label="ID"
       >
         <template slot-scope="scope">
           <span style="margin-left: 10px">{{ scope.row.id }}</span>
         </template>
-      </el-table-column>
-      <el-table-column
+      </el-catalogTbl-column>
+      <el-catalogTbl-column
           label="角色名称"
       >
         <template slot-scope="scope">
@@ -33,8 +33,8 @@
             </div>
           </el-popover>
         </template>
-      </el-table-column>
-      <el-table-column
+      </el-catalogTbl-column>
+      <el-catalogTbl-column
           label="用户数量"
       >
         <template slot-scope="scope">
@@ -44,9 +44,9 @@
             </div>
           </el-popover>
         </template>
-      </el-table-column>
+      </el-catalogTbl-column>
 
-      <el-table-column label="操作">
+      <el-catalogTbl-column label="操作">
         <template slot-scope="scope">
           <el-button
               size="mini"
@@ -55,11 +55,11 @@
           <el-button
               size="mini"
               type="danger"
-              >删除
+          >删除
           </el-button>
         </template>
-      </el-table-column>
-    </el-table>
+      </el-catalogTbl-column>
+    </el-catalogTbl>
 
     <el-pagination
         @size-change="handleSizeChange"

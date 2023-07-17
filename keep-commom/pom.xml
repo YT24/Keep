@@ -24,6 +24,7 @@
         <module>keep-common-log</module>
         <module>keep-common-database</module>
         <module>keep-common-auth</module>
+        <module>keep-ngbatis-core</module>
     </modules>
 
 </project>

@@ -41,9 +41,9 @@ public class RedissonLock {
 
     private String getLockName(RLock lock){
         StringBuilder lockName = new StringBuilder("lock");
-        if (Objects.nonNull(lock.name().toString())){
+        /*if (Objects.nonNull(lock.name().toString())){
             lockName.append(":").append(lock.name().toString());
-        }
+        }*/
         return lockName.toString();
     }
 }

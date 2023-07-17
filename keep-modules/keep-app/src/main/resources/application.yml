@@ -17,3 +17,8 @@ seata:
       group: SEATA_GROUP
       namespace: keep
       cluster: default
+
+mybatis-plus:
+  mapper-locations:
+
+
