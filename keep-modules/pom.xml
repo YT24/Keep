@@ -15,12 +15,6 @@
         <module>keep-gateway</module>
         <module>keep-app</module>
         <module>keep-sso</module>
-        <module>keep-shardingjdbc</module>
-        <module>keep-rw-separation</module>
-        <module>keep-seckill</module>
-        <module>keep-multdatasource</module>
-        <module>keep-nebula</module>
-        <module>keep-liquibase</module>
     </modules>
 
     <properties>

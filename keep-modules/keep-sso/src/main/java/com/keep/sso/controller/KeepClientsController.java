@@ -7,8 +7,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageInfo;
 import com.keep.common.core.domain.entity.ResponseResult;
 import com.keep.sso.entity.KeepClient;
-import com.keep.sso.entity.dto.SearchDto;
 import com.keep.sso.entity.dto.KeepClientCreateDto;
+import com.keep.sso.entity.dto.SearchDto;
 import com.keep.sso.entity.vo.KeepClientVo;
 import com.keep.sso.entity.vo.KeepCreateVo;
 import com.keep.sso.service.KeepClientsService;
@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -68,5 +69,13 @@ public class KeepClientsController {
         return ResponseResult.success();
     }
 
+    public static void main(String[] args) {
+        Arrays.asList(1, 2, 3, 4, 5, 6).forEach(tar -> {
+            if (tar == 3) {
+                return;
+            }
+            System.out.println(tar);
+        });
+    }
 }
 

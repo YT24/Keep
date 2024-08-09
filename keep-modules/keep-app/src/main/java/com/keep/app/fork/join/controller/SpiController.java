@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import java.util.ServiceLoader;
 
 
@@ -17,11 +18,12 @@ import java.util.ServiceLoader;
 public class SpiController {
 
 
-
+    @Resource
+    private HelloSPI helloSPI;
 
     //@RLock(name = IdTypeEnum.INDICATOR_APPROVAL)
     @GetMapping("spi")
-    public ResponseResult spi(){
+    public ResponseResult spi() {
         ServiceLoader<HelloSPI> serviceLoader = ServiceLoader.load(HelloSPI.class);
         for (HelloSPI helloSPI : serviceLoader) {
             helloSPI.sayHello();

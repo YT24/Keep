@@ -49,7 +49,6 @@ public class ReqLogAdvice {
 
     @Around("performance()")
     public Object arround(ProceedingJoinPoint joinPoint) throws Throwable {
-        //log.info("环绕通知");
         Object proceed = null;
         // 日志记录参数获取
         HttpServletRequest req = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();

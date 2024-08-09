@@ -22,6 +22,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Stream;
 
 @Api(tags = "用户中心")
 @RequestMapping("/api/v1/user")
@@ -65,7 +66,9 @@ public class SysUserController {
     public static void main(String[] args) {
         //getMaxCountChart();
         //strContainStr();
-        System.out.println(minSubstring());
+        //System.out.println(minSubstring());
+        System.out.println(Stream.of(4, 2, 3, 5, 1).max(Integer::max).get());
+
 
     }
 
@@ -149,5 +152,4 @@ public class SysUserController {
 
         return res;
     }
-
 }
