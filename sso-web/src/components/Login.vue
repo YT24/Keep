@@ -2,14 +2,21 @@
   <div class="login-container">
     <div class="login-box">
       <div class="avatar-box">
-        <img src="../assets/logo.png">
+        <img src="../assets/logo.png" />
       </div>
       <el-form ref="form" :model="form" label-width="0px" class="login-form">
         <el-form-item>
-          <el-input prefix-icon="el-icon-search" v-model="form.userName"></el-input>
+          <el-input
+            prefix-icon="el-icon-search"
+            v-model="form.userName"
+          ></el-input>
         </el-form-item>
-        <el-form-item >
-          <el-input prefix-icon="el-icon-search" v-model="form.passWord" type="password"></el-input>
+        <el-form-item>
+          <el-input
+            prefix-icon="el-icon-search"
+            v-model="form.passWord"
+            type="password"
+          ></el-input>
         </el-form-item>
         <el-form-item class="btns">
           <el-button type="primary" @click="doLogin">登录</el-button>
@@ -18,24 +25,23 @@
       </el-form>
     </div>
   </div>
-
 </template>
 
 <script>
-import axios from 'axios'
+import axios from "axios";
 
 export default {
-  name: 'LoginWeb',
+  name: "LoginWeb",
   created() {
     this.checkAccessToken();
   },
   data: function () {
     return {
-      form:{
-        userName: 'yangt1',
-        passWord: '1qaz@WSX'
-      }
-    }
+      form: {
+        userName: "yangt1",
+        passWord: "1qaz@WSX",
+      },
+    };
   },
   methods: {
     doLogin: function () {
@@ -43,38 +49,40 @@ export default {
       let password = this.form.passWord;
       let url = "/keep-sso/api/v1/oauth/accessToken";
       //发起ajax请求-GET(注意参数必须保存到params属性中)
-      axios.post(url, {
-        userName:username,
-        passWord:password
-      }).then(resp => {
-        console.log(resp.data);
-        this.$message({
-          type: resp.data.code == 200 ? 'success' : 'error',
-          message: resp.data.msg
+      axios
+        .post(url, {
+          userName: username,
+          passWord: password,
+        })
+        .then((resp) => {
+          console.log(resp.data);
+          this.$message({
+            type: resp.data.code == 200 ? "success" : "error",
+            message: resp.data.msg,
+          });
+          console.log(resp.data);
+          window.sessionStorage.setItem("token", resp.data.data.accessToken);
+          this.$router.push("/index");
+        })
+        .catch((err) => {
+          console.log(err);
         });
-        console.log(resp.data);
-        window.sessionStorage.setItem("token", resp.data.data.accessToken)
-        this.$router.push('/index')
-      }).catch(err => {
-        console.log(err);
-      })
     },
     doRegister: function () {
-      this.$router.push('/Register')
+      this.$router.push("/Register");
     },
-    checkAccessToken: function (){
+    checkAccessToken: function () {
       var token = window.sessionStorage.getItem("token");
       console.log(token);
-      if(token !== null){
-        this.$router.push('/index')
+      if (token !== null) {
+        this.$router.push("/index");
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style>
-
 .login-form {
   position: absolute;
   bottom: 0;
@@ -97,7 +105,7 @@ export default {
   box-shadow: 0 0 10px #ddd;
   position: absolute;
   left: 50%;
-  transform: translate(-50%,-50%);
+  transform: translate(-50%, -50%);
   background-color: white;
 }
 
@@ -106,9 +114,7 @@ img {
   height: 100%;
   border-radius: 50%;
   background-color: #eeeeee;
-
 }
-
 
 .login-box {
   background-color: #fff;
@@ -119,13 +125,10 @@ img {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-
 }
 
 .login-container {
   background-color: #2b4b6b;
   height: 100%;
 }
-
-
 </style>
