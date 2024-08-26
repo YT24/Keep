@@ -1,6 +1,0 @@
-elasticsearch:
-  hosts: 42.192.117.45
-  port: 9200
-  username:
-  password:
-  clusterName: elasticsearch

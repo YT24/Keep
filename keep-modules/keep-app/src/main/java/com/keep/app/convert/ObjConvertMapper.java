@@ -1,7 +1,7 @@
 package com.keep.app.convert;
 
-import com.keep.app.convert.entity.UserTo;
-import com.keep.app.convert.entity.UserToDto;
+import com.keep.app.domain.entity.UserTo;
+import com.keep.app.domain.entity.UserToDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;

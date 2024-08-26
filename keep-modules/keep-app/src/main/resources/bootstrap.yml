@@ -7,11 +7,11 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: 42.192.117.45:8848
+        server-addr: 127.0.0.1:8848
         namespace: keep
         group: KEEP
       config:
-        server-addr: 42.192.117.45:8848
+        server-addr: 127.0.0.1:8848
         file-extension: yml
         namespace: keep
   #        shared-configs:
@@ -25,7 +25,7 @@ spring:
     password: root1234
 
   redis:
-    host: 42.192.117.45
+    host: 127.0.0.1
     jedis:
       pool:
         max-idle: 200
@@ -73,7 +73,7 @@ feign:
 
 
 elasticsearch:
-  hosts: 42.192.117.45
+  hosts: 127.0.0.1
   port: 9200
   username:
   password:
