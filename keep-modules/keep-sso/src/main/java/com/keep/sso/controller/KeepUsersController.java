@@ -33,7 +33,7 @@ import java.util.List;
 @Api(tags = "用户管理")
 @RestController
 @RequestMapping("/keepUsers")
-public class UsersController implements BaseController {
+public class KeepUsersController implements BaseController {
 
     @Autowired
     private KeepUserService keepUserService;

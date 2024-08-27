@@ -13,19 +13,17 @@
         </el-col>
       </el-row>
     </el-card>
-    <el-catalogTbl
+    <el-table-column
         :data="tableData"
         style="width: 100%">
-      <el-catalogTbl-column
+      <el-table-column
           label="ID">
         <template slot-scope="scope">
           <i class="el-icon-time"></i>
           <span style="margin-left: 10px">{{ scope.row.id }}</span>
         </template>
-      </el-catalogTbl-column>
-      <el-catalogTbl-column
-          label="应用名称"
-      >
+      </el-table-column>
+      <el-table-column label="应用名称">
         <template slot-scope="scope">
           <el-popover trigger="hover" placement="top">
             <div slot="reference" class="name-wrapper">
@@ -33,31 +31,27 @@
             </div>
           </el-popover>
         </template>
-      </el-catalogTbl-column>
-      <el-catalogTbl-column
+      </el-table-column>
+      <el-table-column
           label="应用ID"
       >
         <template slot-scope="scope">
           <span style="margin-left: 10px">{{ scope.row.clientId }}</span>
         </template>
-      </el-catalogTbl-column>
-      <el-catalogTbl-column
+      </el-table-column>
+      <el-table-column
           label="应用密钥"
       >
         <template slot-scope="scope">
           <span style="margin-left: 10px">{{ scope.row.clientSecret }}</span>
         </template>
-      </el-catalogTbl-column>
-      <el-catalogTbl-column
-          label="认证协议"
-      >
+      </el-table-column>
+      <el-table-column label="认证协议">
         <template slot-scope="scope">
           <span style="margin-left: 10px">{{ scope.row.protocol }}</span>
         </template>
-      </el-catalogTbl-column>
-      <el-catalogTbl-column
-          label="回调地址"
-      >
+      </el-table-column>
+      <el-table-column label="回调地址">
         <template slot-scope="scope">
           <el-popover trigger="hover" placement="top">
             <div slot="reference" class="name-wrapper">
@@ -65,8 +59,8 @@
             </div>
           </el-popover>
         </template>
-      </el-catalogTbl-column>
-      <el-catalogTbl-column label="操作">
+      </el-table-column>
+      <el-table-column label="操作">
         <template slot-scope="scope">
           <el-button
               size="mini"
@@ -78,8 +72,8 @@
               @click="handleDelete(scope.$index, scope.row)">删除
           </el-button>
         </template>
-      </el-catalogTbl-column>
-    </el-catalogTbl>
+      </el-table-column>
+    </el-table-column>
 
     <el-pagination
         @size-change="handleSizeChange"

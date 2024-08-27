@@ -87,9 +87,11 @@ public class TokenMultRegistryServiceImpl implements TokenRegistryService {
 
     @Override
     public Optional<Ticket> getTgtByUserName(String username, String deviceType) {
-        return Optional.of(this.tokenRedisRegistryService.getTgtByUserName(username, deviceType)
-                .orElse(this.tokenDbRegistryService.getTgtByUserName(username, deviceType).get()));
-
+        Optional<Ticket> tgtOptional = this.tokenRedisRegistryService.getTgtByUserName(username, deviceType);
+        if (tgtOptional.isPresent()) {
+            return tgtOptional;
+        }
+        return this.tokenDbRegistryService.getTgtByUserName(username, deviceType);
     }
 
     @Transactional(rollbackFor = Exception.class)
