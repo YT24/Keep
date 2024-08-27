@@ -1,25 +1,24 @@
 package com.keep.sso.ticket.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.keep.common.core.expection.BizExpection;
 import com.keep.common.core.expection.TokenExpection;
 import com.keep.sso.ticket.entity.*;
+import com.keep.sso.ticket.entity.vo.OauthLoginVo;
 import com.keep.sso.ticket.enums.TicketTypeEnum;
 import com.keep.sso.ticket.service.TokenRegistryService;
-import com.keep.sso.ticket.entity.vo.OauthLoginVo;
 import com.keep.sso.ticket.utils.EncodingUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.Base64Utils;
-import org.springframework.util.CollectionUtils;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
 
 @Slf4j
@@ -50,28 +49,27 @@ public class TokenMultRegistryServiceImpl implements TokenRegistryService {
     private TokenCaffineRegistryServiceImpl tokenCaffineRegistryService;
 
 
-    public OauthLoginVo generatorToken(KeepUser user, String clientId,String deviceType) {
+    @Transactional(rollbackFor = Exception.class)
+    public OauthLoginVo generatorToken(KeepUser user, String clientId, String deviceType) {
         // 1，查询用户是否之前登录过，存在tgt
-        Optional<Ticket> tgtOptional = this.getTgtByUserName(user.getUsername(), deviceType);
-        Ticket tgt = null;
-        if(tgtOptional.isPresent()){
-            tgt = tgtOptional.get();
-        }else{
-            tgt = this.generatorTgtToken(user,clientId,deviceType);
-            this.addToken(tgt);
-        }
+        Ticket tgt = this.getTgtByUserName(user.getUsername(), deviceType)
+                .orElseGet(() -> {
+                    Ticket newTgt = this.generatorTgtToken(user, clientId, deviceType);
+                    this.addToken(newTgt);
+                    return newTgt;
+                });
         // 2. 创建token
         // 3. 创建refreshToken
         List<String> descendantTickets = new ArrayList<>();
-        if(StringUtils.isNotBlank(tgt.getDescendantTickets())){
-            descendantTickets = JSONObject.parseObject(tgt.getDescendantTickets(),List.class);
-            if(CollUtil.isNotEmpty(descendantTickets)){
+        if (StringUtils.isNotBlank(tgt.getDescendantTickets())) {
+            descendantTickets = JSONObject.parseObject(tgt.getDescendantTickets(), List.class);
+            if (CollUtil.isNotEmpty(descendantTickets)) {
                 descendantTickets.stream().forEach(ticketId -> deleteTicket(ticketId, TicketTypeEnum.getClassByTicketId(ticketId)));
                 descendantTickets.clear();
             }
         }
-        Ticket accessToken = generatorAccessToken(user,clientId,deviceType,tgt.getId());
-        Ticket refreshToken = generatorRefreshToken(user,clientId,deviceType,tgt.getId());
+        Ticket accessToken = generatorAccessToken(user, clientId, deviceType, tgt.getId());
+        Ticket refreshToken = generatorRefreshToken(user, clientId, deviceType, tgt.getId());
         this.addToken(accessToken);
         this.addToken(refreshToken);
         descendantTickets.add(accessToken.getId());
@@ -87,38 +85,36 @@ public class TokenMultRegistryServiceImpl implements TokenRegistryService {
     }
 
 
-
     @Override
-    public Optional<Ticket> getTgtByUserName(String username,String deviceType) {
-        Optional<Ticket> tgtOptional = this.tokenRedisRegistryService.getTgtByUserName(username, deviceType);
-        if(tgtOptional.isPresent()){
-            return tgtOptional;
-        }
-        return this.tokenDbRegistryService.getTgtByUserName(username,deviceType);
+    public Optional<Ticket> getTgtByUserName(String username, String deviceType) {
+        return Optional.of(this.tokenRedisRegistryService.getTgtByUserName(username, deviceType)
+                .orElse(this.tokenDbRegistryService.getTgtByUserName(username, deviceType).get()));
+
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public void addToken(Ticket token) {
         this.tokenDbRegistryService.addToken(token);
         this.tokenRedisRegistryService.addToken(token);
     }
 
-
+    @Transactional(rollbackFor = Exception.class)
     @Override
-    public void deleteTicket(String ticketId,Class clazz) {
-        this.tokenDbRegistryService.deleteTicket(ticketId,clazz);
-        this.tokenRedisRegistryService.deleteTicket(ticketId,clazz);
+    public void deleteTicket(String ticketId, Class clazz) {
+        this.tokenDbRegistryService.deleteTicket(ticketId, clazz);
+        this.tokenRedisRegistryService.deleteTicket(ticketId, clazz);
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public void updateToken(Ticket ticket) {
         this.tokenDbRegistryService.updateToken(ticket);
         this.tokenRedisRegistryService.updateToken(ticket);
-
     }
 
 
-    private Ticket generatorAccessToken(KeepUser user, String clientId, String deviceType,String tgtId) {
+    private Ticket generatorAccessToken(KeepUser user, String clientId, String deviceType, String tgtId) {
         KeepAccessToken ticket = new KeepAccessToken();
         ticket.setId(AT_PREFIX + buildTickeId(AT_PREFIX));
         ticket.setUsername(user.getUsername());
@@ -130,9 +126,9 @@ public class TokenMultRegistryServiceImpl implements TokenRegistryService {
         return ticket;
     }
 
-    private Ticket generatorRefreshToken(KeepUser user, String clientId, String deviceType,String tgtId) {
+    private Ticket generatorRefreshToken(KeepUser user, String clientId, String deviceType, String tgtId) {
         KeepRefreshToken ticket = new KeepRefreshToken();
-        ticket.setId(RT_PREFIX +  buildTickeId(RT_PREFIX));
+        ticket.setId(RT_PREFIX + buildTickeId(RT_PREFIX));
         ticket.setUsername(user.getUsername());
         ticket.setCreateTime(LocalDateTime.now());
         ticket.setTimeToLive(RT_TIME_TO_LIVE);
@@ -142,7 +138,7 @@ public class TokenMultRegistryServiceImpl implements TokenRegistryService {
         return ticket;
     }
 
-    private Ticket generatorTgtToken(KeepUser user, String clientId,String deviceType) {
+    private Ticket generatorTgtToken(KeepUser user, String clientId, String deviceType) {
         KeepTgtToken tgtToken = new KeepTgtToken();
         tgtToken.setId(TGT_PREFIX + buildTickeId(TGT_PREFIX));
         tgtToken.setUsername(user.getUsername());
@@ -156,7 +152,7 @@ public class TokenMultRegistryServiceImpl implements TokenRegistryService {
         return tgtToken;
     }
 
-    private String buildTickeId(String ticketPref){
+    private String buildTickeId(String ticketPref) {
         String ticketId = new StringBuilder(ticketPref.length())
                 .append(ticketPref)
                 .append('-')
@@ -181,12 +177,12 @@ public class TokenMultRegistryServiceImpl implements TokenRegistryService {
     @Override
     public Ticket getTicketById(String ticketId) {
         Ticket ticket = tokenCaffineRegistryService.getTicketById(ticketId);
-        if(ticket == null){
+        if (ticket == null) {
             ticket = tokenRedisRegistryService.getTicketById(ticketId);
-            if(ticket == null){
+            if (ticket == null) {
                 ticket = tokenDbRegistryService.getTicketById(ticketId);
-                if(ticket == null || ticket.expired()){
-                    throw new TokenExpection(401,"ticket is expired");
+                if (ticket == null || ticket.expired()) {
+                    throw new TokenExpection(401, "ticket is expired");
                 }
             }
         }
