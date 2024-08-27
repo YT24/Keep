@@ -13,18 +13,18 @@
         </el-col>
       </el-row>
     </el-card>
-    <el-catalogTbl
+    <el-table
         :data="usersData"
         style="width: 100%">
-      <el-catalogTbl-column
+      <el-table-column
           label="ID"
       >
         <template slot-scope="scope">
           <i class="el-icon-time"></i>
           <span style="margin-left: 10px">{{ scope.row.id }}</span>
         </template>
-      </el-catalogTbl-column>
-      <el-catalogTbl-column
+      </el-table-column>
+      <el-table-column
           label="用户名"
       >
         <template slot-scope="scope">
@@ -34,30 +34,30 @@
             </div>
           </el-popover>
         </template>
-      </el-catalogTbl-column>
-      <el-catalogTbl-column
+      </el-table-column>
+      <el-table-column
           label="姓名"
       >
         <template slot-scope="scope">
           <span style="margin-left: 10px">{{ scope.row.realName }}</span>
         </template>
-      </el-catalogTbl-column>
-      <el-catalogTbl-column
+      </el-table-column>
+      <el-table-column
           label="手机号"
       >
         <template slot-scope="scope">
           <span style="margin-left: 10px">{{ scope.row.mobile }}</span>
         </template>
-      </el-catalogTbl-column>
-      <el-catalogTbl-column
+      </el-table-column>
+      <el-table-column
           label="邮箱"
       >
         <template slot-scope="scope">
           <span style="margin-left: 10px">{{ scope.row.email }}</span>
         </template>
-      </el-catalogTbl-column>
+      </el-table-column>
 
-      <el-catalogTbl-column label="操作">
+      <el-table-column label="操作">
         <template slot-scope="scope">
           <el-button
               size="mini"
@@ -69,8 +69,8 @@
               @click="delete(scope.$index, scope.row)">删除
           </el-button>
         </template>
-      </el-catalogTbl-column>
-    </el-catalogTbl>
+      </el-table-column>
+    </el-table>
 
     <el-pagination
         @size-change="handleSizeChange"

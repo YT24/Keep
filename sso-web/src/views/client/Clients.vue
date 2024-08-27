@@ -13,7 +13,7 @@
         </el-col>
       </el-row>
     </el-card>
-    <el-table-column
+    <el-table
         :data="tableData"
         style="width: 100%">
       <el-table-column
@@ -23,7 +23,9 @@
           <span style="margin-left: 10px">{{ scope.row.id }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="应用名称">
+      <el-table-column
+          label="应用名称"
+      >
         <template slot-scope="scope">
           <el-popover trigger="hover" placement="top">
             <div slot="reference" class="name-wrapper">
@@ -46,12 +48,16 @@
           <span style="margin-left: 10px">{{ scope.row.clientSecret }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="认证协议">
+      <el-table-column
+          label="认证协议"
+      >
         <template slot-scope="scope">
           <span style="margin-left: 10px">{{ scope.row.protocol }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="回调地址">
+      <el-table-column
+          label="回调地址"
+      >
         <template slot-scope="scope">
           <el-popover trigger="hover" placement="top">
             <div slot="reference" class="name-wrapper">
@@ -73,7 +79,7 @@
           </el-button>
         </template>
       </el-table-column>
-    </el-table-column>
+    </el-table>
 
     <el-pagination
         @size-change="handleSizeChange"
