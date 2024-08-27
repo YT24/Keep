@@ -7,14 +7,10 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: 127.0.0.1:8848
-        namespace: keep
-        group: KEEP
+        server-addr: ${nacos.host:127.0.0.1:8848}
       config:
-        server-addr: 127.0.0.1:8848
+        server-addr: ${nacos.host:127.0.0.1:8848}
         file-extension: properties
-        namespace: keep
-
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3306/yangt?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&allowMultiQueries=true
@@ -49,7 +45,7 @@ spring:
 
 
   redis:
-    host: 127.0.0.1
+    host: ${redis.host:127.0.0.1:8848}
     database: 0
     port: 6379
 #    password:

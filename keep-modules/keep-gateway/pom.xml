@@ -33,10 +33,10 @@
         </dependency>
 
         <!--服务的配置中心依赖-->
-        <dependency>
+        <!--<dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
-        </dependency>
+        </dependency>-->
 
         <!--lb 负载均衡-->
         <dependency>
