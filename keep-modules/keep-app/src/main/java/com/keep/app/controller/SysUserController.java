@@ -5,7 +5,6 @@ import com.keep.app.mapper.UserMapper;
 import com.keep.app.service.KeepUserService;
 import com.keep.auth.fegin.client.UserCleint;
 import com.keep.common.core.domain.entity.ResponseResult;
-import io.seata.spring.annotation.GlobalTransactional;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.redisson.Redisson;
@@ -17,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -38,12 +38,11 @@ public class SysUserController {
     @Autowired
     private UserCleint userCleint;
 
-    @Autowired
+    @Resource
     private Redisson redisson;
 
 
 
-    @GlobalTransactional
     @ApiOperation("")
     @PostMapping("login")
     public ResponseResult seataTest(@RequestBody @Validated UserCreateDto createDto){

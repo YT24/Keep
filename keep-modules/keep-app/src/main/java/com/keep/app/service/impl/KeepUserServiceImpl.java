@@ -7,7 +7,6 @@ import com.keep.app.domain.dto.UserUpdateDto;
 import com.keep.app.domain.entity.KeepUser;
 import com.keep.app.mapper.KeepUserMapper;
 import com.keep.app.service.KeepUserService;
-import io.seata.spring.annotation.GlobalTransactional;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,7 +22,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class KeepUserServiceImpl extends ServiceImpl<KeepUserMapper, KeepUser> implements KeepUserService {
 
 
-    @GlobalTransactional
     @Transactional
     @Override
     public void create(UserCreateDto userCreateDto) {

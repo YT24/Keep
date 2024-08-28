@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.List;
 import java.util.ServiceLoader;
 
 
@@ -19,7 +20,7 @@ public class SpiController {
 
 
     @Resource
-    private HelloSPI helloSPI;
+    private List<HelloSPI> helloSPIS;
 
     //@RLock(name = IdTypeEnum.INDICATOR_APPROVAL)
     @GetMapping("spi")

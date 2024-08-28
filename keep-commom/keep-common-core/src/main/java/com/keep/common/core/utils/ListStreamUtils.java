@@ -2,7 +2,9 @@ package com.keep.common.core.utils;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.map.MapUtil;
+import com.keep.common.core.domain.vo.UserInfoVo;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -44,8 +46,8 @@ public class ListStreamUtils {
         return list.stream().collect(Collectors.groupingBy(keyMapper));
     }
 
-    public static <T, K, U> Map<K, List<U>> toGroupByValueList(List<T> list, Function<? super T, ? extends K> keyMapper,
-                                                               Function<? super T, ? extends U> valueMapper) {
+    public static <T, K, E> Map<K, List<E>> toGroupByValueList(List<T> list, Function<? super T, ? extends K> keyMapper,
+                                                               Function<? super T, ? extends E> valueMapper) {
         if (CollUtil.isEmpty(list)) {
             return MapUtil.newHashMap();
         }
@@ -58,6 +60,20 @@ public class ListStreamUtils {
             return MapUtil.newHashMap();
         }
         return list.stream().collect(Collectors.groupingBy(keyMapper, Collectors.mapping(valueMapper, Collectors.joining(","))));
+    }
+
+    public static void main(String[] args) {
+        List<UserInfoVo> userInfoVos = new ArrayList<>();
+        userInfoVos.add(UserInfoVo.builder().id(1L).username("A").build());
+        userInfoVos.add(UserInfoVo.builder().id(2L).username("B").build());
+        userInfoVos.add(UserInfoVo.builder().id(3L).username("C").build());
+        userInfoVos.add(UserInfoVo.builder().id(1L).username("A").build());
+        userInfoVos.add(UserInfoVo.builder().id(2L).username("B").build());
+        userInfoVos.add(UserInfoVo.builder().id(3L).username("C").build());
+        System.out.println(toGroupByValueList(userInfoVos, UserInfoVo::getId, UserInfoVo::getUsername));
+        System.out.println(toGroupByValueStr(userInfoVos, UserInfoVo::getId, UserInfoVo::getUsername));
+
+
     }
 
 
