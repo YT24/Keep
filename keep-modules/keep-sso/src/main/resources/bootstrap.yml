@@ -45,7 +45,7 @@ spring:
 
 
   redis:
-    host: ${redis.host:127.0.0.1:8848}
+    host: ${redis.host:127.0.0.1}
     database: 0
     port: 6379
 #    password:
