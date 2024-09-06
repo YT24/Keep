@@ -55,12 +55,10 @@ export default {
           passWord: password,
         })
         .then((resp) => {
-          console.log(resp.data);
           this.$message({
             type: resp.data.code == 200 ? "success" : "error",
             message: resp.data.msg,
           });
-          console.log(resp.data);
           window.sessionStorage.setItem("token", resp.data.data.accessToken);
           this.$router.push("/index");
         })
