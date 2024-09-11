@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit;
 
 public class CronScheduler {
 
-    private static HashedWheelTimer timer = new HashedWheelTimer(60, TimeUnit.SECONDS);
+    private static HashedWheelTimer timer = new HashedWheelTimer(1, TimeUnit.SECONDS, 1);
 
     private static Map<Long, Timeout> timeoutMap = new ConcurrentHashMap<Long, Timeout>();
 

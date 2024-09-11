@@ -2,11 +2,10 @@ package com.keep.common.core.utils;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.map.MapUtil;
+import cn.hutool.core.util.ObjectUtil;
 import com.keep.common.core.domain.vo.UserInfoVo;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -60,6 +59,26 @@ public class ListStreamUtils {
             return MapUtil.newHashMap();
         }
         return list.stream().collect(Collectors.groupingBy(keyMapper, Collectors.mapping(valueMapper, Collectors.joining(","))));
+    }
+
+    public static <T, K> Map<K, T> toGroupByAndFindValueMax(Collection<T> list, Function<? super T, ? extends K> keyMapper,
+                                                            Function<? super T, ? extends Integer> sortMapper) {
+        if (CollUtil.isEmpty(list)) {
+            return MapUtil.newHashMap();
+        }
+        return list.stream()
+                .filter(ObjectUtil::isNotNull)
+                .collect(Collectors.groupingBy(keyMapper, Collectors.collectingAndThen(Collectors.maxBy(Comparator.comparing(sortMapper)), op -> op.orElse(null))));
+    }
+
+    public static <T, K> Map<K, T> toGroupByAndFindValueMin(Collection<T> list, Function<? super T, ? extends K> keyMapper,
+                                                            Function<? super T, ? extends Integer> sortMapper) {
+        if (CollUtil.isEmpty(list)) {
+            return MapUtil.newHashMap();
+        }
+        return list.stream()
+                .filter(ObjectUtil::isNotNull)
+                .collect(Collectors.groupingBy(keyMapper, Collectors.collectingAndThen(Collectors.minBy(Comparator.comparing(sortMapper)), op -> op.orElse(null))));
     }
 
     public static void main(String[] args) {

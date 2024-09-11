@@ -20,6 +20,7 @@ public class TaskManager {
         // 示例任务2
         tasks.add(new ScheduledTask("Task 2", "*/5 * * * * ?", () -> log.info("执行任务 2")));
 
+
         // 你可以继续添加更多的任务...
     }
 
